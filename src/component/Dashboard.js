@@ -9,7 +9,7 @@ import content from '../image/content.jpg';
 import collaborative from '../image/collaborative.jpg';
 import Dialog from '@mui/material/Dialog';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
     const dashboardContainer = {
@@ -21,7 +21,7 @@ const Dashboard = () => {
         padding: '20px',
         backgroundColor: '#f2f2f2', /* Set background color */
     };
-
+    const navigate = useNavigate();
     const [loadingModalOpen, setLoadingModalOpen] = useState(false);
 
     const handleCardClick = () => {
@@ -29,6 +29,7 @@ const Dashboard = () => {
         // Simulate an API request or any loading operation here
         setTimeout(() => {
             setLoadingModalOpen(false);
+            navigate('/recommendation');
         }, 2000); // Simulating a 2-second loading time
     };
 
@@ -75,13 +76,15 @@ const Dashboard = () => {
     };
 
     const fileInputStyle = {
-        display: 'none', // Set display property based on showFileInput state
+        display: 'none',
+        width: '200px',
+        height: '200px', // Set display property based on showFileInput state
     };
 
     const dropArea = {
         width: '200px',
         height: '100px',
-        border: '2px dashed #002080',
+        border: '2px dashed #675d1a',
         borderRadius: '10px',
         display: 'flex',
         justifyContent: 'center',
@@ -91,7 +94,7 @@ const Dashboard = () => {
     };
 
     const buttonStyle = {
-        backgroundColor: '#002080',
+        backgroundColor: '#675d1a',
         borderRadius: '10px',
         fontSize: '18px',
         color: 'white',
@@ -100,7 +103,7 @@ const Dashboard = () => {
     };
 
     const buttonStyle1 = {
-        backgroundColor: '#002080',
+        backgroundColor: '#675d1a',
         borderRadius: '10px',
         fontSize: '18px',
         color: 'white',
@@ -168,7 +171,7 @@ const Dashboard = () => {
 
     return (
         <div style={dashboardContainer}>
-            <h1 style={{ fontSize: '36px', fontWeight: 'bold', margin: '0', padding: '20px' }}>RECOMMENDATION SYSTEM</h1>
+            <h1 style={{ fontSize: '36px', fontWeight: 'bold', margin: '0', padding: '10px' }}>RECOMMENDATION SYSTEM</h1>
             <h2 style={{ fontSize: '24px', margin: '0', paddingLeft: '150px', paddingBottom: '20px' }}>INPUT DATASET</h2>
             <div style={importSection}>
                  <div style={dropArea} onClick={showFileInputElement}>
