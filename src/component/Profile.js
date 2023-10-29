@@ -48,7 +48,13 @@ const Profile = () => {
             className={restaurantType === 'NON-VEG' ? 'selected' : ''}
             onClick={() => handleRestaurantTypeChange('NON-VEG')}
           >
-            NON-VEG
+            CAFE
+          </button>
+          <button
+            className={restaurantType === 'FAST-FOOD' ? 'selected' : ''}
+            onClick={() => handleRestaurantTypeChange('FAST-FOOD')}
+          >
+            FAST FOOD
           </button>
         </div>
       </div>
@@ -75,20 +81,22 @@ const Profile = () => {
           </button>
         </div>
       </div>
-      <div className="form-group">
+      {/* <div className="form-group">
         <label>Place:</label>
         <select value={place} onChange={handlePlaceChange}>
           <option value="place1">Vashi</option>
-          <option value="place2">Mumbai</option>
+          <option value="place2">Ne</option>
           <option value="place3">Thane</option>
         </select>
-      </div>
+      </div> */}
       <div className="form-group">
-        <label>Cuisine:</label>
+        <label>MINIMUM RATING:</label>
         <select value={cuisine} onChange={handleCuisineChange}>
-          <option value="chinese">Chinese</option>
-          <option value="indian">Indian</option>
-          <option value="fast-food">Fast Food</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
         </select>
       </div>
       <button type="submit" onClick={handleSubmit}>Proceed</button>

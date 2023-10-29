@@ -1,13 +1,16 @@
 import React from 'react';
 import './Recommendation.css'; // Import your CSS file for recommendation styling
-import navaratna from '../image/navaratna.jpg';
-import mcd from '../image/mcd.jpeg';
-import dominos from '../image/dominos.jpeg';
+import barbeque from '../image/barbeque.jpeg';
+import ahmed from '../image/ahmed.jpeg';
+import shy from '../image/shy.jpeg';
+import shree from '../image/shree.jpeg';
 
 const restaurants = [
-    { id:'1', name: 'Navaratna', imageUrl: navaratna, map: 'link_to_navaratna_map' },
-    { id:'2', name: 'Mcd', imageUrl: mcd, map: 'link_to_mcd_map' },
-    { id:'3', name: 'Dominos', imageUrl: dominos, map: 'link_to_dominos_map' },
+    { id:'1', name: 'Barbeque Nation', imageUrl: barbeque, map: 'link_to_navaratna_map' },
+    { id:'2', name: 'Ahmed Bhai\'s', imageUrl: ahmed, map: 'link_to_mcd_map' },
+    { id:'3', name: 'Shy Cafe And Bar', imageUrl: shy, map: 'link_to_dominos_map' },
+    { id:'4', name: 'Shree Nerul Cafe', imageUrl: shree, map: 'link_to_dominos_map' },
+    // { id:'5', name: 'Shy Cafe And Bar', imageUrl: dominos, map: 'link_to_dominos_map' },
   // Add more restaurants as needed
 ];
 
