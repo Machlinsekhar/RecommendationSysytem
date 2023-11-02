@@ -6,17 +6,17 @@ In the project directory, run:
 
 ### `npm start`
 
-## For backend run it by installing the dependencies as follows after this command:
-
+## Go into backend folder:
 ### `cd backend`
 
-### flask
-### flask_cors
-### pandas
-### os
-### nltk
-### textblob
-### scikit-learn
+## Install the following dependencies
+#### flask
+#### flask_cors
+#### pandas
+#### os
+#### nltk
+#### textblob
+#### scikit-learn
 
 ### Download the nltk libraries by going to file.py and run the file individually
 Switch to mobile data if error occurs
