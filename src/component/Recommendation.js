@@ -4,6 +4,7 @@ import barbeque from '../image/barbeque.jpeg';
 import ahmed from '../image/ahmed.jpeg';
 import shy from '../image/shy.jpeg';
 import shree from '../image/shree.jpeg';
+import { useLocation } from 'react-router-dom';
 
 const restaurants = [
     { id:'1', name: 'Barbeque Nation', imageUrl: barbeque, map: 'link_to_navaratna_map' },
@@ -15,17 +16,23 @@ const restaurants = [
 ];
 
 const Recommendation = () => {
+
+  const location = useLocation();
+  const recommendations = location.state?.recommendations || [];
+  console.log(recommendations)
+
   return (
     <div className="recommendation-container">
       <h2>Recommended Restaurants:</h2>
       <div className="restaurant-list">
-        {restaurants.map((restaurant, index) => (
+        <p>{JSON.stringify(recommendations)}</p>
+        {/* {restaurants.map((restaurant, index) => (
           <div className="restaurant-card" key={index}>
             <img src={restaurant.imageUrl} alt={restaurant.name} className="restaurant-image" />
             <p className="restaurant-name">{restaurant.id}</p>
             <p className="restaurant-name">{restaurant.name}</p>    
           </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );

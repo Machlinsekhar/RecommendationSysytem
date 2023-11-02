@@ -6,8 +6,8 @@ const Profile = () => {
   const [restaurantType, setRestaurantType] = useState('');
   const [budget, setBudget] = useState('');
   const [place, setPlace] = useState('');
-  const [cuisine, setCuisine] = useState('');
-  const navigate = useNavigate(); 
+  const [cuisine, setCuisine] = useState('1');
+  const navigate = useNavigate();   
 
   const handleRestaurantTypeChange = (type) => {
     setRestaurantType(type);
@@ -25,10 +25,28 @@ const Profile = () => {
     setCuisine(event.target.value);
   };
 
-  const handleSubmit = () => {
-    navigate('/dashboard');
-    console.log('Form submitted:', { restaurantType, budget, place, cuisine });
+  const handleSubmit = async () => {
+    const data = await fetchRecommendations();
+    navigate('/recommendation', { state: { recommendations: data } });
+    console.log('Form submitted:', data);
   };
+
+  const fetchRecommendations = async () => {
+    try {
+        const response = await fetch('http://127.0.0.1:5000/recommend', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ rating: cuisine, restaurant_type: restaurantType, max_cost: budget }),
+        });
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Failed to fetch recommendations:', error);
+    }
+};
 
   return (
     <div className="profile-bg">
@@ -39,16 +57,16 @@ const Profile = () => {
         <label>Type of Restaurant:</label>
         <div className="button-group">
           <button
-            className={restaurantType === 'VEG' ? 'selected' : ''}
-            onClick={() => handleRestaurantTypeChange('VEG')}
+            className={restaurantType === 'VEGETARIAN' ? 'selected' : ''}
+            onClick={() => handleRestaurantTypeChange('VEGETARIAN')}
           >
-            VEG
+            VEGETARIAN
           </button>
           <button
-            className={restaurantType === 'NON-VEG' ? 'selected' : ''}
-            onClick={() => handleRestaurantTypeChange('NON-VEG')}
+            className={restaurantType === 'CHINESE' ? 'selected' : ''}
+            onClick={() => handleRestaurantTypeChange('CHINESE')}
           >
-            CAFE
+            CHINESE
           </button>
           <button
             className={restaurantType === 'FAST-FOOD' ? 'selected' : ''}
@@ -68,8 +86,8 @@ const Profile = () => {
             Low
           </button>
           <button
-            className={budget === 'Medium' ? 'selected' : ''}
-            onClick={() => handleBudgetChange('Medium')}
+            className={budget === 'Moderate' ? 'selected' : ''}
+            onClick={() => handleBudgetChange('Moderate')}
           >
             Medium
           </button>

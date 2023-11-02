@@ -29,7 +29,7 @@ const Dashboard = () => {
         // Simulate an API request or any loading operation here
         setTimeout(() => {
             setLoadingModalOpen(false);
-            navigate('/recommendation');
+            navigate('/profile');
         }, 2000); // Simulating a 2-second loading time
     };
 
