@@ -6,8 +6,8 @@ const Profile = () => {
   const [restaurantType, setRestaurantType] = useState('');
   const [budget, setBudget] = useState('');
   const [place, setPlace] = useState('');
-  const [cuisine, setCuisine] = useState('');
-  const navigate = useNavigate(); 
+  const [cuisine, setCuisine] = useState('1');
+  const navigate = useNavigate();   
 
   const handleRestaurantTypeChange = (type) => {
     setRestaurantType(type);
@@ -25,10 +25,28 @@ const Profile = () => {
     setCuisine(event.target.value);
   };
 
-  const handleSubmit = () => {
-    navigate('/dashboard');
-    console.log('Form submitted:', { restaurantType, budget, place, cuisine });
+  const handleSubmit = async () => {
+    const data = await fetchRecommendations();
+    navigate('/recommendation', { state: { recommendations: data } });
+    console.log('Form submitted:', data);
   };
+
+  const fetchRecommendations = async () => {
+    try {
+        const response = await fetch('http://127.0.0.1:5000/recommend', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ rating: cuisine, restaurant_type: restaurantType, max_cost: budget }),
+        });
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Failed to fetch recommendations:', error);
+    }
+};
 
   return (
     <div className="profile-bg">
@@ -39,16 +57,22 @@ const Profile = () => {
         <label>Type of Restaurant:</label>
         <div className="button-group">
           <button
-            className={restaurantType === 'VEG' ? 'selected' : ''}
-            onClick={() => handleRestaurantTypeChange('VEG')}
+            className={restaurantType === 'VEGETARIAN' ? 'selected' : ''}
+            onClick={() => handleRestaurantTypeChange('VEGETARIAN')}
           >
-            VEG
+            VEGETARIAN
           </button>
           <button
-            className={restaurantType === 'NON-VEG' ? 'selected' : ''}
-            onClick={() => handleRestaurantTypeChange('NON-VEG')}
+            className={restaurantType === 'CHINESE' ? 'selected' : ''}
+            onClick={() => handleRestaurantTypeChange('CHINESE')}
           >
-            NON-VEG
+            CHINESE
+          </button>
+          <button
+            className={restaurantType === 'FAST-FOOD' ? 'selected' : ''}
+            onClick={() => handleRestaurantTypeChange('FAST-FOOD')}
+          >
+            FAST FOOD
           </button>
         </div>
       </div>
@@ -62,8 +86,8 @@ const Profile = () => {
             Low
           </button>
           <button
-            className={budget === 'Medium' ? 'selected' : ''}
-            onClick={() => handleBudgetChange('Medium')}
+            className={budget === 'Moderate' ? 'selected' : ''}
+            onClick={() => handleBudgetChange('Moderate')}
           >
             Medium
           </button>
@@ -75,20 +99,22 @@ const Profile = () => {
           </button>
         </div>
       </div>
-      <div className="form-group">
+      {/* <div className="form-group">
         <label>Place:</label>
         <select value={place} onChange={handlePlaceChange}>
           <option value="place1">Vashi</option>
-          <option value="place2">Mumbai</option>
+          <option value="place2">Ne</option>
           <option value="place3">Thane</option>
         </select>
-      </div>
+      </div> */}
       <div className="form-group">
-        <label>Cuisine:</label>
+        <label>MINIMUM RATING:</label>
         <select value={cuisine} onChange={handleCuisineChange}>
-          <option value="chinese">Chinese</option>
-          <option value="indian">Indian</option>
-          <option value="fast-food">Fast Food</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
         </select>
       </div>
       <button type="submit" onClick={handleSubmit}>Proceed</button>
