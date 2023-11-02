@@ -4,7 +4,7 @@ import nltk
 from textblob import TextBlob
 from sklearn.metrics.pairwise import cosine_similarity
 
-# nltk.download('stopwords')
+nltk.download('stopwords')
 # nltk.download('wordnet')
 
 stop_words = set(nltk.corpus.stopwords.words('english'))
