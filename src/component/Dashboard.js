@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import dashbg from '../image/dashbg.png';
 import content from '../image/content.jpg';
 import collaborative from '../image/collaborative.jpg';
 import Dialog from '@mui/material/Dialog';
@@ -19,7 +20,10 @@ const Dashboard = () => {
         justifyContent: 'flex-start', /* Align content at the top */
         alignItems: 'flex-start', /* Align content to the left */
         padding: '20px',
-        backgroundColor: '#f2f2f2', /* Set background color */
+        backgroundColor: '#f2f2f2',
+        backgroundImage: `url(${dashbg})`,  /* Replace "path/to/your/image.jpg" with the actual file path or URL of your background image */
+    backgroundSize: 'cover', /* Cover the entire container */
+    backgroundRepeat: 'no-repeat', 
     };
     const navigate = useNavigate();
     const [loadingModalOpen, setLoadingModalOpen] = useState(false);
@@ -103,7 +107,7 @@ const Dashboard = () => {
     };
 
     const buttonStyle1 = {
-        backgroundColor: '#675d1a',
+        backgroundColor: '#AD343E',
         borderRadius: '10px',
         fontSize: '18px',
         color: 'white',
@@ -120,8 +124,8 @@ const Dashboard = () => {
     };
 
     const recommendationCards = showCards && (
-        <div style={{ display: 'flex', marginTop: '20px' }}>
-            <Card sx={{ maxWidth: 345, marginLeft: 30, marginTop: 5 }} onClick={handleCardClick}>
+        <div style={{ display: 'flex', marginTop: '20px' }} >
+            <Card sx={{ maxWidth: 345, marginLeft: 30, marginTop: 5 }} onClick={handleCardClick} >
                 <CardMedia
                     sx={{ height: 140 }}
                     image= {content}
@@ -171,28 +175,28 @@ const Dashboard = () => {
 
     return (
         <div style={dashboardContainer}>
-            <h1 style={{ fontSize: '36px', fontWeight: 'bold', margin: '0', padding: '10px' }}>RECOMMENDATION SYSTEM</h1>
-            <h2 style={{ fontSize: '24px', margin: '0', paddingLeft: '150px', paddingBottom: '20px' }}>INPUT DATASET</h2>
+            {/* <h1 style={{ fontSize: '36px', fontWeight: 'bold', margin: '0', padding: '10px' }}>RECOMMENDATION SYSTEM</h1> */}
+            {/* <h2 style={{ fontSize: '24px', margin: '0', paddingLeft: '150px', paddingBottom: '20px' }}>INPUT DATASET</h2> */}
             <div style={importSection}>
-                 <div style={dropArea} onClick={showFileInputElement}>
-                <label htmlFor="csvFile">
+                 {/* <div style={dropArea} onClick={showFileInputElement}> */}
+                {/* <label htmlFor="csvFile">
                     {uploadedFileName ? `File Uploaded: ${uploadedFileName}` : 'Drag & Drop or Choose File'}
-                </label>
-                <input
+                </label> */}
+                {/* <input
                     type="file"
                     id="csvFile"
                     accept=".csv"
                     style={fileInputStyle} // Apply dynamic style based on showFileInput state
                     onChange={handleFileChange}
-                />
+                /> */}
                     {/* <span style={{ paddingLeft: '8px' }}>Choose File</span> */}
-                </div>
-               <button onClick={handleUploadData} style={buttonStyle}>
+                {/* </div> */}
+               {/* <button onClick={handleUploadData} style={buttonStyle}>
                 Upload Data
-            </button>
+            </button> */}
             </div>
             <button onClick={toggleCards} style={buttonStyle1}>
-                CHECK YOUR RECOMMENDATION
+                Select one Algorithm
             </button>
             {recommendationCards}
         </div>

@@ -51,33 +51,33 @@ const Profile = () => {
   return (
     <div className="profile-bg">
     <div className="profile-container">
-      <h1>Answer some Basic Questions:</h1>
+      {/* <h1>Answer some Basic Questions:</h1> */}
      
       <div className="form-group">
-        <label>Type of Restaurant:</label>
+        <label className='text-left'>Type of Restaurant</label>
         <div className="button-group">
           <button
             className={restaurantType === 'VEGETARIAN' ? 'selected' : ''}
             onClick={() => handleRestaurantTypeChange('VEGETARIAN')}
           >
-            VEGETARIAN
+            Vegetarian
           </button>
           <button
             className={restaurantType === 'CHINESE' ? 'selected' : ''}
             onClick={() => handleRestaurantTypeChange('CHINESE')}
           >
-            CHINESE
+            Chinese
           </button>
           <button
-            className={restaurantType === 'FAST-FOOD' ? 'selected' : ''}
-            onClick={() => handleRestaurantTypeChange('FAST-FOOD')}
+            className={restaurantType === 'Barbecue' ? 'selected' : ''}
+            onClick={() => handleRestaurantTypeChange('Barbecue')}
           >
-            FAST FOOD
+           Barbecue
           </button>
         </div>
       </div>
       <div className="form-group">
-        <label>Budget:</label>
+        <label>Budget</label>
         <div className="button-group">
           <button
             className={budget === 'Low' ? 'selected' : ''}
@@ -108,7 +108,7 @@ const Profile = () => {
         </select>
       </div> */}
       <div className="form-group">
-        <label>MINIMUM RATING:</label>
+        <label className='text-left font-bold'>Minimum Rating</label>
         <select value={cuisine} onChange={handleCuisineChange}>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -117,7 +117,7 @@ const Profile = () => {
           <option value="5">5</option>
         </select>
       </div>
-      <button type="submit" onClick={handleSubmit}>Proceed</button>
+      <button type="submit" onClick={handleSubmit}>Recommended Restaurant</button>
     </div>
     </div>
   );

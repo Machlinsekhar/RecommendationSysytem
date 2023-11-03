@@ -1,67 +1,77 @@
 /* Styles for the profile form */
 .profile-bg {
-    background-image: url('../image/userbg.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh; /* or any desired height */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .profile-container {
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background for the form */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  .button-group button.selected {
-    background-color: rgb(6, 6, 6);
-  }
-  
-  .button-group button {
-    background-color: #675d1a;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .button-group button:hover {
-    background-color: #050505;
-  }
-  
-  select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-  }
-  select:hover {
-    background-color: #0f0e0e; /* Change this to your desired hover color */
-    color: #ebe1e1; /* Change this to your desired text color on hover */
-  }
-  select option:hover {
-    background-color: #0f0e0e; /* Change this to your desired hover color for dropdown options */
-    color: #050505; /* Change this to your desired text color on hover for dropdown options */
-  }
-  button[type="submit"] {
-    background-color: #070707;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #675d1a;
-  }
-  
+  background-image: url('../image/profilebg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh; /* or any desired height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.profile-container {
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background for the form */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align form items to the left */
+}
+
+.form-group {
+  margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column; /* Align labels and inputs vertically */
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap; /* Allow buttons to wrap to the next line if needed */
+}
+
+.button-group button.selected {
+  background-color: #AD343E; /* Change this to your desired hover color */
+  color: #ebe1e1;
+}
+
+.button-group button {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 20px 50px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-right: 20px;
+  cursor: pointer;
+  border-radius: 40px;
+  font-weight: bold;
+  border: 1px solid #ccc;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+button[type="submit"] {
+  background-color: #AD343E;
+  color: white;
+  border: none;
+  padding: 15px 250px;
+  cursor: pointer;
+  border-radius: 30px;
+  margin: 0 auto; /* Center the button */
+  font-weight: bold;
+}
+
+button[type="submit"]:hover {
+  background-color: #4a0a10;
+}

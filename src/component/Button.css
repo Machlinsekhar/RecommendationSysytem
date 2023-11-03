@@ -1,7 +1,7 @@
 /* Button.css */
 
 .wood-button {
-    background-color: #8B4513; /* Brown color resembling wood */
+    background-color: #AD343E; /* Brown color resembling wood */
     color: white;
     border: none;
     padding: 10px 20px;
@@ -10,15 +10,15 @@
     font-weight: bold;
     cursor: pointer;
     /* Add wood texture background */
-    background-image: url('../image/wood-texture.jpg'); /* URL to your wood texture image */
+    /* background-image: url('../image/wood-texture.jpg'); URL to your wood texture image */
     background-size: cover;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+    /* text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8); */
     margin-left: 5em;
     margin-top: 20px
   }
   
   /* Additional styles for hover effect */
   .wood-button:hover {
-    background-color: #A0522D; /* Darker brown color on hover */
+    background-color: #4a0a10; /* Darker brown color on hover */
   }
   

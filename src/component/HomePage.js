@@ -25,7 +25,7 @@ const Home = () => {
     return (
         <div style={divStyle}>
             <div style={innerDivStyle}>
-                <h1 style={{ paddingRight: '250px' }}>RESTAURANT </h1>
+                <h1 style={{ paddingRight: '250px',  }}>RESTAURANT </h1>
                 <h1>RECOMMENDATION</h1>
                 <h1>SYSTEM</h1>
                 <Button />
