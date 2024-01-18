@@ -4,7 +4,7 @@ import nltk
 from textblob import TextBlob
 from sklearn.metrics.pairwise import cosine_similarity
 
-nltk.download('stopwords')
+# nltk.download('stopwords')
 # nltk.download('wordnet')
 
 stop_words = set(nltk.corpus.stopwords.words('english'))
@@ -93,6 +93,8 @@ def get_user_recommendations(user_rating, user_restaurant_type, user_max_cost):
         "Average Review Score": 30
     }
 
+    print(user_profile)
+
     cosine_similarities = cosine_similarity([list(user_profile.values())], df_transformed.values)
     df_restaurants['similarity'] = cosine_similarities[0]
     recommendations = df_restaurants.sort_values(by="similarity", ascending=False)
@@ -102,5 +104,5 @@ def get_user_recommendations(user_rating, user_restaurant_type, user_max_cost):
 
 # generate_profiles()
 
-print(get_user_recommendations(3.4, 'chinese', 'moderate'))
+print(get_user_recommendations(4, 'chinese', 'expensive'))
  

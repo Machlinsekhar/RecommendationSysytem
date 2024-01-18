@@ -41,7 +41,7 @@ const Recommendation = () => {
     cursor: 'pointer',
     marginLeft:'650px',
     marginBottom:'100px',
-    
+    marginTop: '50px',
   };
   const handleGoBack = () => {
     navigate('/dashboard');
@@ -51,7 +51,7 @@ const Recommendation = () => {
     <div className="recommendation-container PlayfairDisplay-Regular" >
       <h2 className='header'>RECOMMENDED RESTAURANTS</h2>
       <div className="restaurant-list">
-        {recommendations.map((restaurant, index) => {
+        {recommendations?.length > 0 && recommendations?.map((restaurant, index) => {
           const matchedRestaurant = restaurants.find(r => r.name === restaurant["Restaurant Name"]);
           const verticalImageUrl = matchedRestaurant ? matchedRestaurant.verticalImageUrl : '';
           const topImageUrl = matchedRestaurant ? matchedRestaurant.topImageUrl : '';
@@ -106,6 +106,7 @@ const Recommendation = () => {
 
           );
         })}
+        {!Boolean(recommendations?.length) && JSON.stringify(recommendations)}
       </div>
       <button onClick={handleGoBack} style={buttonStyle} >
         Go Back

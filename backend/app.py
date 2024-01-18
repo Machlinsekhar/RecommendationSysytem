@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, make_response
 import restaurant_recommender as rec
+import collab_alg as col
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -26,3 +27,8 @@ def recommend():
     
     return jsonify(recommendations)
 
+@app.route('/collabrecommend', methods=['GET'])
+def colrecommend():
+    recommendations = col.collab_recommendation()
+    print(recommendations)
+    return recommendations.to_json()

@@ -26,6 +26,7 @@ const Dashboard = () => {
     backgroundRepeat: 'no-repeat', 
     };
     const navigate = useNavigate();
+    const [items, setItems] = useState([]);
     const [loadingModalOpen, setLoadingModalOpen] = useState(false);
 
     const handleCardClick = () => {
@@ -36,6 +37,27 @@ const Dashboard = () => {
             navigate('/profile');
         }, 2000); // Simulating a 2-second loading time
     };
+
+    const handleCollabClick = async () => {
+        // setLoadingModalOpen(true);
+        // setTimeout(async () => {
+            const data = await fetchCollabRecommendations();
+            console.log(data);
+            navigate('/recommendation',{state:{
+                recommendations: data
+            }});
+            // navigate('/collabrecommendation', { state: { recommendations: data } });
+        // }, 2000);
+    };
+
+    const fetchCollabRecommendations = async () => {
+        let response = await fetch('http://localhost:5000/collabrecommend')
+        if (response.ok) {
+            return await response.json();
+        }
+        // If response was not ok, throw an error
+        throw new Error('Network response was not ok.');
+  };
 
     const importSection = {
         marginTop: '20px',
@@ -142,7 +164,7 @@ const Dashboard = () => {
                 
             </Card>
 
-            <Card sx={{ maxWidth: 345, marginLeft: 40, marginTop: 5 }} onClick={handleCardClick}>
+            <Card sx={{ maxWidth: 345, marginLeft: 40, marginTop: 5 }} onClick={handleCollabClick}>
                 <CardMedia
                     sx={{ height: 140 }}
                     image={collaborative}

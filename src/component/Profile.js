@@ -60,7 +60,7 @@ const Profile = () => {
             className={restaurantType === 'VEGETARIAN' ? 'selected' : ''}
             onClick={() => handleRestaurantTypeChange('VEGETARIAN')}
           >
-            Vegetarian
+            Non-Vegetarian
           </button>
           <button
             className={restaurantType === 'CHINESE' ? 'selected' : ''}
