@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Profile.css';
 import { useNavigate } from 'react-router-dom';
+import modal from '../image/modal.jpg';
 
 const Profile = () => {
   const [restaurantType, setRestaurantType] = useState('');
@@ -8,6 +9,7 @@ const Profile = () => {
   const [place, setPlace] = useState('');
   const [cuisine, setCuisine] = useState('1');
   const navigate = useNavigate();   
+  const [showModal, setShowModal] = useState(false);
 
   const handleRestaurantTypeChange = (type) => {
     setRestaurantType(type);
@@ -25,10 +27,13 @@ const Profile = () => {
     setCuisine(event.target.value);
   };
 
-  const handleSubmit = async () => {
-    const data = await fetchRecommendations();
-    navigate('/recommendation', { state: { recommendations: data } });
-    console.log('Form submitted:', data);
+   const handleSubmit = async () => {
+    setShowModal(true); // Show the modal
+    setTimeout(async () => {
+      const data = await fetchRecommendations();
+      navigate('/recommendation', { state: { recommendations: data } });
+      console.log('Form submitted:', data);
+    }, 5000); // Navigate after 5 seconds
   };
 
   const fetchRecommendations = async () => {
@@ -109,7 +114,7 @@ const Profile = () => {
       </div> */}
       <div className="form-group">
         <label className='text-left font-bold'>Minimum Rating</label>
-        <select value={cuisine} onChange={handleCuisineChange}>
+        <select value={cuisine} onChange={handleCuisineChange}  style={{ border: 'none' }}>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -117,8 +122,17 @@ const Profile = () => {
           <option value="5">5</option>
         </select>
       </div>
-      <button type="submit" onClick={handleSubmit}>Recommended Restaurant</button>
-    </div>
+      <button type="submit" onClick={handleSubmit}>Start</button>
+
+        {/* Modal */}
+        {showModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <img src={modal} alt="Loading..." />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
