@@ -14,17 +14,11 @@ import ahemd1 from '../image/ahmed1.png';
 import ahemd2 from '../image/ahmed2.png';
 import ahemd3 from '../image/ahmed3.png';
 import p1 from '../image/p2.png';
+import recom from '../image/recom-nobg.png';
 import downArrowImageUrl from '../image/downarraow.png'
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-const restaurants = [
-  { id: '1', name: 'Barbeque Nation', verticalImageUrl: bn1, topImageUrl: bn2, bottomImageUrl: bn3, des: 'Barbeque Nation is a culinary haven for barbecue enthusiasts, renowned for its delectable and interactive dining experience.', point1: 'No home delivery', point2: 'Best Offer & Prices', point3: 'Online Table Bookings Available' },
-  { id: '2', name: 'Ahmed Bhais', verticalImageUrl: ahemd1, topImageUrl: ahemd2, bottomImageUrl: ahemd3, des: 'A casual dining restaurant that serves delicious North Indian and Mughlai cuisine. The food is cooked to perfection and is reasonably priced.', point1: 'On time Delivery', point2: 'Reasonable Prices', point3: 'Online Services Available' },
-  { id: '3', name: 'Shy Cafe And Bar', verticalImageUrl: shy1, topImageUrl: shy2, bottomImageUrl: shy3, des: 'A vintage escape from your everyday bustle paired with artisanal coffee, wood-fired pizzas & craft cocktails.', point1: 'Delivery on time', point2: 'Excellent Ambience', point3: 'Online Services Available ' },
-  { id: '4', name: 'Shree Nerul Cafe', verticalImageUrl: shree1, topImageUrl: shree2, bottomImageUrl: shree3, des: 'It offers a wide range of delicious cuisines from North Indian, Chinese, and Continental.', point1: 'Pure Veg Restaurant', point2: 'Best Offer & Prices', point3: 'Cozy and Comfortable Ambience' },
-  // Add more restaurants as needed
-];
 
 const Recommendation = () => {
   const location = useLocation();
@@ -32,83 +26,55 @@ const Recommendation = () => {
   const recommendations = location.state?.recommendations || [];
   console.log(recommendations);
 
-  const buttonStyle = {
-    backgroundColor: '#AD343E',
-    borderRadius: '10px',
-    fontSize: '18px',
-    color: 'white',
-    padding: '10px 20px',
-    cursor: 'pointer',
-    marginLeft:'650px',
-    marginBottom:'100px',
-    marginTop: '50px',
+  const restaurants = [
+    { id: '1', name: 'Barbeque Nation', ImageUrl: bn1, location: 'Vashi', dishes: 'Smoked Tandoori, Icecream', cusine: 'Non-Veg', cost: 'High' },
+    { id: '2', name: 'Ahmed Bhais', ImageUrl: ahemd2, location: 'Nerul', dishes: 'Butterchicken, Mughali Chicken', cusine: 'Non-Veg', cost: 'Medium' },
+    { id: '3', name: 'Shy Cafe And Bar', ImageUrl: shy1, location: 'Nerul', dishes: 'Cold Coffee, Pizza', cusine: 'Non-Veg', cost: 'High' },
+    { id: '4', name: 'Shree Nerul Cafe', ImageUrl: shree1, location: 'Vashi', dishes: 'South Indian, Podi Idli', cusine: 'Veg', cost: 'Low' },
+    // Add more restaurants as needed
+  ];
+
+  const plateStyle = {
+    position: 'fixed', // Position the image absolutely within its container
+    top: '59%',          // Center vertically
+    left: '27.2%',        // Center horizontally
+    transform: 'translate(50%, -50%) scale(1.5)', // Offset by half the width and height of the image
+    zIndex: 1, 
+              // Set z-index to 1 to ensure it's above other content
   };
-  const handleGoBack = () => {
-    navigate('/dashboard');
-  }
 
   return (
-    <div className="recommendation-container PlayfairDisplay-Regular" >
-      <h2 className='header'>RECOMMENDED RESTAURANTS</h2>
+    <div className="recommendation-container" >
+      <h2 className="header">RECOMMENDED RESTAURANTS</h2>
+      <img src={recom} alt="Plate" style={plateStyle} />
       <div className="restaurant-list">
-        {recommendations?.length > 0 && recommendations?.map((restaurant, index) => {
+      {recommendations?.length > 0 && recommendations?.map((restaurant, index) => {
           const matchedRestaurant = restaurants.find(r => r.name === restaurant["Restaurant Name"]);
-          const verticalImageUrl = matchedRestaurant ? matchedRestaurant.verticalImageUrl : '';
-          const topImageUrl = matchedRestaurant ? matchedRestaurant.topImageUrl : '';
-          const bottomImageUrl = matchedRestaurant ? matchedRestaurant.bottomImageUrl : '';
-          const des = matchedRestaurant ? matchedRestaurant.des : '';
-          const point1 = matchedRestaurant ? matchedRestaurant.point1 : '';
-          const point2 = matchedRestaurant ? matchedRestaurant.point2 : '';
-          const point3 = matchedRestaurant ? matchedRestaurant.point3 : '';
-           // Get the corresponding image URL
-
+          const ImageUrl = matchedRestaurant ? matchedRestaurant.ImageUrl : '';
+          const location = matchedRestaurant ? matchedRestaurant.location : '';
+          const dishes = matchedRestaurant ? matchedRestaurant.dishes : '';
+          const cusine = matchedRestaurant ? matchedRestaurant.cusine : '';
+          const cost = matchedRestaurant ? matchedRestaurant.cost : '';
           return (
-            <div  key={index}>
-              {/* <div className="rank-circle">{index + 1}</div> */}
-              {/* <img className="restaurant-image" src={imageUrl} alt={restaurant["Restaurant Name"]} />
-              <p className="restaurant-name">{index + 1}{restaurant["Restaurant Name"]}</p>
-              <p className="similarity-score">Similarity: {restaurant.similarity}</p> */}
-              <div style={{ display: 'flex' }}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', paddingBottom:'100px', paddingRight: '100px' }}>
-  <div style={{ height: '500px', marginRight: '10px', marginLeft:'100px' }}>
-    <img src={verticalImageUrl} alt="Image 1" style={{ height: '100%' }} />
-  </div>
-  <div style={{ display: 'flex', flexDirection: 'column', paddingTop:'20px' }}>
-    <img src={topImageUrl} alt="Image 2" style={{ height: '300px', marginBottom: '10px' }} />
-    <img src={bottomImageUrl} alt="Image 3" style={{ height: '200px' }} />
-  </div>
-</div>
-      <div style={{ flex: 1 }}>
-        <h1 style={{ fontSize: '54px', fontWeight: 'bold' }}>
-         {index + 1}. <span style={{ fontSize: '54px' }}>{restaurant["Restaurant Name"]}</span>
-        </h1>
-        <p  style={{ fontSize: '17px' ,fontWeight:'inherit', lineHeight:'28px', paddingRight:'100px'}}>{des} </p>
-        
-        <ul className="no-bullets" style={{paddingTop:'30px'}}>
-          <li style={{ fontSize: '18px' ,fontWeight:'inherit', paddingBottom: '5px'}}>
-            <img src={p1} alt="Point 1" style={{ height: '20px' , paddingRight:'10px'}} />{point1}
-          </li>
-          <li style={{ fontSize: '18px' ,fontWeight:'inherit', paddingBottom: '5px'}}>
-            <img src={p1} alt="Point 2" style={{ height: '20px', paddingRight:'10px' }} />{point2}
-          </li>
-          <li style={{ fontSize: '18px' ,fontWeight:'inherit', paddingBottom: '5px'}}>
-            <img src={p1} alt="Point 3" style={{ height: '20px', paddingRight:'10px', }} />{point3}
-          </li>
-        </ul>
-        <div >
-      <img src={downArrowImageUrl} alt="Down Arrow" style={{ width: '25px', height: '30px', paddingTop:'200px',  paddingLeft:'650px' }} />
-    </div>
-      </div>
-    </div>
-   
+            <div className="restaurant-item" >
+              <div className="restaurant-image-wrapper">
+                <img className="restaurant-image" src={ImageUrl} alt={restaurant["Restaurant Name"]} />
+              </div>
+              <div className="restaurant-details">
+                <h3 className="restaurant-name">{index + 1}. {restaurant["Restaurant Name"]}</h3>
+                <p className="restaurant-location">Location: {location}</p>
+                <p className="restaurant-dishes">Recommended Dishes: {dishes}</p>
+              </div>
+              <div className="restaurant-cuisine-cost">
+                <p className="restaurant-cuisine">Cuisine: {cusine}</p>
+                <p className="restaurant-cost">Cost: {cost}</p>
+              </div>
             </div>
-
-
           );
         })}
-        {!Boolean(recommendations?.length) && JSON.stringify(recommendations)}
+        {!recommendations.length && <p className="no-recommendations">No recommendations available</p>}
       </div>
-      <button onClick={handleGoBack} style={buttonStyle} >
+      <button onClick={() => navigate('/profile')} className="go-back-button">
         Go Back
       </button>
     </div>

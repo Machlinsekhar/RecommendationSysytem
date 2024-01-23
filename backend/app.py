@@ -16,7 +16,7 @@ app.config['SECRET_KEY'] = 'secret-key-goes-here'
 # app.register_blueprint(main_blueprint)
 
 
-# CORS(app) 
+CORS(app) 
 
 @app.route('/')
 def hello_world():

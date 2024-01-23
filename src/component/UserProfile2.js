@@ -57,7 +57,7 @@ const cuisineContainerStyle = {
 };
 
 const plateStyle = {
-  position: 'absolute', // Position the image absolutely within its container
+  position: 'fixed', // Position the image absolutely within its container
   top: '55.9%',          // Center vertically
   left: '230%',        // Center horizontally
   transform: 'translate(50%, -50%) scale(2)', // Offset by half the width and height of the image

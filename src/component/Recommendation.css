@@ -1,74 +1,107 @@
 /* Recommendation.css */
+
 .recommendation-container {
-    /* padding: 20px; */
-     padding-left: 3em; 
-    /* 
-    padding-bottom: 12.3em; */
-    /* background-color: #c6c9e5; */
-  }
-  .header{
-    display: flex;
-    justify-content: left;
-    font-size: 45px;
-    font-weight: 300;
-    letter-spacing: 1px;
-  }
-  .restaurant-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 5em;
-  }
-  
-  .restaurant-card {
-    position: relative;
-    width: 250px;
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    text-align: center;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .restaurant-image {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 5px;
-  }
-  
-  .restaurant-name {
-    margin-top: 10px;
-    font-weight: bold;
-  }
-
-  /* Recommendation.css */
-/* ... (your existing styles) */
-
-.rank-circle {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #003166; 
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  font-size: 1.2em;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-image: url('../image/recom-bg.png'); /* Adjust the path if necessary */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-family: 'Arial', sans-serif; /* Replace with your preferred font */
+  padding-top: 150px;
+  padding-left: 180px;
+  padding-right: 180px;
+  background-color: #f5f5f5; /* Replace with the actual background color or image */
 }
 
-.no-bullets {
-  list-style-type: none;
+.header {
+  text-align: left;
+  color: #333; /* Replace with the color used in the design */
+  margin-bottom: 30px;
+}
+
+.restaurant-list {
+  list-style: none;
   padding: 0;
+}
+
+.restaurant-item {
+  display: flex;
+  background-color: #f1f1f1; /* Background color for the item */
+  margin-bottom: 20px; /* Space between items */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Simple box shadow for some depth */
+  border-radius: 8px; /* Rounded corners for the container */
+  overflow: hidden;
+}
+
+.restaurant-image-wrapper {
+  width: 150px; 
+  height: 150px; /* Adjust the image wrapper size */
+  overflow: hidden;
+  /* margin: '1rem'; */
+}
+
+.restaurant-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the area */
+}
+
+.restaurant-details {
+  padding: 10px;
+  flex-grow: 1;
+}
+
+.restaurant-name {
+  color: #333;
   margin: 0;
 }
 
+.restaurant-location,
+.restaurant-dishes {
+  color: #666;
+  margin: 5px 0;
+}
 
-  
+.restaurant-cuisine-cost {
+  padding: 10px;
+  background: #f0f0f0; /* Background color for cuisine and cost */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.restaurant-cuisine,
+.restaurant-cost {
+  margin: 0;
+  color: #333;
+}
+
+.go-back-button {
+  background-color: #333; /* Button background color */
+  color: white; /* Button text color */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  align-self: center;
+}
+
+.no-recommendations {
+  text-align: center;
+  color: #999;
+}
+
+/* Add media queries for responsive adjustments as needed */
+@media (max-width: 768px) {
+  .restaurant-item {
+    flex-direction: column;
+  }
+
+  .restaurant-cuisine-cost {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 20px;
+  }
+}

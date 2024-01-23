@@ -28,12 +28,24 @@ const Profile = () => {
   };
 
    const handleSubmit = async () => {
+    if (!restaurantType) {
+      alert('Please fill out the Type of Restaurant');
+      return;
+    }
+    if (!budget) {
+      alert('Please fill out the Budget');
+      return;
+    }
+    if (!cuisine) {
+      alert('Please fill out the Minimum Rating');
+      return;
+    }
     setShowModal(true); // Show the modal
     setTimeout(async () => {
       const data = await fetchRecommendations();
       navigate('/recommendation', { state: { recommendations: data } });
       console.log('Form submitted:', data);
-    }, 5000); // Navigate after 5 seconds
+    }, 3000); // Navigate after 5 seconds
   };
 
   const fetchRecommendations = async () => {
