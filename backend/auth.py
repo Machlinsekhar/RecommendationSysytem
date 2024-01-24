@@ -10,25 +10,25 @@ auth = Blueprint('auth', __name__)
 @auth.route('/login', methods=["POST"])
 def login():
     # login code goes here
-    email = request.form.get('email')
+    username = request.form.get('username')
     password = request.form.get('password')
-    user = users.find_one({"email": email})
+    user = users.find_one({"username": username})
     if not user or not check_password_hash(user["password"], password):
         return "Incorrect username or password", 401
-    session["email"] = email
+    session["username"] = username
     return {"message": "Done"}
 
 
 @auth.route('/signup', methods=['POST'])
 def signup():
     if request.method == "POST":
-        email = request.form.get('email')
+        username = request.form.get('username')
         # name = request.form.get('name')
         password = request.form.get('password')
-        user = users.find_one({"email": email})
+        user = users.find_one({"username": username})
         if user:
             return "Account already exists", 400
-        new_user = {"email": email, "password": generate_password_hash(password)}
+        new_user = {"username": username, "password": generate_password_hash(password)}
         users.insert_one(new_user)
         return {"message": "Done"}
 
@@ -43,6 +43,6 @@ def profile(user):
 
 @auth.route('/logout')
 def logout():
-    if "email" in session:
-        session.pop("email", None)
+    if "username" in session:
+        session.pop("username", None)
         return {"message": "Logged out"}

@@ -2,21 +2,46 @@ import React, { useState } from 'react';
 import background from "../image/signup-bg.png";
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async(e) => {
+
     e.preventDefault();
-    console.log('Logging in with:', username, password);
-    if(username!=='' && password!==''){
-    navigate('/userprofile');}
-    else {
-      // If either field is empty, alert the user
-      alert('Username and password fields cannot be empty.');
+
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
+
+    try {
+      const response = await fetch('http://127.0.0.1:5000/signup', {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (response.ok) {
+        console.log('Sign up successful');
+        navigate('/userprofile');
+      } else {
+        // Handle errors
+        console.error('Sign up failed');
+      }
+    } catch (error) {
+      console.error('Error during sign up:', error);
     }
+
+    // console.log('Logging in with:', username, password);
+    // if(username!=='' && password!==''){
+    // navigate('/userprofile');}
+    // else {
+    //   // If either field is empty, alert the user
+    //   alert('Username and password fields cannot be empty.');
+    // }
   };
 
   const divStyle = {
@@ -97,8 +122,8 @@ const SignUp = () => {
               type="password"
               placeholder="Password"
               id="password"
-              onChange={(e) => setPassword(e.target.value)}
               value={password}
+              onChange={(e) => setPassword(e.target.value)}
               style={inputStyle}
             />
           </div>
