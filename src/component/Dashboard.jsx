@@ -38,26 +38,26 @@ const Dashboard = () => {
         }, 2000); // Simulating a 2-second loading time
     };
 
-    const handleCollabClick = async () => {
-        // setLoadingModalOpen(true);
-        // setTimeout(async () => {
-            const data = await fetchCollabRecommendations();
-            console.log(data);
-            navigate('/recommendation',{state:{
-                recommendations: data
-            }});
-            // navigate('/collabrecommendation', { state: { recommendations: data } });
-        // }, 2000);
-    };
+    // const handleCollabClick = async () => {
+    //     // setLoadingModalOpen(true);
+    //     // setTimeout(async () => {
+    //         const data = await fetchCollabRecommendations();
+    //         console.log(data);
+    //         navigate('/recommendation',{state:{
+    //             recommendations: data
+    //         }});
+    //         // navigate('/collabrecommendation', { state: { recommendations: data } });
+    //     // }, 2000);
+    // };
 
-    const fetchCollabRecommendations = async () => {
-        let response = await fetch('http://localhost:5000/collabrecommend')
-        if (response.ok) {
-            return await response.json();
-        }
-        // If response was not ok, throw an error
-        throw new Error('Network response was not ok.');
-  };
+//     const fetchCollabRecommendations = async () => {
+//         let response = await fetch('http://localhost:5000/collabrecommend')
+//         if (response.ok) {
+//             return await response.json();
+//         }
+//         // If response was not ok, throw an error
+//         throw new Error('Network response was not ok.');
+//   };
 
     const importSection = {
         marginTop: '20px',
@@ -164,7 +164,7 @@ const Dashboard = () => {
                 
             </Card>
 
-            <Card sx={{ maxWidth: 345, marginLeft: 40, marginTop: 5 }} onClick={handleCollabClick}>
+            <Card sx={{ maxWidth: 345, marginLeft: 40, marginTop: 5 }} onClick={handleCardClick}>
                 <CardMedia
                     sx={{ height: 140 }}
                     image={collaborative}
