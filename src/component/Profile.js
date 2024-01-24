@@ -134,6 +134,7 @@ const Profile = () => {
           <option value="5">5</option>
         </select>
       </div>
+
       <button type="submit" onClick={handleSubmit}>Start</button>
 
         {/* Modal */}

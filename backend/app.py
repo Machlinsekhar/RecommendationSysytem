@@ -3,16 +3,16 @@ import restaurant_recommender as rec
 # import collab_alg as col
 from pymongo import MongoClient
 from flask_cors import CORS
-# from auth import auth as auth_blueprint
+from auth import auth as auth_blueprint
 # from main import main as main_blueprint
 
 app = Flask(__name__)
 
-client = MongoClient('127.0.0.1', 27017)
+client = MongoClient('mongodb://localhost:27017')
 
 app.config['SECRET_KEY'] = 'secret-key-goes-here'
 
-# app.register_blueprint(auth_blueprint)
+app.register_blueprint(auth_blueprint)
 # app.register_blueprint(main_blueprint)
 
 
@@ -39,8 +39,8 @@ def recommend():
     
     return jsonify(recommendations)
 
-@app.route('/collabrecommend', methods=['GET'])
-def colrecommend():
-    recommendations = col.collab_recommendation()
-    print(recommendations)
-    return recommendations.to_json()
+# @app.route('/collabrecommend', methods=['GET'])
+# def colrecommend():
+#     recommendations = col.collab_recommendation()
+#     print(recommendations)
+#     return recommendations.to_json()
