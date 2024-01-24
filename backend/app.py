@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify, make_response
 import restaurant_recommender as rec
-# import collab_alg as col
+import collab_algo as col
 from pymongo import MongoClient
 from flask_cors import CORS
 from auth import auth as auth_blueprint
@@ -39,8 +39,8 @@ def recommend():
     
     return jsonify(recommendations)
 
-# @app.route('/collabrecommend', methods=['GET'])
-# def colrecommend():
-#     recommendations = col.collab_recommendation()
-#     print(recommendations)
-#     return recommendations.to_json()
+@app.route('/collabrecommend', methods=['POST'])
+def colrecommend():
+    recommendations = col.collab_manual()
+    print(recommendations)
+    return jsonify(recommendations)

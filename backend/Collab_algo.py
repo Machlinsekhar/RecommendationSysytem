@@ -3,7 +3,7 @@ from scipy.spatial.distance import cosine
 from scipy.spatial import distance
 
 # Load the dataset into a DataFrame
-data = pd.read_csv('collab_user.csv')
+data = pd.read_csv('Dataset\collab_user.csv')
 
 df = pd.DataFrame(data)
 
@@ -61,15 +61,19 @@ def recommend_restaurants(user, user_item_matrix, n=3, m=3, min_similarity=0.4):
 
     return recommended_restaurants
 
-# Example usage
-user = 3
-recommendations = recommend_restaurants(user, user_item_matrix)
 
-# Check for duplicate outputs
-unique_recommendations = []
-for restaurant, rating in recommendations:
-    if restaurant not in unique_recommendations:
-        unique_recommendations.append(restaurant)
-        print(f"{restaurant}")
-    else:
-        break;
+def collab_manual():
+    # Example usage
+    user = 3
+    recommendations = recommend_restaurants(user, user_item_matrix)
+
+    # Check for duplicate outputs
+    unique_recommendations = []
+    for restaurant, rating in recommendations:
+        if restaurant not in unique_recommendations:
+            unique_recommendations.append({'Restaurant Name': restaurant})
+            # print(f"{restaurant}")
+        else:
+            break
+
+    return unique_recommendations

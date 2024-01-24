@@ -39,24 +39,43 @@ const Dashboard = () => {
     };
 
     const handleCollabClick = async () => {
-        // setLoadingModalOpen(true);
-        // setTimeout(async () => {
-            const data = await fetchCollabRecommendations();
-            console.log(data);
-            navigate('/recommendation',{state:{
-                recommendations: data
-            }});
-            // navigate('/collabrecommendation', { state: { recommendations: data } });
-        // }, 2000);
+        try {
+            // Open the modal before making the asynchronous call
+            setLoadingModalOpen(true);
+    
+            // Simulate an asynchronous operation with setTimeout
+            setTimeout(async () => {
+                // Perform the asynchronous operation (fetchCollabRecommendations)
+                const data = await fetchCollabRecommendations();
+    
+                // After fetching data, close the modal
+                setLoadingModalOpen(false);
+    
+                // Navigate to the recommendation page with the fetched data
+                navigate('/recommendation', { state: { recommendations: data } });
+                console.log('Form submitted:', data);
+            }, 3000);
+        } catch (error) {
+            // Handle errors appropriately
+            console.error('Error fetching data:', error);
+            setLoadingModalOpen(false); // Close the modal in case of an error
+        }
     };
+    
 
     const fetchCollabRecommendations = async () => {
-        let response = await fetch('http://localhost:5000/collabrecommend')
-        if (response.ok) {
-            return await response.json();
+
+        try {
+            const response = await fetch('http://localhost:5000/collabrecommend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }})
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Failed to fetch recommendations:', error);
         }
-        // If response was not ok, throw an error
-        throw new Error('Network response was not ok.');
   };
 
     const importSection = {
@@ -164,7 +183,7 @@ const Dashboard = () => {
                 
             </Card>
 
-            <Card sx={{ maxWidth: 345, marginLeft: 40, marginTop: 5 }} onClick={handleCardClick}>
+            <Card sx={{ maxWidth: 345, marginLeft: 40, marginTop: 5 }} onClick={handleCollabClick}>
                 <CardMedia
                     sx={{ height: 140 }}
                     image={collaborative}
