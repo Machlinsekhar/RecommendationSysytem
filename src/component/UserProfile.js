@@ -17,18 +17,19 @@ const headingStyle = {
   marginBottom: '25px',
 };
 
-const buttonStyle = {
+const locationButtonStyle = (isSelected) => ({
   padding: '12px 44px',
-  marginLeft: '8.5rem',
+  // marginLeft: '8.5rem',
   marginTop: '0.5rem',
   marginBottom: '1rem',
   color: 'black',
-  backgroundColor: 'white',
+  backgroundColor: isSelected ? '#ddd' : 'white', // Change color if selected
   borderRadius: '8px',
   cursor: 'pointer',
   border: '2.3px solid black',
-  fontSize: '21px' // Add a 1px solid black border
-};
+  fontSize: '21px',
+});
+
 
 const locationContainerStyle = {
   display: 'flex',
@@ -58,16 +59,15 @@ const cuisineContainerStyle = {
 
 const plateStyle = {
   position: 'fixed', // Position the image absolutely within its container
-  top: '55%',          // Center vertically
-  left: '-15%',        // Center horizontally
+  top: '49%',          // Center vertically
+  left: '-4%',        // Center horizontally
   transform: 'translate(50%, -50%) ', // Offset by half the width and height of the image
-  zIndex: 1, 
-            // Set z-index to 1 to ensure it's above other content
+  zIndex: 1, // Set z-index to 1 to ensure it's above other content
 };
 
 const UserProfile = () => {
   const navigate = useNavigate();
-  const [locationSelected, setLocationSelected] = useState(false);
+  const [locationSelected, setLocationSelected] = useState('');
   const [cuisine, setCuisine] = useState('');
 
   const handleLocationChange = (location) => {
@@ -76,12 +76,13 @@ const UserProfile = () => {
 
   const handleCuisineChange = (cuisineType) => {
     setCuisine(cuisineType);
+    navigate('/userprofile2')
   };
 
   // Check if both a location and a cuisine have been selected and navigate to /home
   const checkAndNavigate = () => {
     if (locationSelected && cuisine) {
-      navigate('/home');
+      navigate('/userprofile2');
     }
   };
 
@@ -90,21 +91,21 @@ const UserProfile = () => {
       <img src={plate} alt="Plate" style={plateStyle} />
       <h2 style={headingStyle}>Your Location</h2>
       <div style={locationContainerStyle}>
-        <button
-          onClick={() => { handleLocationChange('vashi'); checkAndNavigate(); }}
-          style={buttonStyle}
-        >
-          Vashi
-        </button>
-        
-        <button
-          onClick={() => { handleLocationChange('nerul'); checkAndNavigate(); }}
-          style={buttonStyle}
-        >
-          Nerul
-        </button>
-      </div>
-      
+  <button
+    onClick={() => { handleLocationChange('vashi'); }}
+    style={locationButtonStyle(locationSelected === 'vashi')}
+  >
+    Vashi
+  </button>
+  
+  <button
+    onClick={() => { handleLocationChange('nerul'); }}
+    style={locationButtonStyle(locationSelected === 'nerul')}
+  >
+    Nerul
+  </button>
+</div>
+
       <h2 style={headingStyle}>Your Favorite Cuisine</h2>
       <div style={cuisineContainerStyle}>
         {['Veg', 'Non-Veg', 'Chinese'].map((type) => (

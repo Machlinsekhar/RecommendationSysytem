@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import dashbg from '../image/dashbg.png';
+import dashbg from '../image/background.png';
 import content from '../image/content.jpg';
 import collaborative from '../image/collaborative.jpg';
 import Dialog from '@mui/material/Dialog';
