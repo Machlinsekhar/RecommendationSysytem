@@ -164,7 +164,7 @@ const Dashboard = () => {
                 
             </Card>
 
-            <Card sx={{ maxWidth: 345, marginLeft: 40, marginTop: 5 }} onClick={handleCollabClick}>
+            <Card sx={{ maxWidth: 345, marginLeft: 40, marginTop: 5 }} onClick={handleCardClick}>
                 <CardMedia
                     sx={{ height: 140 }}
                     image={collaborative}
