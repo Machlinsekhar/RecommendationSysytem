@@ -19,7 +19,7 @@ const Dashboard = () => {
         flexDirection: 'column',
         justifyContent: 'flex-start', /* Align content at the top */
         alignItems: 'flex-start', /* Align content to the left */
-        padding: '20px',
+        // paddingTop: '10px',
         backgroundColor: '#f2f2f2',
         backgroundImage: `url(${dashbg})`,  /* Replace "path/to/your/image.jpg" with the actual file path or URL of your background image */
     backgroundSize: 'cover', /* Cover the entire container */
@@ -37,6 +37,21 @@ const Dashboard = () => {
             navigate('/profile');
         }, 2000); // Simulating a 2-second loading time
     };
+
+    const [isSelected, setIsSelected] = useState(false);
+
+    const ButtonStyle = () => ({
+        padding: '12px 44px',
+        marginLeft: '38rem',
+        marginTop: '3.5rem',
+        marginBottom: '1rem',
+        color: 'black',
+        backgroundColor: isSelected ? '#ddd' : 'white', // Change color if selected
+        borderRadius: '8px',
+        cursor: 'pointer',
+        border: '2.3px solid black',
+        fontSize: '21px',
+      });
 
     const handleCollabClick = async () => {
         // setLoadingModalOpen(true);
@@ -74,6 +89,7 @@ const Dashboard = () => {
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         const reader = new FileReader();
+
 
         reader.onload = (e) => {
             const content = e.target.result;
@@ -143,6 +159,7 @@ const Dashboard = () => {
 
     const toggleCards = () => {
         setShowCards(!showCards);
+        setIsSelected(!isSelected);
     };
 
     const recommendationCards = showCards && (
@@ -217,7 +234,7 @@ const Dashboard = () => {
                 Upload Data
             </button> */}
             </div>
-            <button onClick={toggleCards} style={buttonStyle1}>
+            <button onClick={toggleCards} style={ButtonStyle()}>
                 Select one Algorithm
             </button>
             {recommendationCards}

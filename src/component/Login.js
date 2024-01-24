@@ -12,7 +12,7 @@ const Login = () => {
     e.preventDefault();
     console.log('Logging in with:', username, password);
     if(username!=='' && password!==''){
-      navigate('/profile');}
+      navigate('/dashboard');}
       else {
         // If either field is empty, alert the user
         alert('Username and password fields cannot be empty.');
