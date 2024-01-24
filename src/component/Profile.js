@@ -134,6 +134,25 @@ const Profile = () => {
           <option value="5">5</option>
         </select>
       </div>
+
+      <div className="form-group">
+        <label>Choose system</label>
+        <div className="button-group">
+          <button
+            className={budget === 'Content' ? 'selected' : ''}
+            onClick={() => handleBudgetChange('Content')}
+          >
+            Content Based Filtering
+          </button>
+          <button
+            className={budget === 'Moderate' ? 'selected' : ''}
+            onClick={() => handleBudgetChange('Collab')}
+          >
+            Collaborative Filtering
+          </button>
+        </div>
+      </div>
+
       <button type="submit" onClick={handleSubmit}>Start</button>
 
         {/* Modal */}

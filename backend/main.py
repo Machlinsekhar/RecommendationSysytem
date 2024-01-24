@@ -6,7 +6,6 @@ from middleware import needs_auth
 
 main = Blueprint('main', __name__)
 
-
 @main.route('/get-entries', methods=['GET'])
 @needs_auth()
 def index(user):

@@ -3,11 +3,9 @@ from db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from middleware import needs_auth
 from db import users
-from auth import auth as auth_blueprint
-from main import main as main_blueprint
+# from main import main as main_blueprint
 
 auth = Blueprint('auth', __name__)
-
 
 @auth.route('/login', methods=["POST"])
 def login():
@@ -25,12 +23,12 @@ def login():
 def signup():
     if request.method == "POST":
         email = request.form.get('email')
-        name = request.form.get('name')
+        # name = request.form.get('name')
         password = request.form.get('password')
         user = users.find_one({"email": email})
         if user:
             return "Account already exists", 400
-        new_user = {"email": email, "name": name, "password": generate_password_hash(password, method='sha256')}
+        new_user = {"email": email, "password": generate_password_hash(password)}
         users.insert_one(new_user)
         return {"message": "Done"}
 
