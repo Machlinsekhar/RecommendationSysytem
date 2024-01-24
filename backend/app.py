@@ -4,6 +4,7 @@ import collab_algo as col
 from pymongo import MongoClient
 from flask_cors import CORS
 from auth import auth as auth_blueprint
+from db import entries
 # from main import main as main_blueprint
 
 app = Flask(__name__)
@@ -44,3 +45,14 @@ def colrecommend():
     recommendations = col.collab_manual()
     print(recommendations)
     return jsonify(recommendations)
+
+@app.route('/create-entry', methods=['POST'])
+def set_entry():
+    print(request.form)
+    if request.method == 'POST':
+        print(request.form)
+        user = 'abcd'
+        home_location = request.form['home_location']
+        fav_cuisine = request.form['fav_cuisine']
+        entries.insert_one({'username' :user,'home_location': home_location, 'fav_cuisine': fav_cuisine})
+        return {"message": "Done"}
