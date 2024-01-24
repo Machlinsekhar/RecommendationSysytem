@@ -36,7 +36,7 @@ const locationContainerStyle = {
   marginBottom: '20px',
 };
 
-const cuisineButtonStyle = (isSelected) => ({
+const suggestionButtonStyle = (isSelected) => ({
   paddingTop :'2rem',
   paddingBottom :'2rem',
   paddingLeft:'1.5rem',
@@ -49,7 +49,7 @@ const cuisineButtonStyle = (isSelected) => ({
   width: '85rem',
 });
 
-const cuisineContainerStyle = {
+const suggestionContainerStyle = {
   display: 'flex',
   flexDirection: 'column',
   gap: '10px',
@@ -67,24 +67,14 @@ const plateStyle = {
 
 const UserProfile2 = () => {
   const navigate = useNavigate();
-  const [locationSelected, setLocationSelected] = useState(false);
-  const [cuisine, setCuisine] = useState('');
+  const [suggestion, setsuggestion] = useState('');
 
-  const handleLocationChange = (location) => {
-    setLocationSelected(location);
+
+  const handlesuggestionChange = (suggestionType) => {
+    setsuggestion(suggestionType);
+    navigate('/dashboard')
   };
 
-  const handleCuisineChange = (cuisineType) => {
-    setCuisine(cuisineType);
-    navigate('/preference')
-  };
-
-  // Check if both a location and a cuisine have been selected and navigate to /home
-  const checkAndNavigate = () => {
-    if (locationSelected && cuisine) {
-      navigate('/userprofile2');
-    }
-  };
 
   return (
     <div style={userProfileStyle}>
@@ -92,12 +82,12 @@ const UserProfile2 = () => {
       <h2 style={headingStyle}></h2>
       
       <h2 style={headingStyle}>Suggestions(Near Home)</h2>
-      <div style={cuisineContainerStyle}>
+      <div style={suggestionContainerStyle}>
         {['Ahmed bhai', 'Nerul cafe', 'Shy cafe', 'BBQ Nation'].map((type) => (
           <button
             key={type}
-            onClick={() => { handleCuisineChange(type);  }}
-            style={cuisineButtonStyle(cuisine === type)}
+            onClick={() => { handlesuggestionChange(type);  }}
+            style={suggestionButtonStyle(suggestion === type)}
           >
             {type}
           </button>
