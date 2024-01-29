@@ -11,6 +11,7 @@ import collaborative from '../image/collaborative.jpg';
 import Dialog from '@mui/material/Dialog';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
+import NavBar from './NavBar';
 
 const Dashboard = () => {
     const dashboardContainer = {
@@ -214,6 +215,7 @@ const Dashboard = () => {
 
     return (
         <div style={dashboardContainer}>
+            <NavBar/>
             {/* <h1 style={{ fontSize: '36px', fontWeight: 'bold', margin: '0', padding: '10px' }}>RECOMMENDATION SYSTEM</h1> */}
             {/* <h2 style={{ fontSize: '24px', margin: '0', paddingLeft: '150px', paddingBottom: '20px' }}>INPUT DATASET</h2> */}
             <div style={importSection}>
