@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import dashbg from '../image/background.png';
+import modal from '../image/modal.jpg';
 import content from '../image/content.jpg';
 import collaborative from '../image/collaborative.jpg';
 import Dialog from '@mui/material/Dialog';
@@ -14,45 +14,119 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 
 const Dashboard = () => {
+    
+    const [isSelected, setIsSelected] = useState(false);
+    const [cuisine, setCuisine] = useState('');
+    const [rating, setRating] = useState('1');
+    const [budget, setBudget] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
+
     const dashboardContainer = {
         height: '100vh', /* Set component height to cover the entire viewport */
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-start', /* Align content at the top */
         alignItems: 'flex-start', /* Align content to the left */
-        // paddingTop: '10px',
-        backgroundColor: '#f2f2f2',
-        backgroundImage: `url(${dashbg})`,  /* Replace "path/to/your/image.jpg" with the actual file path or URL of your background image */
-    backgroundSize: 'cover', /* Cover the entire container */
+        paddingTop: '60px',
+        paddingLeft:'8rem',
+        backgroundColor: '#ffff',
+  backgroundSize: 'cover', /* Cover the entire container */
     backgroundRepeat: 'no-repeat', 
     };
-    const navigate = useNavigate();
-    const [items, setItems] = useState([]);
-    const [loadingModalOpen, setLoadingModalOpen] = useState(false);
+    
+const buttonStyleInline = {
+    padding: '12px 20px',
+    display: 'block',
+    margin: 'auto auto 4px auto',
+    color: 'black',
+    borderRadius: '15px',
+    cursor: 'pointer',
+    border: '2px solid #EFBA55', 
+    fontWeight: 'bold',// Default border color
+  };
 
-    const handleCardClick = () => {
-        setLoadingModalOpen(true);
-        // Simulate an API request or any loading operation here
-        setTimeout(() => {
-            setLoadingModalOpen(false);
-            navigate('/profile');
-        }, 2000); // Simulating a 2-second loading time
-    };
+  const handleRatingChange = (rate) =>{
+    setRating(rate);
+  }
+  
+  const lowButtonStyle = {
+    ...buttonStyleInline,
+    backgroundColor: budget === 'Low' ? '#EFBA55' : '#ffff',
+  };
+  
+  const moderateButtonStyle = {
+    ...buttonStyleInline,
+    backgroundColor: budget === 'Moderate' ? '#EFBA55' : '#ffff',
+  };
+  
+  const highButtonStyle = {
+    ...buttonStyleInline,
+    backgroundColor: budget === 'High' ? '#EFBA55' : '#ffff',
+  };
 
-    const [isSelected, setIsSelected] = useState(false);
+   
+    const handleBudgetChange = (amount) => {
+        setBudget(amount);
+      };
 
-    const ButtonStyle = () => ({
-        padding: '12px 44px',
-        marginLeft: '38rem',
-        marginTop: '3.5rem',
-        marginBottom: '1rem',
-        color: 'black',
-        backgroundColor: isSelected ? '#ddd' : 'white', // Change color if selected
-        borderRadius: '8px',
-        cursor: 'pointer',
-        border: '2.3px solid black',
-        fontSize: '21px',
-      });
+    const handleCardClick = async () => {
+            if (!cuisine) {
+              alert('Please fill out the Type of Restaurant');
+              return;
+            }
+            if (!budget) {
+              alert('Please fill out the Budget');
+              return;
+            }
+            if (!rating) {
+              alert('Please fill out the Minimum Rating');
+              return;
+            }
+            setShowModal(true); // Show the modal
+            setTimeout(async () => {
+              const data = await fetchRecommendations();
+              navigate('/recommendation', { state: { recommendations: data } });
+              console.log('Form submitted:', data);
+            }, 3000); // Navigate after 5 seconds
+          };
+        
+          const fetchRecommendations = async () => {
+            try {
+                const requestBody = {
+                    rating: rating,
+                    restaurant_type: cuisine,
+                    max_cost: budget,
+                };
+        
+                const response = await fetch('http://127.0.0.1:5000/recommend', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody),
+                });
+        
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+        
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Failed to fetch recommendations:', error);
+            }
+        };
+        
+    const toggleCuisine = (selectedCuisine) => {
+        setCuisine((prevCuisine) => {
+          if (prevCuisine.includes(selectedCuisine)) {
+            return prevCuisine.filter((c) => c !== selectedCuisine);
+          } else {
+            return [...prevCuisine, selectedCuisine];
+          }
+        });
+      };
 
     const handleCollabClick = async () => {
         // setLoadingModalOpen(true);
@@ -75,66 +149,14 @@ const Dashboard = () => {
         throw new Error('Network response was not ok.');
   };
 
-    const importSection = {
-        marginTop: '20px',
-        display: 'flex',
-        alignItems: 'center',
-        paddingLeft: '600px'
-    };
-
-    const [uploadedFileName, setUploadedFileName] = useState('');
-    const [showFileInput, setShowFileInput] = useState(false); // State to track visibility of file input
-
-    const [uploadedData, setUploadedData] = useState(null); // State to store uploaded data
-
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-
-
-        reader.onload = (e) => {
-            const content = e.target.result;
-            // Parse the content if it's a CSV file
-            // For simplicity, let's assume it's CSV and parse it (you might want to use a CSV parsing library)
-            // For example: const parsedData = parseCSV(content);
-            setUploadedData(content);
-        };
-
-        reader.readAsText(file);
-        const fileName = file.name;
-        setUploadedFileName(fileName);
-    };
-
-    const handleUploadData = () => {
-        // Show an alert with the uploaded file name
-        if (uploadedFileName) {
-            alert(`Uploaded File: ${uploadedFileName}`);
-        } else {
-            alert('No file uploaded.');
-        }
-    };
-
-    const showFileInputElement = () => {
-        setShowFileInput(true);
-    };
-
-    const fileInputStyle = {
-        display: 'none',
-        width: '200px',
-        height: '200px', // Set display property based on showFileInput state
-    };
-
-    const dropArea = {
-        width: '200px',
-        height: '100px',
-        border: '2px dashed #675d1a',
-        borderRadius: '10px',
+    const buttonGroupStyle = {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',
-        cursor: 'pointer',
-        marginRight: '20px',
-    };
+        flexWrap: 'wrap', // Allow buttons to wrap
+        gap: '0.5rem', // Add gap between buttons
+        marginBottom: '0.4rem',
+      };
+
 
     const buttonStyle = {
         backgroundColor: '#675d1a',
@@ -145,101 +167,137 @@ const Dashboard = () => {
         cursor: 'pointer',
     };
 
-    const buttonStyle1 = {
-        backgroundColor: '#AD343E',
-        borderRadius: '10px',
-        fontSize: '18px',
-        color: 'white',
-        padding: '10px 20px',
-        cursor: 'pointer',
-        marginLeft: '570px',
-        marginTop: '70px'
-    };
+    const labelStyle = {
+        marginBottom: '2px',
+        padding: '8px',
+        fontWeight: 'bold',
+        fontSize: '1.2rem'
+      };
 
-    const [showCards, setShowCards] = useState(false);
+      
+
+      const buttonStyle2 = (currentCuisine) => ({
+        padding: '12px 20px',
+        display: 'block',
+        margin: 'auto auto 4px auto',
+        color: 'black',
+        backgroundColor: cuisine.includes(currentCuisine) ? '#EFBA55' : '#ffff',
+        borderRadius: '15px',
+        cursor: 'pointer',
+        fontWeight: 'bold',
+        border:  '2px solid #EFBA55',
+      });  const [showCards, setShowCards] = useState(false);
 
     const toggleCards = () => {
         setShowCards(!showCards);
         setIsSelected(!isSelected);
     };
 
-    const recommendationCards = showCards && (
-        <div style={{ display: 'flex', marginTop: '20px' }} >
-            <Card sx={{ maxWidth: 345, marginLeft: 30, marginTop: 5 }} onClick={handleCardClick} >
-                <CardMedia
+    return (
+        <div>
+        <NavBar/>
+        <div style={dashboardContainer}>
+            
+            <h2 style={{ alignSelf: 'left', fontWeight: '900', fontSize: '2rem' }}>Query Parameters</h2>
+            <label style={labelStyle}>1. Preferred Cuisine:</label>
+        <div style={buttonGroupStyle}>
+        <button style={buttonStyle2('Chinese')} onClick={() => toggleCuisine('Chinese')}>
+  Chinese
+</button>
+<button style={buttonStyle2('Barbeque')} onClick={() => toggleCuisine('Barbeque')}>
+  Barbeque
+</button>
+<button style={buttonStyle2('North Indian')} onClick={() => toggleCuisine('North Indian')}>
+  North Indian
+</button>
+<button style={buttonStyle2('Fast Food')} onClick={() => toggleCuisine('Fast Food')}>
+  Fast Food
+</button>
+<button style={buttonStyle2('South Indian')} onClick={() => toggleCuisine('South Indian')}>
+  South Indian
+</button>
+        </div>
+        <label style={labelStyle}>2. Budget:</label>
+<div style={buttonGroupStyle}>
+  <button
+    style={lowButtonStyle}
+    onClick={() => handleBudgetChange('Low')}
+  >
+    Low
+  </button>
+  <button
+    style={moderateButtonStyle}
+    onClick={() => handleBudgetChange('Moderate')}
+  >
+    Medium
+  </button>
+  <button
+    style={highButtonStyle}
+    onClick={() => handleBudgetChange('High')}
+  >
+    High
+  </button>
+</div>
+        <label style={labelStyle}>3. Minimum Rating:</label>
+        <div >
+        <select value={rating} onChange={handleRatingChange}   style={{ ...buttonStyleInline, width: '80px', alignSelf: 'left' }}>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+        
+        <div style={{ display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap', 
+        marginBottom: '0.4rem',
+       }}>
+        <label style={labelStyle}>4. Model:</label>
+            <Card sx={{ maxWidth: 205, marginLeft: 0, marginTop: 5 , backgroundColor: '#f1f1f1'}} onClick={handleCardClick} >
+                {/* <CardMedia
                     sx={{ height: 140 }}
                     image= {content}
                     title="green iguana"
-                />
+                /> */}
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h5" component="div" style={{backgroundImage: content, textAlign: 'center', fontWeight:'600',}}>
                         Content Based Filtering
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    {/* </Typography>
+<Typography variant="body2" color="text.secondary">
                     Suggests restaurants by analyzing their features, aligning with users' past preferences and profile characteristics.
-                    </Typography>
+                  */}  </Typography> 
                 </CardContent>
                 
             </Card>
 
-            <Card sx={{ maxWidth: 345, marginLeft: 40, marginTop: 5 }} onClick={handleCollabClick}>
-                <CardMedia
+            <Card sx={{ maxWidth: 205, marginLeft: 40, marginTop: 5,  backgroundColor: '#f1f1f1' }} onClick={handleCollabClick}>
+                {/* <CardMedia
                     sx={{ height: 140 }}
                     image={collaborative}
                     title="elephant"
-                />
+                /> */}
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h5" component="div" style={{backgroundImage: collaborative,  textAlign: 'center', fontWeight:'600'}}>
                         Collaborative Filtering
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    {/* <Typography variant="body2" color="text.secondary">
                     Recommends restaurants based on the preferences of similar users, leveraging collective user behavior.
-                    </Typography>
+                    </Typography> */}
                 </CardContent>
                 
             </Card>
-            <Dialog
-                open={loadingModalOpen}
-                onClose={() => setLoadingModalOpen(false)}
-                aria-labelledby="loading-modal-title"
-            >
-               
-                    <CircularProgress style={{marginLeft: '15px'}}/>
-                    <Typography variant="body2" color="text.secondary" style={{ marginLeft: '10px' }}>
-                        Running...
-                    </Typography>
-                
-            </Dialog>
-        </div>
-    );
-
-    return (
-        <div style={dashboardContainer}>
-            <NavBar/>
-            {/* <h1 style={{ fontSize: '36px', fontWeight: 'bold', margin: '0', padding: '10px' }}>RECOMMENDATION SYSTEM</h1> */}
-            {/* <h2 style={{ fontSize: '24px', margin: '0', paddingLeft: '150px', paddingBottom: '20px' }}>INPUT DATASET</h2> */}
-            <div style={importSection}>
-                 {/* <div style={dropArea} onClick={showFileInputElement}> */}
-                {/* <label htmlFor="csvFile">
-                    {uploadedFileName ? `File Uploaded: ${uploadedFileName}` : 'Drag & Drop or Choose File'}
-                </label> */}
-                {/* <input
-                    type="file"
-                    id="csvFile"
-                    accept=".csv"
-                    style={fileInputStyle} // Apply dynamic style based on showFileInput state
-                    onChange={handleFileChange}
-                /> */}
-                    {/* <span style={{ paddingLeft: '8px' }}>Choose File</span> */}
-                {/* </div> */}
-               {/* <button onClick={handleUploadData} style={buttonStyle}>
-                Upload Data
-            </button> */}
+           
             </div>
-            <button onClick={toggleCards} style={ButtonStyle()}>
-                Select one Algorithm
-            </button>
-            {recommendationCards}
+            {showModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <img src={modal} alt="Loading..." />
+            </div>
+          </div>
+        )}
+        </div>
         </div>
     );
 };

@@ -18,6 +18,7 @@ import recom from '../image/recom-nobg.png';
 import downArrowImageUrl from '../image/downarraow.png'
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './NavBar';
 
 
 const Recommendation = () => {
@@ -44,9 +45,11 @@ const Recommendation = () => {
   };
 
   return (
+    <div><Navbar/>
     <div className="recommendation-container" >
-      <h2 className="header">RECOMMENDED RESTAURANTS</h2>
-      <img src={recom} alt="Plate" style={plateStyle} />
+      
+      <h2 className="header">Our Top 5 Suggestions:</h2>
+      {/* <img src={recom} alt="Plate" style={plateStyle} /> */}
       <div className="restaurant-list">
       {recommendations?.length > 0 && recommendations?.map((restaurant, index) => {
           const matchedRestaurant = restaurants.find(r => r.name === restaurant["Restaurant Name"]);
@@ -74,9 +77,10 @@ const Recommendation = () => {
         })}
         {!recommendations.length && <p className="no-recommendations">No recommendations available</p>}
       </div>
-      <button onClick={() => navigate('/profile')} className="go-back-button">
+      {/* <button onClick={() => navigate('/dashboard')} className="go-back-button">
         Go Back
-      </button>
+      </button> */}
+    </div>
     </div>
   );
 };

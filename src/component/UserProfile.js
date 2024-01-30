@@ -19,17 +19,17 @@ const UserProfile = () => {
   };
 
   // Updated divStyle to align items in a column
-  const divStyle = {
-    display: 'flex',
-    flexDirection: 'row', // Added for column layout
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: '100vh',
-    backgroundColor: '#EFBA55',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    fontFamily: 'Arial',
-  };
+    const divStyle = {
+      display: 'flex',
+      flexDirection: 'row', // Added for column layout
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: '100vh',
+      backgroundColor: '#EFBA55',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      fontFamily: 'Arial',
+    };
 
   const headingStyle = {
     color: 'black', // Set the color of the heading text
