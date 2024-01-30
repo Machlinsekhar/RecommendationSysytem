@@ -54,5 +54,5 @@ def set_entry():
         user = 'abcd'
         home_location = request.form['home_location']
         fav_cuisine = request.form['fav_cuisine']
-        entries.insert_one({'username' :user,'home_location': home_location, 'fav_cuisine': fav_cuisine})
+        entries.insert_one({'username':user,'home_location': home_location, 'fav_cuisine': fav_cuisine})
         return {"message": "Done"}
