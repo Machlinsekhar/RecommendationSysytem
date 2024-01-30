@@ -11,6 +11,7 @@ import Login from './component/Login';
 import SignUp from './component/SignUp';
 import UserProfile from './component/UserProfile';
 import UserProfile2 from './component/UserProfile2';
+import Navbar from './component/NavBar';
 // import { store, persistor } from './redux/store';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
        {/* <Provider store={store}> */}
     {/* <PersistGate loading={null} persistor={persistor}> */}
       <Router>
+        {/* <Navbar/> */}
       <Routes>
       <Route path="/home" element={<Home/>}/>
       <Route path="/" element={<Login/>}/>

@@ -57,6 +57,9 @@ const Profile = () => {
             },
             body: JSON.stringify({ rating: cuisine, restaurant_type: restaurantType, max_cost: budget }),
         });
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
 
         const data = await response.json();
         return data;

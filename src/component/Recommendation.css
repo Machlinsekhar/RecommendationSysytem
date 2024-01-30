@@ -1,15 +1,15 @@
 /* Recommendation.css */
 
 .recommendation-container {
-  background-image: url('../image/recom-bg.png'); /* Adjust the path if necessary */
+  /* background-image: url('../image/recom-bg.png');  */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   font-family: 'Arial', sans-serif; /* Replace with your preferred font */
-  padding-top: 150px;
+  padding-top: 100px;
   padding-left: 180px;
   padding-right: 180px;
-  background-color: #f5f5f5; /* Replace with the actual background color or image */
+  background-color: #ffff; /* Replace with the actual background color or image */
 }
 
 .header {
@@ -25,7 +25,7 @@
 
 .restaurant-item {
   display: flex;
-  background-color: #f1f1f1; /* Background color for the item */
+  background: linear-gradient(to top, #EFBA55, #FFD992);/* Background color for the item */
   margin-bottom: 20px; /* Space between items */
   box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Simple box shadow for some depth */
   border-radius: 8px; /* Rounded corners for the container */
@@ -63,7 +63,7 @@
 
 .restaurant-cuisine-cost {
   padding: 10px;
-  background: #f0f0f0; /* Background color for cuisine and cost */
+  background: linear-gradient(to top, #EFBA55, #FFD992); /* Background color for cuisine and cost */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -77,14 +77,17 @@
 }
 
 .go-back-button {
-  background-color: #333; /* Button background color */
-  color: white; /* Button text color */
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 20px;
-  align-self: center;
+  
+    padding: '12px 20px';
+    display: 'block';
+    margin: 'auto auto 4px auto';
+    color: 'black';
+    background-color:'#EFBA55';
+    border-radius: '15px';
+    cursor: 'pointer';
+    font-weight: 'bold';
+    border:  '2px solid #EFBA55';
+  
 }
 
 .no-recommendations {
