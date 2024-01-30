@@ -9,13 +9,35 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async(e) => {
+
     e.preventDefault();
-    if (username !== '' && password !== '') {
-      navigate('/dashboard');
-    } else {
-      alert('Username and password fields cannot be empty.');
+
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
+
+    if(username!=='' && password!==''){
+      try {
+        const response = await fetch('http://127.0.0.1:5000/login', {
+          method: 'POST',
+          body: formData,
+        });
+    
+        if (response.ok) {
+          console.log('Login successful');
+          console.log('Logging in with:', username, password);
+          navigate('/dashboard');
+        } else {
+          alert('Incorrect password or username!');
+        }
+      } catch (error) {
+        console.error('Error during login:', error);
+      }
     }
+      else {
+        alert('Username and password fields cannot be empty.');
+      }
   };
 
   // Updated divStyle to align items in a column
