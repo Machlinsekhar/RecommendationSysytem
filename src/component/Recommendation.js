@@ -51,16 +51,16 @@ const Recommendation = () => {
       <h2 className="header">Our Top 5 Suggestions:</h2>
       {/* <img src={recom} alt="Plate" style={plateStyle} /> */}
       <div className="restaurant-list">
-      {recommendations?.length > 0 && recommendations?.map((restaurant, index) => {
+      {/* recommendations.map((restaurant, index) => {
           const matchedRestaurant = restaurants.find(r => r.name === restaurant["Restaurant Name"]);
-          const ImageUrl = matchedRestaurant ? matchedRestaurant.ImageUrl : '';
-          const location = matchedRestaurant ? matchedRestaurant.location : '';
-          const dishes = matchedRestaurant ? matchedRestaurant.dishes : '';
+          // const ImageUrl = matchedRestaurant ? matchedRestaurant.ImageUrl : '';
+          // const location = matchedRestaurant ? matchedRestaurant.location : '';
+          // const dishes = matchedRestaurant ? matchedRestaurant.dishes : '';
           const cusine = matchedRestaurant ? matchedRestaurant.cusine : '';
           const cost = matchedRestaurant ? matchedRestaurant.cost : '';
           return (
             <div className="restaurant-item" >
-              <div className="restaurant-image-wrapper">
+               {/* <div className="restaurant-image-wrapper">
                 <img className="restaurant-image" src={ImageUrl} alt={restaurant["Restaurant Name"]} />
               </div>
               <div className="restaurant-details">
@@ -71,15 +71,29 @@ const Recommendation = () => {
               <div className="restaurant-cuisine-cost">
                 <p className="restaurant-cuisine">Cuisine: {cusine}</p>
                 <p className="restaurant-cost">Cost: {cost}</p>
-              </div>
+              </div> */}
+              
+
+            {/* </div>
+           );
+        }) 
+        }   */}
+         <h2>Recommendations</h2>
+      <ul>
+        {Object.entries(recommendations).map(([index, recommendation]) => (
+          <li key={index}>
+            <div className="restaurant-details">
+              <h3 className="restaurant-name">{parseInt(index) + 1}. {recommendation['Restaurant Name']}</h3>
+              <p>Similarity: {recommendation.similarity}</p>
             </div>
-          );
-        })}
-        {!recommendations.length && <p className="no-recommendations">No recommendations available</p>}
-      </div>
-      {/* <button onClick={() => navigate('/dashboard')} className="go-back-button">
+          </li>
+        ))}
+      </ul>
+          {/* {!recommendations.length && <p className="no-recommendations">No recommendations available</p>} */}
+       </div>  
+       {/* <button onClick={() => navigate('/dashboard')} className="go-back-button">
         Go Back
-      </button> */}
+      </button>  */}
     </div>
     </div>
   );

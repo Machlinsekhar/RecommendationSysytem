@@ -5,7 +5,7 @@ from pymongo import MongoClient
 from flask_cors import CORS
 from auth import auth as auth_blueprint
 from db import entries
-# from main import main as main_blueprint
+from main import main as main_blueprint
 
 app = Flask(__name__)
 
@@ -14,8 +14,7 @@ client = MongoClient('mongodb://localhost:27017')
 app.config['SECRET_KEY'] = 'secret-key-goes-here'
 
 app.register_blueprint(auth_blueprint)
-# app.register_blueprint(main_blueprint)
-
+app.register_blueprint(main_blueprint)
 
 CORS(app) 
 
@@ -29,14 +28,16 @@ if __name__ == '__main__':
 @app.route('/recommend', methods=['POST'])
 def recommend():
     body = request.json
+    location = body['location'].lower()
     user_rating = float(body['rating'])
     user_restaurant_type = body['restaurant_type'].lower()
     user_max_cost = body['max_cost'].lower()
+    print(location)
     print(user_rating)
-    print(user_restaurant_type)
+    print(user_restaurant_type) 
     print(user_max_cost)
 
-    recommendations = rec.get_user_recommendations(user_rating, user_restaurant_type, user_max_cost)
+    recommendations = rec.get_user_recommendations(location, user_rating, user_restaurant_type, user_max_cost)
     
     return jsonify(recommendations)
 
@@ -46,13 +47,3 @@ def colrecommend():
     print(recommendations)
     return jsonify(recommendations)
 
-@app.route('/create-entry', methods=['POST'])
-def set_entry():
-    print(request.form)
-    if request.method == 'POST':
-        print(request.form)
-        user = 'abcd'
-        home_location = request.form['home_location']
-        fav_cuisine = request.form['fav_cuisine']
-        entries.insert_one({'username':user,'home_location': home_location, 'fav_cuisine': fav_cuisine})
-        return {"message": "Done"}

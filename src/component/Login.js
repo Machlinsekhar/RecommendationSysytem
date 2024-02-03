@@ -27,7 +27,7 @@ const Login = () => {
         if (response.ok) {
           console.log('Login successful');
           console.log('Logging in with:', username, password);
-          navigate('/dashboard');
+          navigate('/home');
         } else {
           alert('Incorrect password or username!');
         }

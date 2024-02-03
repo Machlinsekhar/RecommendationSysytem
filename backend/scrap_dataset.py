@@ -1,4 +1,3 @@
-    
 import csv
 
 from selenium import webdriver
@@ -42,7 +41,7 @@ def wait_for_elements(by: By, string: str) -> List[WebElement]:
 REVIEWS_TAB_XPATH = '//button[@role="tab" and @data-tab-index="1"]'
 LOADING_ICON_XPATH = '//div[@class="qjESne "]'
 REVIEW_PARENT_CONTAINER = '//div[@data-review-id]'
-REVIEW_CONTAINER = "//div[contains(@aria-label,'stars')]/../../../.."
+REVIEW_CONTAINER = "//div[contains(@aria-label,'stars')]/../../../.." #single review box
 
 # 'https://maps.app.goo.gl/LRoViM8hH4D3PtMd7', 'https://maps.app.goo.gl/srrPnKFCHN96uq3y5',
 

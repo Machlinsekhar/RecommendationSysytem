@@ -10,17 +10,19 @@ import content from '../image/content.jpg';
 import collaborative from '../image/collaborative.jpg';
 import Dialog from '@mui/material/Dialog';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import NavBar from './NavBar';
 
 const Dashboard = () => {
     
+    const [loadingModalOpen, setLoadingModalOpen] = useState(false);
     const [isSelected, setIsSelected] = useState(false);
     const [cuisine, setCuisine] = useState('');
     const [rating, setRating] = useState('1');
     const [budget, setBudget] = useState('');
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation().pathname.split('/').pop();
 
     const dashboardContainer = {
         height: '100vh', /* Set component height to cover the entire viewport */
@@ -94,6 +96,7 @@ const buttonStyleInline = {
           const fetchRecommendations = async () => {
             try {
                 const requestBody = {
+                    location: location,
                     rating: rating,
                     restaurant_type: cuisine,
                     max_cost: budget,
@@ -240,19 +243,19 @@ const buttonStyleInline = {
 <div style={buttonGroupStyle}>
   <button
     style={lowButtonStyle}
-    onClick={() => handleBudgetChange('Low')}
+    onClick={() => handleBudgetChange('Moderate')}
   >
     Low
   </button>
   <button
     style={moderateButtonStyle}
-    onClick={() => handleBudgetChange('Moderate')}
+    onClick={() => handleBudgetChange('Expensive')}
   >
     Medium
   </button>
   <button
     style={highButtonStyle}
-    onClick={() => handleBudgetChange('High')}
+    onClick={() => handleBudgetChange('Very Expensive')}
   >
     High
   </button>

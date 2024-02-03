@@ -50,10 +50,10 @@ const Home = () => {
 
   const handleSearch = () => {
     if(searchTerm!=""){
-        navigate('/dashboard');}
-        else{
-            alert('Enter location preference')
-        }
+        navigate(`/profile/${searchTerm}`);}
+    else{
+        alert('Enter location preference')
+    }
   };
  
   const inputStyle = {
