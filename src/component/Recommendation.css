@@ -2,6 +2,7 @@
 
 .recommendation-container {
   /* background-image: url('../image/recom-bg.png');  */
+  flex-direction: column;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -21,6 +22,7 @@
 .restaurant-list {
   list-style: none;
   padding: 0;
+  
 }
 
 .restaurant-item {
@@ -30,6 +32,7 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Simple box shadow for some depth */
   border-radius: 8px; /* Rounded corners for the container */
   overflow: hidden;
+  padding: 1rem;
 }
 
 .restaurant-image-wrapper {
@@ -42,7 +45,7 @@
 .restaurant-image {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensures the image covers the area */
+ border-radius: 1rem;
 }
 
 .restaurant-details {
@@ -51,14 +54,17 @@
 }
 
 .restaurant-name {
-  color: #333;
+  color: black;
+  font-weight: 900;
+  font-size: x-large;
   margin: 0;
 }
 
 .restaurant-location,
 .restaurant-dishes {
-  color: #666;
+  color: black;
   margin: 5px 0;
+  font-weight: 700;
 }
 
 .restaurant-cuisine-cost {
@@ -72,8 +78,9 @@
 
 .restaurant-cuisine,
 .restaurant-cost {
-  margin: 0;
+  margin: 8px;
   color: #333;
+  font-weight: 700;
 }
 
 .go-back-button {
@@ -95,6 +102,7 @@
   color: #999;
 }
 
+
 /* Add media queries for responsive adjustments as needed */
 @media (max-width: 768px) {
   .restaurant-item {
@@ -106,5 +114,58 @@
     justify-content: space-between;
     width: 100%;
     padding: 10px 20px;
+    
   }
 }
+.image-row {
+  display: flex;
+  background-color: #EFBA55;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  padding-left: 3rem;
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+}
+
+.image-container {
+  margin-right: 20px; /* Adjust as needed for spacing between images */
+  text-align: center; /* Center text within container */
+}
+
+.image-container img {
+  max-width: 100%; /* Ensure images don't exceed container width */
+  border-radius: 0.25rem; /* Optional: Add border-radius to images */
+}
+
+.close-btn {
+  /* position: absolute; */
+  /* background-color: ; */
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333; /* Adjust the color as needed */
+}
+
+.close-btn:hover {
+  color: azure; /* Adjust the hover color as needed */
+}
+
+.transparent-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.transparent-button img {
+  width: 20px; /* Adjust the width as needed */
+  height: 20px; /* Adjust the height as needed */
+}
+
+/* Add this style to make the button visually distinct when focused or hovered */
+.transparent-button:focus,
+.transparent-button:hover {
+  outline: none;
+  border: none; /* Add a border for visual distinction */
+}
+

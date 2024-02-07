@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Recommendation.css';
 import './fonts.css';
 import shy1 from '../image/shy1.png';
@@ -18,14 +18,24 @@ import recom from '../image/recom-nobg.png';
 import downArrowImageUrl from '../image/downarraow.png'
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Modal from 'react-modal';
 import Navbar from './NavBar';
-
 
 const Recommendation = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const recommendations = location.state?.recommendations || [];
   console.log(recommendations);
+
+  const [modalIsOpen, setModalIsOpen] = useState(null);
+
+  const openModal = (index) => {
+    setModalIsOpen(index);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(null);
+  }
 
   const restaurants = [
     { id: '1', name: 'Barbeque Nation', ImageUrl: bn1, location: 'Vashi', dishes: 'Smoked Tandoori, Icecream', cusine: 'Non-Veg', cost: 'High' },
@@ -35,66 +45,58 @@ const Recommendation = () => {
     // Add more restaurants as needed
   ];
 
-  const plateStyle = {
-    position: 'fixed', // Position the image absolutely within its container
-    top: '59%',          // Center vertically
-    left: '27.2%',        // Center horizontally
-    transform: 'translate(50%, -50%) scale(1.5)', // Offset by half the width and height of the image
-    zIndex: 1, 
-              // Set z-index to 1 to ensure it's above other content
-  };
-
   return (
-    <div><Navbar/>
-    <div className="recommendation-container" >
-      
-      <h2 className="header">Our Top 5 Suggestions:</h2>
-      {/* <img src={recom} alt="Plate" style={plateStyle} /> */}
-      <div className="restaurant-list">
-      {/* recommendations.map((restaurant, index) => {
-          const matchedRestaurant = restaurants.find(r => r.name === restaurant["Restaurant Name"]);
-          // const ImageUrl = matchedRestaurant ? matchedRestaurant.ImageUrl : '';
-          // const location = matchedRestaurant ? matchedRestaurant.location : '';
-          // const dishes = matchedRestaurant ? matchedRestaurant.dishes : '';
-          const cusine = matchedRestaurant ? matchedRestaurant.cusine : '';
-          const cost = matchedRestaurant ? matchedRestaurant.cost : '';
-          return (
-            <div className="restaurant-item" >
-               {/* <div className="restaurant-image-wrapper">
-                <img className="restaurant-image" src={ImageUrl} alt={restaurant["Restaurant Name"]} />
+    <div>
+      <Navbar />
+      <div className="recommendation-container">
+        <h2 className="header">Our Top 5 Suggestions:</h2>
+        <div className="restaurant-list">
+          {restaurants.map((restaurant, index) => {
+            const ImageUrl = restaurant.ImageUrl;
+            const location = restaurant.location;
+            const dishes = restaurant.dishes;
+            const cusine = restaurant.cusine;
+            const cost = restaurant.cost;
+            return (
+              <div className="restaurant-item" key={restaurant.id}>
+                 <div className="restaurant-image-wrapper">
+                  <img className="restaurant-image" src={ImageUrl} alt={restaurant["Restaurant Name"]} />
+                </div>
+                <div className="restaurant-details">
+                  <h3 className="restaurant-name">{index + 1}. {restaurant.name}</h3>
+                  <p className="restaurant-dishes">Recommended Dishes: {dishes}</p>
+                </div>
+               
+                <div className="restaurant-cuisine-cost">
+                  <p className="restaurant-cuisine">Similarity Index: {cusine}</p>
+                  <p className="restaurant-cuisine">Rating: {cusine}</p>
+                  <p className="restaurant-cuisine">Cuisine: {cusine}</p>
+                  <p className="restaurant-cost">Budget: {cost}</p>
+                </div>
+                <button className="transparent-button" onClick={() => openModal(index)}>
+                  <img src={downArrowImageUrl} alt="View Details" />
+                </button>
+                {/* Separate modal for each restaurant */}
+                {modalIsOpen === index && (
+                  <div className="modal">
+                    <div className="image-row">
+                      <div className="image-container">
+                        <h3>Rating Analysis</h3>
+                        <img src={ahemd3} alt="Image 1" />
+                      </div>
+                      <div className="image-container">
+                        <h3>Review Analysis</h3>
+                        <img src={ahemd3} alt="Image 2" />
+                      </div>
+                      <span className="close-btn" onClick={closeModal}>&times;</span>
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className="restaurant-details">
-                <h3 className="restaurant-name">{index + 1}. {restaurant["Restaurant Name"]}</h3>
-                <p className="restaurant-location">Location: {location}</p>
-                <p className="restaurant-dishes">Recommended Dishes: {dishes}</p>
-              </div>
-              <div className="restaurant-cuisine-cost">
-                <p className="restaurant-cuisine">Cuisine: {cusine}</p>
-                <p className="restaurant-cost">Cost: {cost}</p>
-              </div> */}
-              
-
-            {/* </div>
-           );
-        }) 
-        }   */}
-         <h2>Recommendations</h2>
-      <ul>
-        {Object.entries(recommendations).map(([index, recommendation]) => (
-          <li key={index}>
-            <div className="restaurant-details">
-              <h3 className="restaurant-name">{parseInt(index) + 1}. {recommendation['Restaurant Name']}</h3>
-              <p>Similarity: {recommendation.similarity}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-          {/* {!recommendations.length && <p className="no-recommendations">No recommendations available</p>} */}
-       </div>  
-       {/* <button onClick={() => navigate('/dashboard')} className="go-back-button">
-        Go Back
-      </button>  */}
-    </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };
