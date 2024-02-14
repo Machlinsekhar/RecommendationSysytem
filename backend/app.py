@@ -6,6 +6,8 @@ from flask_cors import CORS
 from auth import auth as auth_blueprint
 from db import entries
 from main import main as main_blueprint
+from scrap import check_path
+import subprocess
 
 app = Flask(__name__)
 
@@ -22,8 +24,13 @@ CORS(app)
 def hello_world():
     return "Hello, World!"
 
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/receive-location', methods=['POST'])
+def receive_location():
+    location = request.json.get('location')
+    
+    result = check_path(location)
+
+    return jsonify(result)
 
 @app.route('/recommend', methods=['POST'])
 def recommend():
@@ -46,4 +53,7 @@ def colrecommend():
     recommendations = col.collab_manual()
     print(recommendations)
     return jsonify(recommendations)
+
+if __name__ == '__main__':
+    app.run(debug=True)
 

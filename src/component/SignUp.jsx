@@ -52,8 +52,7 @@ const SignUp = () => {
     minHeight: '100vh',
     backgroundColor: '#EFBA55',
     backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    fontFamily: 'Arial',
+    backgroundPosition: 'center'
   };
 
   const headingStyle = {

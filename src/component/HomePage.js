@@ -45,15 +45,19 @@ const Home = () => {
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
-   
   };
 
-  const handleSearch = () => {
-    if(searchTerm!=""){
-        navigate(`/profile/${searchTerm}`);}
-    else{
-        alert('Enter location preference')
-    }
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    const response = await fetch('/receive-location', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ searchTerm }),
+    });
+    const data = await response.text();
+    console.log(data);
   };
  
   const inputStyle = {

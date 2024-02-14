@@ -44,7 +44,6 @@ const UserProfile2 = () => {
     backgroundColor: '#EFBA55',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    fontFamily: 'Arial',
   };
 
   const headingStyle = {

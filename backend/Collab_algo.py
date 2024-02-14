@@ -3,7 +3,7 @@ from scipy.spatial.distance import cosine
 from scipy.spatial import distance
 
 # Load the dataset into a DataFrame
-data = pd.read_csv('Dataset\collab_user.csv')
+data = pd.read_csv('old_dataset_store\collab_user.csv')
 
 df = pd.DataFrame(data)
 

@@ -73,7 +73,7 @@ def generate_profiles(location):
 
     restaurant_files=[]
 
-    folder_path = os.path.join(".\\Dataset\\",location)
+    folder_path = os.path.join(".\\old_dataset_store\\",location)
 
     if not os.path.exists(folder_path):
         print('path does not exist')
@@ -121,4 +121,4 @@ def get_user_recommendations(location, user_rating, user_restaurant_type, user_m
 
 # generate_profiles()
 
-print(get_user_recommendations('Nerul',4, 'chinese', 'expensive'))
+#print(get_user_recommendations('Nerul',4, 'chinese', 'expensive'))

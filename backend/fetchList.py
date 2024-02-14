@@ -4,6 +4,10 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import time
 import re
+from dataCollect import main_function
+from preprocess import preprocess_fun
+from graph import graph_fun
+
 
 def convert_review_count(review_count_str):
     match = re.search(r'([\d.]+)([Tt]?)', review_count_str)
@@ -53,11 +57,14 @@ def google_search(query, location):
                     break
 
         print("Top 10 Restaurants:")
-        for idx, restaurant_name in enumerate(top_restaurants, start=1):
-            print(f"{idx}. {restaurant_name}")
+        print(top_restaurants)
 
+        main_function(location, top_restaurants)
+        preprocess_fun(location)
+        graph_fun(location)
+        print("ENTIRE CODE EXEC DONE")
 
     finally:
         driver.quit()
 
-google_search("top restaurants in", "New York")
+# google_search("top restaurants in", "pune")
