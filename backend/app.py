@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request, jsonify, make_response
-import restaurant_recommender as rec
+# import restaurant_recommender as rec
 import collab_algo as col
 from pymongo import MongoClient
 from flask_cors import CORS
 from auth import auth as auth_blueprint
 from db import entries
 from main import main as main_blueprint
-from scrap import check_path
+from cbf_pipeline.scrap import check_path
 
 app = Flask(__name__)
 
@@ -42,9 +42,8 @@ def recommend():
     print(user_restaurant_type) 
     print(user_max_cost)
 
-    recommendations = rec.get_user_recommendations(location, user_rating, user_restaurant_type, user_max_cost)
-    
-    return jsonify(recommendations)
+    #recommendations = rec.get_user_recommendations(location, user_rating, user_restaurant_type, user_max_cost)
+    #return jsonify(recommendations)
 
 @app.route('/collabrecommend', methods=['POST'])
 def colrecommend():

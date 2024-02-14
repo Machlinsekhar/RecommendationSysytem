@@ -7,7 +7,7 @@ sid = SentimentIntensityAnalyzer()
 # jagah = "pune"
 
 def preprocess_fun(jagah):
-    folder_path = f'dataset/{jagah}'
+    folder_path = f'backend/dataset/{jagah}'
     main_csv_file = f'{jagah}_profile.csv'
     main_df = pd.read_csv(os.path.join(folder_path, main_csv_file))
     file_names = main_df['restaurant_name']
@@ -22,7 +22,7 @@ def preprocess_fun(jagah):
         print(file,' here now')
         sentiment = []
         name_csv = file + '.csv'
-        csv_folder = f"dataset/{jagah}/reviews/{file}"
+        csv_folder = f"backend/dataset/{jagah}/reviews/{file}"
         csv_path = os.path.join(csv_folder, name_csv)
         df = pd.read_csv(csv_path)
 
@@ -51,9 +51,9 @@ def preprocess_fun(jagah):
             recs.append([])
 
     main_df['rec_dishes'] = recs
-    main_df.to_csv(f'dataset/{jagah}/{jagah}_profile.csv', index=False)
+    main_df.to_csv(f'backend/dataset/{jagah}/{jagah}_profile.csv', index=False)
 
     main_df['avg_rating'] = avg_array
-    main_df.to_csv(f'dataset/{jagah}/{jagah}_profile.csv', index=False)
+    main_df.to_csv(f'backend/dataset/{jagah}/{jagah}_profile.csv', index=False)
 
 # preprocess_fun("pune")

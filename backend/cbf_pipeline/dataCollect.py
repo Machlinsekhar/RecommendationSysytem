@@ -63,8 +63,8 @@ def download_image(url, save_path):
 
 def main_function(jagah, top_restaurants):
 
-    os.makedirs(f"dataset/{jagah}", exist_ok=True)
-    file_path = os.path.join(f"dataset/{jagah}", f"{jagah}_profile.csv")
+    os.makedirs(f"backend/dataset/{jagah}", exist_ok=True)
+    file_path = os.path.join(f"backend/dataset/{jagah}", f"{jagah}_profile.csv")
     with open(file_path, 'w', newline='', encoding='utf-8') as csvfile:
         csv_writer = csv.writer(csvfile)
         csv_writer.writerow(["restaurant_name", "restaurant_type", "budget", "review_count"])
@@ -113,8 +113,8 @@ def main_function(jagah, top_restaurants):
                 image_element = driver.find_element(By.XPATH, IMG_URL)
                 img_url = image_element.get_attribute("src")
                 print("url found")
-                os.makedirs(f"dataset/{jagah}/reviews/{place}", exist_ok=True)
-                img_file_path = os.path.join(f"dataset/{jagah}/reviews/{place}", f"{place}.jpg")
+                os.makedirs(f"backend/dataset/{jagah}/reviews/{place}", exist_ok=True)
+                img_file_path = os.path.join(f"backend/dataset/{jagah}/reviews/{place}", f"{place}.jpg")
                 download_image(img_url, img_file_path)
             except NoSuchElementException:
                 print("url not found")
@@ -133,7 +133,7 @@ def main_function(jagah, top_restaurants):
                 pass 
             
             # CSV WRITE IN PROFILE.CSV
-            with open(f"dataset/{jagah}/{jagah}_profile.csv", 'a', newline='', encoding='utf-8') as csvfile:
+            with open(f"backend/dataset/{jagah}/{jagah}_profile.csv", 'a', newline='', encoding='utf-8') as csvfile:
                 csv_writer = csv.writer(csvfile)
                 csv_writer.writerow([place, restaurant_type, expense_word, count])
 
@@ -153,7 +153,7 @@ def main_function(jagah, top_restaurants):
                 
             reviews = driver.find_elements(By.XPATH, REVIEW_CONTAINER)
 
-            rest_file_path = os.path.join(f"dataset/{jagah}/reviews/{place}", f"{place}.csv")
+            rest_file_path = os.path.join(f"backend/dataset/{jagah}/reviews/{place}", f"{place}.csv")
             with open(rest_file_path, 'w', newline='', encoding='utf-8') as csvfile:
                 csvwriter = csv.writer(csvfile)
                 csvwriter.writerow(["Reviewer", "Review", "Rating", "Recommended dishes"])

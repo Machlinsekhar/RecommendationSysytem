@@ -4,9 +4,9 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import time
 import re
-from dataCollect import main_function
-from preprocess import preprocess_fun
-from graph import graph_fun
+from cbf_pipeline.dataCollect import main_function
+from cbf_pipeline.preprocess import preprocess_fun
+from cbf_pipeline.graph import graph_fun
 
 
 def convert_review_count(review_count_str):
