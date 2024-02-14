@@ -7,7 +7,6 @@ from auth import auth as auth_blueprint
 from db import entries
 from main import main as main_blueprint
 from scrap import check_path
-import subprocess
 
 app = Flask(__name__)
 
@@ -27,9 +26,8 @@ def hello_world():
 @app.route('/receive-location', methods=['POST'])
 def receive_location():
     location = request.json.get('location')
-    
+    print(location)
     result = check_path(location)
-
     return jsonify(result)
 
 @app.route('/recommend', methods=['POST'])

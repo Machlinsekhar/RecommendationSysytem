@@ -49,15 +49,19 @@ const Home = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    const response = await fetch('/receive-location', {
+    console.log({searchTerm})
+    const response = await fetch('http://127.0.0.1:5000/receive-location', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ searchTerm }),
+      body: JSON.stringify({ location: searchTerm }),
     });
     const data = await response.text();
     console.log(data);
+    if (data.trim() === 'true') {
+      navigate(`/dashboard/${searchTerm}`);
+    } 
   };
  
   const inputStyle = {
