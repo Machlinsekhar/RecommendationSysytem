@@ -2,9 +2,13 @@ import pandas as pd
 import os
 
 def recommend_restaurants(min_rating, restaurant_type, budget_range, location):
+    
+    restaurant_type = restaurant_type + 'restaurant'
 
-    profile_path = os.path.join(f"dataset/{location}", f"{location}_profile.csv")
+    print(min_rating, restaurant_type, budget_range, location )
 
+    backend_path = os.path.dirname(__file__)
+    profile_path = os.path.join( backend_path, f'..\dataset\{location}',f"{location}_profile.csv")
     data = pd.read_csv(profile_path)
 
     matching_type = data[data['restaurant_type'] == restaurant_type]
@@ -15,13 +19,15 @@ def recommend_restaurants(min_rating, restaurant_type, budget_range, location):
 
     final_data = pd.concat([matching_type_sorted, other_types_sorted])
     restaurant_names = final_data['restaurant_name'].tolist()
+
+    print(restaurant_names)
     return restaurant_names
 
 # Example usage
-# min_rating = 4.0
-# restaurant_type = 'buffet restaurant'
+# min_rating = 4
+# restaurant_type = ''
 # budget_range = 'expensive'
-# location = 'hyderabad'
+# location = 'nerul'
 
 # recommend_restaurants(min_rating, restaurant_type, budget_range, location)
 

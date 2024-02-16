@@ -1,15 +1,10 @@
 import React, { useState }  from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import modal from '../image/modal.jpg';
 import content from '../image/content.jpg';
 import collaborative from '../image/collaborative.jpg';
-import Dialog from '@mui/material/Dialog';
-import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate, useLocation } from 'react-router-dom';
 import NavBar from './NavBar';
 
@@ -86,12 +81,12 @@ const Dashboard = () => {
       alert('Please fill out the Minimum Rating');
       return;
     }
-    setShowModal(true); // Show the modal
+    setShowModal(true); 
     setTimeout(async () => {
       const data = await fetchRecommendations();
       navigate('/recommendation', { state: { recommendations: data } });
       console.log('Form submitted:', data);
-    }, 3000); // Navigate after 5 seconds
+    }, 10); 
   };
         
   const fetchRecommendations = async () => {
@@ -102,6 +97,9 @@ const Dashboard = () => {
           restaurant_type: cuisine,
           max_cost: budget,
       };
+
+      console.log('in fetchrecommendations')
+      console.log(requestBody)
 
       const response = await fetch('http://127.0.0.1:5000/recommend', {
           method: 'POST',
@@ -114,7 +112,11 @@ const Dashboard = () => {
       if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
       }
+
       const data = await response.json();
+
+      console.log('requestbody posted')
+      console.log(data)
       return data;
     } 
     catch (error) {
@@ -123,13 +125,14 @@ const Dashboard = () => {
   };
         
   const toggleCuisine = (selectedCuisine) => {
-    setCuisine((prevCuisine) => {
-      if (prevCuisine.includes(selectedCuisine)) {
-        return prevCuisine.filter((c) => c !== selectedCuisine);
-      } else {
-        return [...prevCuisine, selectedCuisine];
-      }
-    });
+    // setCuisine((prevCuisine) => {
+    //   if (prevCuisine.includes(selectedCuisine)) {
+    //     return prevCuisine.filter((c) => c !== selectedCuisine);
+    //   } else {
+    //     return [...prevCuisine, selectedCuisine];
+    //   }
+    // });
+    setCuisine(selectedCuisine);
   };
 
   const handleCollabClick = async () => {
@@ -215,8 +218,8 @@ const Dashboard = () => {
 
     <label style={labelStyle}>1. Preferred Cuisine:</label>
     <div style={buttonGroupStyle}>
-      <button style={buttonStyle2('Chinese')} onClick={() => toggleCuisine('Chinese')}>
-        Chinese
+      <button style={buttonStyle2('Any')} onClick={() => toggleCuisine('Any')}>
+        Any
       </button>
       <button style={buttonStyle2('Barbeque')} onClick={() => toggleCuisine('Barbeque')}>
         Barbeque
@@ -224,8 +227,8 @@ const Dashboard = () => {
       <button style={buttonStyle2('North Indian')} onClick={() => toggleCuisine('North Indian')}>
         North Indian
       </button>
-      <button style={buttonStyle2('Fast Food')} onClick={() => toggleCuisine('Fast Food')}>
-        Fast Food
+      <button style={buttonStyle2('Chinese')} onClick={() => toggleCuisine('Chinese')}>
+        Chinese
       </button>
       <button style={buttonStyle2('South Indian')} onClick={() => toggleCuisine('South Indian')}>
         South Indian

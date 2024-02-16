@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify, make_response
-# import restaurant_recommender as rec
+import cbf_pipeline.cbf as cbf
 import collab_algo as col
 from pymongo import MongoClient
 from flask_cors import CORS
@@ -35,15 +35,18 @@ def recommend():
     body = request.json
     location = body['location'].lower()
     user_rating = float(body['rating'])
-    user_restaurant_type = body['restaurant_type'].lower()
+    if body['restaurant_type'].lower() == 'any':
+        user_restaurant_type = ''
+    else:
+        user_restaurant_type = body['restaurant_type'].lower() + ' '
     user_max_cost = body['max_cost'].lower()
     print(location)
     print(user_rating)
     print(user_restaurant_type) 
     print(user_max_cost)
 
-    #recommendations = rec.get_user_recommendations(location, user_rating, user_restaurant_type, user_max_cost)
-    #return jsonify(recommendations)
+    recommendations = cbf.recommend_restaurants(user_rating, user_restaurant_type, user_max_cost, location)
+    return jsonify(recommendations)
 
 @app.route('/collabrecommend', methods=['POST'])
 def colrecommend():
