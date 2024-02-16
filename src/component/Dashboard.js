@@ -84,8 +84,9 @@ const Dashboard = () => {
     setShowModal(true); 
     setTimeout(async () => {
       const data = await fetchRecommendations();
-      navigate('/recommendation', { state: { recommendations: data } });
-      console.log('Form submitted:', data);
+      const details = await fetchRestDetails(data);
+      navigate('/recommendation', { state: { recommendations: details } });
+      console.log('Form submitted');
     }, 10); 
   };
         
@@ -118,6 +119,35 @@ const Dashboard = () => {
       console.log('requestbody posted')
       console.log(data)
       return data;
+    } 
+    catch (error) {
+      console.error('Failed to fetch recommendations:', error);
+    }
+  };
+
+  const fetchRestDetails = async (data) => {
+    try {
+      const requestBody = {
+          location: location,
+          restaurant_names: data,
+      };
+      console.log(requestBody)
+
+      const response = await fetch('http://127.0.0.1:5000/restaurant_details', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+      });
+
+      if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const details = await response.json();
+      console.log(details)
+      return details;
     } 
     catch (error) {
       console.error('Failed to fetch recommendations:', error);
