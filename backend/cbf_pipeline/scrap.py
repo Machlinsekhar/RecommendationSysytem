@@ -11,7 +11,7 @@ def check_path(location):
     else:
         print('does not exist')
         search_loc(location)
-        return False
+        return True
 
 # location = 'bandra'
 # check_path(location)

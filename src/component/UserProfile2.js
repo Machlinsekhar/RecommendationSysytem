@@ -28,7 +28,7 @@ const UserProfile2 = () => {
   const handleProfileCompletion = (e) => {
     e.preventDefault();
     if (Object.values(ratings).some((rating) => rating !== '')) {
-      navigate('/dashboard');
+      navigate('/home');
     } else {
       alert('Enter your preferences.');
     }
