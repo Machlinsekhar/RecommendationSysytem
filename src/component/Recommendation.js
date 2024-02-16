@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Recommendation.css';
 import './fonts.css';
 import shy1 from '../image/shy1.png';
@@ -26,9 +26,6 @@ const Recommendation = () => {
   const navigate = useNavigate();
   const details = location.state?.recommendations || [];
   console.log(details);
-
-  // const imagesDir = process.env.REACT_APP_IMAGES_DIR;
-  // const rating_graph = `${imagesDir}/graphs/Celeste/rating_graph.png`;
 
   const [modalIsOpen, setModalIsOpen] = useState(null);
 
@@ -66,15 +63,15 @@ const Recommendation = () => {
                 </div> */}
                 <div className="restaurant-details">
                   <h3 className="restaurant-name">{index + 1}. {restaurant.restaurant_name}</h3>
-                  {/* <p className="restaurant-dishes">Recommended Dishes: {restaurant.rec_dishes}</p> */}
+                  <p className="restaurant-dishes">Recommended Dishes: {restaurant.rec_dishes}</p>
                 </div>
                
-                {/* <div className="restaurant-cuisine-cost">
+                <div className="restaurant-cuisine-cost">
                   <p className="restaurant-cuisine">Similarity Rank: {index+1}</p>
                   <p className="restaurant-cuisine">Rating: {restaurant.rating}</p>
                   <p className="restaurant-cuisine">Cuisine: {restaurant.type}</p>
                   <p className="restaurant-cost">Budget: {restaurant.budget}</p>
-                </div> */}
+                </div>
                 <button className="transparent-button" onClick={() => openModal(index)}>
                   <img src={downArrowImageUrl} alt="View Details" />
                 </button>

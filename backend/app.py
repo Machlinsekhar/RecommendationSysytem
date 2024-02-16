@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, make_response
+from flask import Flask, request, jsonify
 import cbf_pipeline.cbf as cbf
 import collab_algo as col
 from pymongo import MongoClient
