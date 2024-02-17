@@ -8,7 +8,6 @@ import plate from '../image/plate3.png';
 const SignUp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSignin = async(e) => {
@@ -19,30 +18,30 @@ const SignUp = () => {
     formData.append('username', username);
     formData.append('password', password);
 
-    try {
-      const response = await fetch('http://127.0.0.1:5000/signup', {
-        method: 'POST',
-        body: formData,
-      });
-  
-      if (response.ok) {
-        console.log('Sign up successful');
-        navigate('/userprofile');
-      } else {
-        // Handle errors
-        console.error('Sign up failed');
-      }
-    } catch (error) {
-      console.error('Error during sign up:', error);
-    }
-
-    console.log('Logging in with:', username, password);
     if(username!=='' && password!==''){
-    navigate('/userprofile');}
-    else {
-      // If either field is empty, alert the user
-      alert('Username and password fields cannot be empty.');
+      try {
+        const response = await fetch('http://127.0.0.1:5000/signup', {
+          method: 'POST',
+          body: formData,
+        });
+    
+        if (response.ok) {
+          console.log('Sign up successful');
+          console.log('Logging in with:', username, password);
+          navigate('/userprofile');
+        } else {
+          // Handle errors
+          alert('Sign up failed');
+        }
+      } catch (error) {
+        console.error('Error during sign up:', error);
+      }
     }
+      else {
+        // If either field is empty, alert the user
+        alert('Username and password fields cannot be empty.');
+      }
+    
   };
 
   const divStyle = {
@@ -53,8 +52,7 @@ const SignUp = () => {
     minHeight: '100vh',
     backgroundColor: '#EFBA55',
     backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    fontFamily: 'Arial',
+    backgroundPosition: 'center'
   };
 
   const headingStyle = {

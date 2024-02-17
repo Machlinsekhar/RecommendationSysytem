@@ -9,11 +9,30 @@ const UserProfile = () => {
   const [cuisine, setCuisine] = useState('');
   const navigate = useNavigate();
 
-  const handleProfileCompletion = (e) => {
+  const handleProfileCompletion = async(e) => {
+
     e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('home_location', location);
+    formData.append('fav_cuisine', JSON.stringify(cuisine));
+
     if (location !== '' && cuisine !== '') {
+      try {
+        const response = await fetch('http://127.0.0.1:5000/create-entry', {
+          method: 'POST',
+          body: formData,
+        });
+        
+        const responseData = await response.json();
+        console.log('Response:', responseData);
+        
+      } catch (error) {
+        console.error('Error:', error);
+      }
       navigate('/userprofile2');
-    } else {
+    } 
+    else {
       alert('Enter your preferences.');
     }
   };
@@ -28,7 +47,6 @@ const UserProfile = () => {
       backgroundColor: '#EFBA55',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      fontFamily: 'Arial',
     };
 
   const headingStyle = {

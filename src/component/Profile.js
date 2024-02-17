@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import './Profile.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import modal from '../image/modal.jpg';
 
 const Profile = () => {
+  const [loadingModalOpen, setLoadingModalOpen]= useState('False')
   const [restaurantType, setRestaurantType] = useState('');
   const [budget, setBudget] = useState('');
   const [place, setPlace] = useState('');
   const [cuisine, setCuisine] = useState('1');
   const navigate = useNavigate();   
   const [showModal, setShowModal] = useState(false);
+  const location = useLocation().pathname.split('/').pop();
 
   const handleRestaurantTypeChange = (type) => {
     setRestaurantType(type);
@@ -55,7 +57,7 @@ const Profile = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ rating: cuisine, restaurant_type: restaurantType, max_cost: budget }),
+            body: JSON.stringify({ location: location, rating: cuisine, restaurant_type: restaurantType, max_cost: budget }),
         });
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -68,6 +70,40 @@ const Profile = () => {
     }
 };
 
+const handleCollabClick = async () => {
+  try {
+      setLoadingModalOpen(true);
+
+      setTimeout(async () => {
+          const data = await fetchCollabRecommendations();
+          setLoadingModalOpen(false);
+
+          navigate('/recommendation', { state: { recommendations: data } });
+          console.log('Form submitted:', data);
+      }, 3000);
+  } 
+  catch (error) {
+      console.error('Error fetching data:', error);
+      setLoadingModalOpen(false); 
+  }
+};
+
+
+const fetchCollabRecommendations = async () => {
+
+  try {
+      const response = await fetch('http://localhost:5000/collabrecommend', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          }})
+      const data = await response.json();
+      return data;
+  } catch (error) {
+      console.error('Failed to fetch recommendations:', error);
+  }
+};
+
   return (
     <div className="profile-bg">
     <div className="profile-container">
@@ -77,10 +113,10 @@ const Profile = () => {
         <label className='text-left'>Type of Restaurant</label>
         <div className="button-group">
           <button
-            className={restaurantType === 'VEGETARIAN' ? 'selected' : ''}
-            onClick={() => handleRestaurantTypeChange('VEGETARIAN')}
+            className={restaurantType === 'Indian' ? 'selected' : ''}
+            onClick={() => handleRestaurantTypeChange('Indian')}
           >
-            Non-Vegetarian
+            Indian
           </button>
           <button
             className={restaurantType === 'CHINESE' ? 'selected' : ''}
@@ -137,8 +173,9 @@ const Profile = () => {
           <option value="5">5</option>
         </select>
       </div>
-
-      <button type="submit" onClick={handleSubmit}>Start</button>
+<div >
+      <div >
+      <button type="submit" onClick={handleSubmit}>Content Based Filtering</button>
 
         {/* Modal */}
         {showModal && (
@@ -148,6 +185,20 @@ const Profile = () => {
             </div>
           </div>
         )}
+      </div>
+
+      <button type="submit" onClick={handleCollabClick}>Collaborative Filtering</button>
+
+        {/* Modal */}
+        {showModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <img src={modal} alt="Loading..." />
+            </div>
+          </div>
+          
+        )}
+      </div>
       </div>
     </div>
   );
