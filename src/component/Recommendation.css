@@ -6,7 +6,6 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  font-family: 'Arial', sans-serif; /* Replace with your preferred font */
   padding-top: 100px;
   padding-left: 180px;
   padding-right: 180px;
@@ -51,6 +50,9 @@
 .restaurant-details {
   padding: 10px;
   flex-grow: 1;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 }
 
 .restaurant-name {
@@ -60,18 +62,26 @@
   margin: 0;
 }
 
-.restaurant-location,
-.restaurant-dishes {
+.restaurant-location{
   color: black;
   margin: 5px 0;
   font-weight: 700;
 }
+
+.restaurant-dishes{
+  color: black;
+  margin: 5px 0;
+  font-weight: 700;
+  width: 100%;
+}
+
 
 .restaurant-cuisine-cost {
   padding: 10px;
   background: linear-gradient(to top, #EFBA55, #FFD992); /* Background color for cuisine and cost */
   display: flex;
   flex-direction: column;
+  width: 40%;
   justify-content: center;
   align-items: flex-start;
 }

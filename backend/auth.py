@@ -23,7 +23,6 @@ def login():
 def signup():
     if request.method == "POST":
         username = request.form.get('username')
-        # name = request.form.get('name')
         password = request.form.get('password')
         user = users.find_one({"username": username})
         if user:

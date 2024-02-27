@@ -3,6 +3,7 @@ import os
 import nltk
 from textblob import TextBlob
 from sklearn.metrics.pairwise import cosine_similarity
+import matplotlib.pyplot as plt
 
 # nltk.download('stopwords')
 # nltk.download('wordnet')
@@ -40,6 +41,8 @@ def process_reviews(filename):
     df['processed_reviews'] = df['Review'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split() if word.lower() not in stop_words]))
     df['sentiment_numerical'] = df['Review'].apply(lambda x: convert_sentiment(TextBlob(str(x)).sentiment.polarity))
     
+    print(df['sentiment_numerical'].unique())
+
     restaurant_name = os.path.splitext(os.path.basename(filename))[0]
     restaurant_name = restaurant_name.replace('_', ' ')
     restaurant_name = ' '.join(word.capitalize() for word in restaurant_name.split())
@@ -60,13 +63,24 @@ def process_reviews(filename):
 
     return restaurant_profile
 
-def generate_profiles():
-    restaurant_files = [
-        './Dataset/Shree_Nerul_Cafe.csv',
-        './Dataset/Shy_Cafe_and_Bar.csv',
-        './Dataset/Barbeque_Nation.csv',
-        './Dataset/Ahmed_Bhais.csv'
-    ]
+def generate_profiles(location):
+    # restaurant_files = [
+    #     './Dataset/Shree_Nerul_Cafe.csv',
+    #     './Dataset/Shy_Cafe_and_Bar.csv',
+    #     './Dataset/Barbeque_Nation.csv',
+    #     './Dataset/Ahmed_Bhais.csv'
+    # ]
+
+    restaurant_files=[]
+
+    folder_path = os.path.join(".\\old_dataset_store\\",location)
+
+    if not os.path.exists(folder_path):
+        print('path does not exist')
+
+    for file_name in os.listdir(folder_path):
+        file_path = os.path.join(folder_path, file_name)
+        restaurant_files.append(file_path)
 
     profiles = [process_reviews(restaurant_file) for restaurant_file in restaurant_files]
     profiles_df = pd.DataFrame(profiles)
@@ -77,7 +91,10 @@ def generate_profiles():
 
     profiles_df.to_csv("./Output/restaurant_profiles.csv", index=False)
 
-def get_user_recommendations(user_rating, user_restaurant_type, user_max_cost):
+def get_user_recommendations(location, user_rating, user_restaurant_type, user_max_cost):
+
+    generate_profiles(location)
+
     df_restaurants = pd.read_csv("./Output/restaurant_profiles.csv")
 
     df_transformed = pd.DataFrame()
@@ -104,5 +121,4 @@ def get_user_recommendations(user_rating, user_restaurant_type, user_max_cost):
 
 # generate_profiles()
 
-print(get_user_recommendations(4, 'chinese', 'expensive'))
- 
+#print(get_user_recommendations('Nerul',4, 'chinese', 'expensive'))
