@@ -57,12 +57,12 @@ def google_search(query, location):
                     break
 
         print("Top 10 Restaurants:")
-        print(top_restaurants)
+        return top_restaurants
 
-        main_function(location, top_restaurants)
-        preprocess_fun(location)
-        graph_fun(location)
-        print("ENTIRE CODE EXEC DONE")
+        # main_function(location, top_restaurants)
+        # preprocess_fun(location)
+        # graph_fun(location)
+        # print("ENTIRE CODE EXEC DONE")
 
     finally:
         driver.quit()
