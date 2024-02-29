@@ -83,7 +83,7 @@ def fetch_details(location, restaurant_name):
         with psycopg2.connect(**config) as conn:
             cur = conn.cursor()
             get_query = f"""
-                SELECT rest_name, rest_budget, rest_cuisine, rest_rating, rest_img, rev_count
+                SELECT rest_name, rest_budget, rest_cuisine, rest_rating, rev_count, ENCODE(rest_img,'base64') as base64
                 FROM test.restaurants
                 WHERE rest_name = '{restaurant_name}'
             """
@@ -95,8 +95,8 @@ def fetch_details(location, restaurant_name):
                 "budget": f"{row[1]}",
                 "type": f"{row[2]}",
                 "rating": f"{row[3]}",
-                "img_file_path": f"{row[4]}",
-                "rev_count":f"{row[5]}"
+                "rev_count":f"{row[4]}",
+                "img_url_path": f"{row[5]}",
             }
 
 

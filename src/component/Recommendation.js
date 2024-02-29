@@ -58,11 +58,11 @@ const Recommendation = () => {
             // const cost = restaurant.cost; restaurant.img_file_path
             return (
               <div className="restaurant-item" key={index}>
-                {/* <div className="restaurant-image-wrapper">
-                  <img className="restaurant-image" src={rating_graph} alt={restaurant["Restaurant Name"]} />
-                </div> */}
+                <div className="restaurant-image-wrapper">
+                  <img className="restaurant-image" src={`data:image/jpeg;base64,${restaurant.img_url_path}`} alt={restaurant.restaurant_name} />
+                </div>
                 <div className="restaurant-details">
-                  <h3 className="restaurant-name">{index + 1}. {restaurant.restaurant_name}</h3>
+                  <h3 className="restaurant-name">{index + 1}. {restaurant.restaurant_name}</h3>  
                   <p className="restaurant-dishes">Recommended Dishes: {restaurant.rec_dishes}</p>
                 </div>
                
