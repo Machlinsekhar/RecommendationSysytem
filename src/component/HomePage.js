@@ -17,6 +17,7 @@ const Home = () => {
     
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
 
     const dashboardContainer = {
         // height: '100vh', /* Set component height to cover the entire viewport */
@@ -48,21 +49,21 @@ const Home = () => {
   };
 
   const handleSearch = async (e) => {
+    setShowModal(true);
     e.preventDefault();
     console.log({searchTerm})
-    // const response = await fetch('http://127.0.0.1:5000/receive-location', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({ location: searchTerm }),
-    // });
-    // const data = await response.text();
-    // console.log(data);
-    // if (data.trim() === 'true') {
-    //   navigate(`/dashboard/${searchTerm}`);
-    // } 
-    navigate(`/dashboard/${searchTerm}`);
+    const response = await fetch('http://127.0.0.1:5000/receive-location', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ location: searchTerm }),
+    });
+    const data = await response.text();
+    console.log(data);
+    if (data.toLowerCase().trim() === 'true') {
+      navigate(`/dashboard/${searchTerm}`);
+    } 
   };
  
   const inputStyle = {
@@ -94,10 +95,18 @@ const Home = () => {
       
    
       <button onClick={handleSearch} style={{ ...buttonStyle2,  }}>
-  Start
-</button>
-</div>
-        </div>
+        Start
+      </button>
+      </div>
+
+      {showModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <img src={modal} alt="Loading..." />
+            </div>
+          </div>
+        )}
+      </div>
     );
 };
 

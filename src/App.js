@@ -31,7 +31,6 @@ function App() {
       <Route path="/profile/:location" element={<Profile/>}/>
       <Route path="/dashboard/:location" element={<Dashboard/>}/>
       <Route path="/recommendation" element={<Recommendation/>}/>
-      <Route path="/image" element={<Image place={"hyderabad"} filename={"the water front.jpg"} />}/>
       </Routes>
       </Router>
     {/* </PersistGate> */}

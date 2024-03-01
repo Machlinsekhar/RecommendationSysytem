@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 import os
 # import csv
 # from db import entries
-# from cbf_pipeline.scrap import check_path
+from cbf_pipeline.scrap import check_path
 
 app = Flask(__name__)
 load_dotenv()
@@ -28,12 +28,12 @@ CORS(app)
 def hello_world():
     return "Hello, World!"
 
-# @app.route('/receive-location', methods=['POST'])
-# def receive_location():
-#     location = request.json.get('location')
-#     print(location)
-#     result = check_path(location)
-#     return jsonify(result)
+@app.route('/receive-location', methods=['POST'])
+def receive_location():
+    location = request.json.get('location')
+    print(location)
+    result = check_path(location)
+    return jsonify(result)
 
 @app.route('/uploads/<place>/<filename>', methods=['GET'])
 def send_image(place, filename):

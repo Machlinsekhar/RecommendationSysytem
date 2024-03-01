@@ -4,10 +4,9 @@ from cbf_pipeline.fetchList import google_search
 from cbf_pipeline.dataCollect import start_function
 from cbf_pipeline.preprocess import preprocess_fun
 from graph import graph_fun
+import re
 
-def connect(config):
-
-    location = 'hyderabad'
+def connect(location, config):
 
     try:
         with psycopg2.connect(**config) as conn:
@@ -34,8 +33,12 @@ def connect(config):
                 top_restaurants = google_search("top restaurants in", location)
 
                 for resto in top_restaurants:
-
+                    
+                    resto = resto.strip()
                     resto=resto.lower()
+                    resto = re.sub(r"[^a-zA-Z0-9\s']", '', resto)
+                    resto = resto.replace("'","")
+                    print(resto)
                     rest_info, review_data = start_function(location, resto, 0)
 
                     if rest_info:
@@ -61,6 +64,9 @@ def connect(config):
                             actual_review = f'{review[2]}'
                             sentiment_score = preprocess_fun(actual_review)
 
+                            review[0] = re.sub(r"[^a-zA-Z0-9\s']", '', review[0])
+                            review[0] = review[0].replace("'","")
+
                             update_rev_sql = f"""
                             INSERT INTO test.reviews(rev_name, rev_rating, review, rest_id, sentiment_score)
                             VALUES('{review[0]}', {review[1]}, (%s), {rest_id}, {sentiment_score})
@@ -80,7 +86,7 @@ def connect(config):
         print(error)
         conn.rollback()
 
-
-if __name__ == '__main__':
+def main_connect(location):
     config = load_config()
-    connect(config)
+    connect(location, config)
+    return True
