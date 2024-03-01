@@ -69,8 +69,12 @@ def connect(config):
 
                         print("updated reviews")
 
-            conn.commit()
-            graph_fun(loc_id)
+                conn.commit()
+
+                print(loc_id)
+                graph_fun(loc_id)
+
+                conn.commit()
         
     except (psycopg2.DatabaseError, Exception) as error:
         print(error)

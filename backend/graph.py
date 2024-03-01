@@ -28,27 +28,30 @@ def graph_fun(loc_id):
             cur = conn.cursor()
 
             fetch_location = f"""
-                SELECT loc_name FROM test.locations WHERE loc_id='{loc_id}'
+                SELECT loc_name FROM test.locations WHERE loc_id={loc_id}
             """
             cur.execute(fetch_location)
             jagah = cur.fetchone()[0]
+            print(jagah)
 
             fetch_rest_sql = f"""
-                SELECT rest_id FROM test.restaurants WHERE loc_id='{loc_id}'
+                SELECT rest_id FROM test.restaurants WHERE loc_id={loc_id}
             """
             cur.execute(fetch_rest_sql)
             rest_raw = cur.fetchall()
             rest_ids = []
             for item in rest_raw:
                 rest_ids.append(item[0])
+            print(rest_ids)
 
             for id in rest_ids:
 
-                fetch_name = f"""
-                    SELECT rest_name FROM test.restaurants WHERE rest_id='{id}'
+                fetch_name_sql = f"""
+                    SELECT rest_name FROM test.restaurants WHERE rest_id={id}
                 """
-                cur.execute(fetch_name)
+                cur.execute(fetch_name_sql)
                 name = cur.fetchone()[0]
+                print(name)
 
                 # RATING GRAPH
                 fetch_rev_rating_sql = f"""
@@ -97,6 +100,26 @@ def graph_fun(loc_id):
                 plt.close()
                 print("plotted sentiments and stored")
 
+                rest_name = f"{name}.jpg"
+                rest_graph_1 = f"{name}_rating_graph.jpg"
+                rest_graph_2 = f"{name}_sentiment_graph.jpg"
+
+                store_img_name_sql = f"""
+                    INSERT INTO test.images(img_name)
+                    VALUES('{rest_name}'),
+                        ('{rest_graph_1}'),
+                        ('{rest_graph_2}');
+                """
+                cur.execute(store_img_name_sql) 
+
+                store_img_id_sql = f"""
+                    UPDATE test.restaurants
+                    SET img_id = (SELECT img_id FROM test.images WHERE img_name = '{rest_name}')
+                    WHERE rest_id = {id}
+                """
+                cur.execute(store_img_id_sql)
+
+            conn.commit()
             
     except (psycopg2.DatabaseError, Exception) as error:
         print(error)
@@ -112,4 +135,4 @@ def graph_fun(loc_id):
     #     os.makedirs(f"backend/dataset/{jagah}/graphs/{file}", exist_ok=True)
         
 # graph_fun("pune")
-# graph_fun(28)
+# graph_fun(29)

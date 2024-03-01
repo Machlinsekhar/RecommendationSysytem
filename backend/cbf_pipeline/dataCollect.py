@@ -286,7 +286,7 @@ def main_function(driver, jagah, place_, warning):
         else:
             print("restaurant not found")
             
-start_function('hyderabad','jewel of nizam', 0)
+# start_function('hyderabad','jewel of nizam - the minar', 0)
 
 # rest_list = ['Olive Bar & Kitchen', 'Out of the Box', 'Yum Yum Cha Khan Market']
 # for rest_item in rest_list:
