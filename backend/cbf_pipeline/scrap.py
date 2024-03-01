@@ -1,17 +1,11 @@
 import os
-from cbf_pipeline.call_loc import search_loc
+from cbf_pipeline.connect import main_connect
 
 def check_path(location):
-    full_path = f"backend/dataset/{location}"
-    print(full_path)
 
-    if os.path.exists(full_path) and os.path.isdir(full_path):
-        print('exists')
-        return True
-    else:
-        print('does not exist')
-        search_loc(location)
-        return True
+    status = main_connect(location)
+    return status
+
 
 # location = 'bandra'
 # check_path(location)

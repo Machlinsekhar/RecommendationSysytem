@@ -12,6 +12,7 @@ import SignUp from './component/SignUp';
 import UserProfile from './component/UserProfile';
 import UserProfile2 from './component/UserProfile2';
 import Navbar from './component/NavBar';
+import Image from './component/Image';
 // import { store, persistor } from './redux/store';
 
 function App() {

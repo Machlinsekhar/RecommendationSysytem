@@ -35,23 +35,23 @@
 }
 
 .restaurant-image-wrapper {
-  width: 150px; 
-  height: 150px; /* Adjust the image wrapper size */
+  width: 270px; 
+  height: 170px; 
   overflow: hidden;
   /* margin: '1rem'; */
 }
 
 .restaurant-image {
-  width: 100%;
+  width: 200px;
   height: 100%;
- border-radius: 1rem;
+  border-radius: 1rem;
 }
 
 .restaurant-details {
   padding: 10px;
   flex-grow: 1;
   display: flex;
-  width: 100%;
+  width: 50%;
   flex-direction: column;
 }
 

@@ -85,6 +85,7 @@ const Dashboard = () => {
     setTimeout(async () => {
       const data = await fetchRecommendations();
       const details = await fetchRestDetails(data);
+
       navigate('/recommendation', { state: { recommendations: details } });
       console.log('Form submitted');
     }, 10); 
