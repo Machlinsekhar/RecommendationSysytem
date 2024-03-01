@@ -3,23 +3,39 @@
 import os
 import matplotlib.pyplot as plt
 import pandas as pd
+import psycopg2
+from config import load_config
 
 # jagah = "pune"
 
-def graph_fun(jagah):
-    folder_path = f'backend/dataset/{jagah}'
-    main_csv_file = f'{jagah}_profile.csv'
-    main_df = pd.read_csv(os.path.join(folder_path, main_csv_file))
-    file_names = main_df['restaurant_name']
-    names=[]
-    for name in file_names:
-        names.append(name)
+def graph_fun(jagah, rest_list):
+    # folder_path = f'backend/dataset/{jagah}'
+    # main_csv_file = f'{jagah}_profile.csv'
+    # main_df = pd.read_csv(os.path.join(folder_path, main_csv_file))
+    # file_names = main_df['restaurant_name']
+    # names=[]
+    # for name in file_names:
+    #     names.append(name)
 
-    for file in names:
-        csv_folder = f"backend/dataset/{jagah}/reviews/{file}"
-        name_csv = file + '.csv'
-        csv_path = os.path.join(csv_folder, name_csv)
-        df = pd.read_csv(csv_path,  encoding='latin1')
+    for file in rest_list:
+        # csv_folder = f"backend/dataset/{jagah}/reviews/{file}"
+        # name_csv = file + '.csv'
+        # csv_path = os.path.join(csv_folder, name_csv)
+        # df = pd.read_csv(csv_path,  encoding='latin1')
+        config = load_config()
+        try:
+            with psycopg2.connect(**config) as conn:
+                cur = conn.cursor()
+
+                check_sql = f"""
+                    SELECT EXISTS(SELECT 1 FROM test.locations WHERE loc_name='{location}')
+                """
+                cur.execute(check_sql)
+                conn.commit()
+                
+        except (psycopg2.DatabaseError, Exception) as error:
+            print(error)
+            conn.rollback()
 
         sentiment_labels_order = ['negative', 'neutral', 'positive']
         sentiment_labels = df['sentiment'].map({-1: 'negative', 0: 'neutral', 1: 'positive'})

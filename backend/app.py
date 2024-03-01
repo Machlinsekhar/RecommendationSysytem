@@ -1,18 +1,20 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, send_from_directory
 from flask_cors import CORS
 import psycopg2 
 from config import load_config
 import cbf as cbf
 import collab_algo as col
+from dotenv import load_dotenv
 # from auth import auth as auth_blueprint
 # from main import main as main_blueprint
 # from pymongo import MongoClient
-# import os
+import os
 # import csv
 # from db import entries
 # from cbf_pipeline.scrap import check_path
 
 app = Flask(__name__)
+load_dotenv()
 
 # client = MongoClient('mongodb://localhost:27017')
 # app.config['SECRET_KEY'] = 'secret-key-goes-here'
@@ -32,6 +34,14 @@ def hello_world():
 #     print(location)
 #     result = check_path(location)
 #     return jsonify(result)
+
+@app.route('/uploads/<place>/<filename>', methods=['GET'])
+def send_image(place, filename):
+    print(place)
+    print(filename)
+    uploads_directory = os.getenv("UPLOADS_DIRECTORY")
+    directory = f"{uploads_directory}/{place}"
+    return send_from_directory(directory, filename)
 
 @app.route('/recommend', methods=['POST'])
 def recommend():

@@ -27,6 +27,8 @@ backend/old_dataset_store
 backend/Output
 Output
 backend/database.ini
+.env
+backend/dataset/
 
 npm-debug.log*
 yarn-debug.log*

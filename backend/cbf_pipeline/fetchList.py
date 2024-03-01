@@ -4,9 +4,9 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import time
 import re
-from cbf_pipeline.dataCollect import main_function
-from cbf_pipeline.preprocess import preprocess_fun
-from cbf_pipeline.graph import graph_fun
+# from cbf_pipeline.dataCollect import main_function
+# from cbf_pipeline.preprocess import preprocess_fun
+# from cbf_pipeline.graph import graph_fun
 
 
 def convert_review_count(review_count_str):
@@ -53,10 +53,11 @@ def google_search(query, location):
             # Check if the review count is greater than 50
             if review_count > 50:
                 top_restaurants.append(restaurant_name)
-                if len(top_restaurants) >= 10:
+                if len(top_restaurants) >= 2:
                     break
 
         print("Top 10 Restaurants:")
+        print(top_restaurants)
         return top_restaurants
 
         # main_function(location, top_restaurants)
@@ -67,4 +68,4 @@ def google_search(query, location):
     finally:
         driver.quit()
 
-# google_search("top restaurants in", "pune")
+# google_search("top restaurants in", "delhi")
