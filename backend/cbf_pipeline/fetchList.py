@@ -66,6 +66,7 @@ def google_search(query, location):
         # print("ENTIRE CODE EXEC DONE")
 
     finally:
+        print("fetchlist thread closed")
         driver.quit()
 
 # google_search("top restaurants in", "delhi")

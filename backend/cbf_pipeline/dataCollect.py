@@ -34,9 +34,13 @@ def start_function(location, resto, warning):
     main_result = main_function(driver2, location, resto, warning)
     if main_result is not None:
         torestaurants, toreviews = main_result
+        driver2.quit()
+        print("driver2 thread closed")
         return torestaurants, toreviews
     else:
         print("main_function returned None")  
+        driver2.quit()
+        print("driver2 thread closed")
         return [], []
 
 def open_function(driver, location, resto, address):
@@ -63,7 +67,7 @@ def download_image(url, save_path):
 
 def main_function(driver, jagah, place_, warning):
 
-    os.makedirs(f"backend/dataset/{jagah}", exist_ok=True)
+    # os.makedirs(f"backend/dataset/{jagah}", exist_ok=True)
     # file_path = os.path.join(f"backend/dataset/{jagah}", f"{jagah}_profile.csv")
     # with open(file_path, 'w', newline='', encoding='utf-8') as csvfile:
     #     csv_writer = csv.writer(csvfile)

@@ -1,6 +1,8 @@
 # nltk.download('vader_lexicon')
 
 import os
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import pandas as pd
 import psycopg2
@@ -9,6 +11,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 uploads_directory = os.getenv("UPLOADS_DIRECTORY")
+
+def plot_and_save_graph(data, title, filename, color):
+    plt.bar(data.index, data.values, color=color)
+    plt.xlabel(title)
+    plt.ylabel('Count')
+    plt.title(f"{title} Analysis")
+    plt.savefig(filename)
+    plt.close()
 
 # jagah = "pune"
 
@@ -66,14 +76,9 @@ def graph_fun(loc_id):
                 rating_counts = ratings[0].value_counts()
                 print("stored ratings")
 
-                # Plot and save rating graph
-                plt.bar(rating_counts.index, rating_counts.values, color="#0B3012")
-                plt.xlabel('Rating')
-                plt.ylabel('Count')
-                plt.title('Rating Analysis')
-                plt.savefig(os.path.join(f'{uploads_directory}/{jagah}', f'{name}_rating_graph.jpg'))
-                plt.close()
-                print("plotted rating and stored")
+                rating_graph_filename = os.path.join(uploads_directory, jagah, f'{name}_rating_graph.jpg')
+                plot_and_save_graph(rating_counts, 'Rating', rating_graph_filename, "#0B3012")
+                print("Plotted rating and stored")
 
                 # SENTIMENT GRAPH
                 fetch_sentiments_sql = f"""
@@ -91,14 +96,9 @@ def graph_fun(loc_id):
                 sentiment_labels = sentiments[0].map({-1: 'negative', 0: 'neutral', 1: 'positive'})
                 sentiment_counts = sentiment_labels.value_counts().reindex(sentiment_labels_order).fillna(0)
 
-                # Plot and save sentiment graph
-                plt.bar(sentiment_counts.index, sentiment_counts.values, color="#869937")
-                plt.xlabel('Sentiment')
-                plt.ylabel('Count')
-                plt.title('Sentiment Analysis')
-                plt.savefig(os.path.join(f'{uploads_directory}/{jagah}', f'{name}_sentiment_graph.jpg'))
-                plt.close()
-                print("plotted sentiments and stored")
+                sentiment_graph_filename = os.path.join(uploads_directory, jagah, f'{name}_sentiment_graph.jpg')
+                plot_and_save_graph(sentiment_counts, 'Sentiment', sentiment_graph_filename, "#869937")
+                print("Plotted sentiments and stored")
 
                 rest_name = f"{name}.jpg"
                 rest_graph_1 = f"{name}_rating_graph.jpg"
@@ -135,4 +135,4 @@ def graph_fun(loc_id):
     #     os.makedirs(f"backend/dataset/{jagah}/graphs/{file}", exist_ok=True)
         
 # graph_fun("pune")
-# graph_fun(29)
+# graph_fun(41)
