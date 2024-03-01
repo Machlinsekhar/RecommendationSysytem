@@ -10,8 +10,11 @@ import time
 import base64
 import os
 import re
+from dotenv import load_dotenv
 # import csv
 
+load_dotenv()
+uploads_directory = os.getenv("UPLOADS_DIRECTORY")
 
 REVIEW_PARENT_CONTAINER = '//div[@class=\'review-dialog-list\']'
 REVIEW_CONTAINER = '//div[@class=\'WMbnJf vY6njf gws-localreviews__google-review\']'
@@ -125,9 +128,9 @@ def main_function(driver, jagah, place_, warning):
                 image_element = driver.find_element(By.XPATH, IMG_URL)
                 img_url = image_element.get_attribute("src")
                 print(f"url found for {place}")
-                os.makedirs(f"backend/dataset/{jagah}/reviews/{place}", exist_ok=True)
+                os.makedirs(f"{uploads_directory}/{jagah}", exist_ok=True)
 
-                img_file_path = os.path.join(f"backend/dataset/{jagah}/reviews/{place}", f"{place}.jpg")
+                img_file_path = os.path.join(f"{uploads_directory}/{jagah}", f"{place}.jpg")
                 download_image(img_url, img_file_path)
                 print("image saved")
 
@@ -282,10 +285,8 @@ def main_function(driver, jagah, place_, warning):
                 print("restaurant not found")
         else:
             print("restaurant not found")
-
-# main_function("pune", ["jama","bebo"])
             
-# start_function('delhi','olive bar kitchen', 0)
+start_function('hyderabad','jewel of nizam', 0)
 
 # rest_list = ['Olive Bar & Kitchen', 'Out of the Box', 'Yum Yum Cha Khan Market']
 # for rest_item in rest_list:

@@ -3,6 +3,7 @@ from config import load_config
 from cbf_pipeline.fetchList import google_search
 from cbf_pipeline.dataCollect import start_function
 from cbf_pipeline.preprocess import preprocess_fun
+from graph import graph_fun
 
 def connect(config):
 
@@ -69,6 +70,7 @@ def connect(config):
                         print("updated reviews")
 
             conn.commit()
+            graph_fun(loc_id)
         
     except (psycopg2.DatabaseError, Exception) as error:
         print(error)
