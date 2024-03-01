@@ -12,6 +12,7 @@ import SignUp from './component/SignUp';
 import UserProfile from './component/UserProfile';
 import UserProfile2 from './component/UserProfile2';
 import Navbar from './component/NavBar';
+import Image from './component/Image';
 // import { store, persistor } from './redux/store';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
       <Route path="/profile/:location" element={<Profile/>}/>
       <Route path="/dashboard/:location" element={<Dashboard/>}/>
       <Route path="/recommendation" element={<Recommendation/>}/>
+      <Route path="/image" element={<Image place={"hyderabad"} filename={"the water front.jpg"} />}/>
       </Routes>
       </Router>
     {/* </PersistGate> */}

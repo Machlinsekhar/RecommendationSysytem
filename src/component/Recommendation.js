@@ -20,6 +20,7 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import Navbar from './NavBar';
+import Image from './Image';
 
 const Recommendation = () => {
   const location = useLocation();
@@ -59,7 +60,9 @@ const Recommendation = () => {
             return (
               <div className="restaurant-item" key={index}>
                 <div className="restaurant-image-wrapper">
-                  <img className="restaurant-image" src={`data:image/jpeg;base64,${restaurant.img_url_path}`} alt={restaurant.restaurant_name} />
+                  <div className="restaurant-image">
+                      <Image place={restaurant.location} filename={`${restaurant.restaurant_name}.jpg`}/>
+                  </div>
                 </div>
                 <div className="restaurant-details">
                   <h3 className="restaurant-name">{index + 1}. {restaurant.restaurant_name}</h3>  
@@ -76,21 +79,21 @@ const Recommendation = () => {
                   <img src={downArrowImageUrl} alt="View Details" />
                 </button>
                 {/* Separate modal for each restaurant */}
-                {/* {modalIsOpen === index && (
+                {modalIsOpen === index && (
                   <div className="modal">
                     <div className="image-row">
                       <div className="image-container">
                         <h3>Rating Analysis</h3>
-                        <img src={restaurant.rating_graph} alt="Image 1" />
+                        <Image place={restaurant.location} filename={`${restaurant.restaurant_name}_rating_graph.jpg`}/>
                       </div>
                       <div className="image-container">
                         <h3>Review Analysis</h3>
-                        <img src={restaurant.sentiment_graph} alt="Image 2" />
+                        <Image place={restaurant.location} filename={`${restaurant.restaurant_name}_sentiment_graph.jpg`}/>
                       </div>
                       <span className="close-btn" onClick={closeModal}>&times;</span>
                     </div>
                   </div>
-                )} */}
+                )}   
               </div>
             );
           })}

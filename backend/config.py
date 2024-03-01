@@ -1,6 +1,6 @@
 from configparser import ConfigParser
 
-def load_config(filename='backend/database.ini', section='postgresql'):
+def load_config(filename='database.ini', section='postgresql'):
     parser = ConfigParser()
     parser.read(filename)
 
@@ -11,6 +11,7 @@ def load_config(filename='backend/database.ini', section='postgresql'):
         for param in params:
             config[param[0]] = param[1]
     else:
+        print("check database.ini filepath in config.py")
         raise Exception('Section {0} not found in the {1} file'.format(section, filename))
 
     return config

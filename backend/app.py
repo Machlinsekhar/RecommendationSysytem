@@ -83,6 +83,8 @@ def get_restaurant_details():
         if details:
             restaurant_details.append(details)
 
+    print(jsonify(restaurant_details))
+
     return jsonify(restaurant_details[:7])
 
 def fetch_details(location, restaurant_name):
@@ -93,7 +95,7 @@ def fetch_details(location, restaurant_name):
         with psycopg2.connect(**config) as conn:
             cur = conn.cursor()
             get_query = f"""
-                SELECT rest_name, rest_budget, rest_cuisine, rest_rating, rev_count, ENCODE(rest_img,'base64') as base64
+                SELECT rest_id, rest_name, rest_budget, rest_cuisine, rest_rating, rev_count
                 FROM test.restaurants
                 WHERE rest_name = '{restaurant_name}'
             """
@@ -101,12 +103,13 @@ def fetch_details(location, restaurant_name):
             row = cur.fetchone()
 
             return {
-                "restaurant_name": f"{row[0]}",
-                "budget": f"{row[1]}",
-                "type": f"{row[2]}",
-                "rating": f"{row[3]}",
-                "rev_count":f"{row[4]}",
-                "img_url_path": f"{row[5]}",
+                "rest_id":f"{row[0]}",
+                "restaurant_name": f"{row[1]}",
+                "budget": f"{row[2]}",
+                "type": f"{row[3]}",
+                "rating": f"{row[4]}",
+                "rev_count":f"{row[5]}",
+                "location":location
             }
 
 
