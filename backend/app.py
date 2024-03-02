@@ -3,7 +3,7 @@ from flask_cors import CORS
 import psycopg2 
 from config import load_config
 import cbf as cbf
-import collab_algo as col
+#import collab_algo as col
 from dotenv import load_dotenv
 # from auth import auth as auth_blueprint
 # from main import main as main_blueprint
@@ -61,11 +61,11 @@ def recommend():
     recommendations = cbf.recommend_restaurants(user_rating, user_restaurant_type, user_max_cost, location)
     return jsonify(recommendations)
 
-@app.route('/collabrecommend', methods=['POST'])
-def colrecommend():
-    recommendations = col.collab_manual()
-    print(recommendations)
-    return jsonify(recommendations)
+# @app.route('/collabrecommend', methods=['POST'])
+# def colrecommend():
+#     recommendations = col.collab_manual()
+#     print(recommendations)
+#     return jsonify(recommendations)
 
 
 @app.route('/restaurant_details', methods=['POST'])
