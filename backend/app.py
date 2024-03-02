@@ -5,7 +5,7 @@ from config import load_config
 import cbf as cbf
 import collab_algo as col
 from dotenv import load_dotenv
-# from auth import auth as auth_blueprint
+from auth import auth as auth_blueprint
 # from main import main as main_blueprint
 # from pymongo import MongoClient
 import os
@@ -17,9 +17,9 @@ app = Flask(__name__)
 load_dotenv()
 
 # client = MongoClient('mongodb://localhost:27017')
-# app.config['SECRET_KEY'] = 'secret-key-goes-here'
+app.config['SECRET_KEY'] = 'secret-key-goes-here'
 
-# app.register_blueprint(auth_blueprint)
+app.register_blueprint(auth_blueprint)
 # app.register_blueprint(main_blueprint)
 
 CORS(app) 
