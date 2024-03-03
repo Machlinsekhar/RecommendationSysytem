@@ -1,5 +1,4 @@
-from flask import Blueprint, request, session
-from flask import Flask, request, session, redirect, url_for, render_template, flash, jsonify
+from flask import Blueprint, request, session, jsonify
 from middleware import needs_auth
 from werkzeug.security import generate_password_hash, check_password_hash
 from config import load_config
@@ -21,6 +20,8 @@ def login():
     cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
    
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        session.pop('user',None)
+
         username = request.form.get('username')
         password = request.form.get('password')
  
@@ -34,6 +35,7 @@ def login():
                 session['loggedin'] = True
                 session['id'] = account['user_id']
                 session['username'] = account['username']
+                print(session)
                 return jsonify({"message": "Done"}), 200
             else:
                 return jsonify({"message":"Incorrect username or password"}), 401
@@ -47,6 +49,8 @@ def register():
     cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
  
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        session.pop('user',None)
+
         username = request.form.get('username')
         password = request.form.get('password')
  
@@ -62,6 +66,14 @@ def register():
             try:
                 cursor.execute("INSERT INTO test.users (username, pwd) VALUES (%s,%s)", (username, _hashed_password))
                 conn.commit()
+
+                cursor.execute('SELECT * FROM test.users WHERE username = %s', (username,))
+                account = cursor.fetchone()
+                session['loggedin'] = True
+                session['id'] = account['user_id']
+                session['username'] = account['username']
+                print(session)
+
                 return jsonify({"message": "Done"}), 200
             except Exception as e:
                 conn.rollback()

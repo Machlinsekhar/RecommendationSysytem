@@ -26,11 +26,11 @@ const UserProfile = () => {
         
         const responseData = await response.json();
         console.log('Response:', responseData);
-        
+        navigate('/userprofile2');
+
       } catch (error) {
         console.error('Error:', error);
       }
-      navigate('/userprofile2');
     } 
     else {
       alert('Enter your preferences.');
