@@ -8,7 +8,10 @@ nltk
 werkzeug==2.2.2
 pandas
 scikit-learn
-
+bs4
+psycopg2
+python-dotenv
+matplotlib
 
 
 

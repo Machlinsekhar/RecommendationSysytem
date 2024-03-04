@@ -90,3 +90,5 @@ def main_connect(location):
     config = load_config()
     connect(location, config)
     return True
+
+connect("Chembur",load_config())
