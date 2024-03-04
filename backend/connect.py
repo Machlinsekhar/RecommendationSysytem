@@ -91,4 +91,4 @@ def main_connect(location):
     connect(location, config)
     return True
 
-connect("Chembur",load_config())
+# connect("Chembur",load_config())

@@ -14,16 +14,19 @@ import os
 # from db import entries
 from cbf_pipeline.scrap import check_path
 from datetime import timedelta
+from middleware import needs_auth
 
 app = Flask(__name__)
 app.debug = True
 load_dotenv()
 
 # client = MongoClient('mongodb://localhost:27017')
-app.config['SECRET_KEY'] = 'food-easy-new-one'
+app.config['SECRET_KEY'] = 'random'
 app.config['SESSION_PERMANENT'] = True
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7) 
 app.config['SESSION_TYPE'] = "filesystem"
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'None' 
 # app.config['SESSION_COOKIE_PATH'] = "/"
 Session(app)
 
@@ -33,9 +36,13 @@ app.register_blueprint(main_blueprint)
 CORS(app, supports_credentials=True) 
 
 
-@app.route('/check_session', methods=['GET'])
-def check_session():
-    user_id = session.get('user_id')
+@app.route('/check_session', methods=['POST'])
+@needs_auth()
+def check_session(account):
+    print("in check session route")
+    print(account)
+    print(session)
+    user_id = session.get('uid')
     if user_id:
         return 'Session found'
     else:

@@ -1,5 +1,5 @@
 import os
-from backend.connect import main_connect
+from connect import main_connect
 
 def check_path(location):
 
