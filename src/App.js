@@ -13,6 +13,7 @@ import UserProfile from './component/UserProfile';
 import UserProfile2 from './component/UserProfile2';
 import Navbar from './component/NavBar';
 import Image from './component/Image';
+import Session from './component/Session';
 // import { store, persistor } from './redux/store';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
       <Route path="/profile/:location" element={<Profile/>}/>
       <Route path="/dashboard/:location" element={<Dashboard/>}/>
       <Route path="/recommendation" element={<Recommendation/>}/>
+      <Route path="/session" element={<Session/>}/>
       </Routes>
       </Router>
     {/* </PersistGate> */}

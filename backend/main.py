@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, session
 import json
 from middleware import needs_auth
 from config import load_config
@@ -19,9 +19,10 @@ conn = psycopg2.connect(**config)
 
 
 @main.route('/create-entry', methods=['POST'])
-@needs_auth()
-def set_entry(user):
+# @needs_auth()
+def set_entry():
 
+    user_id = session.get('uid')
     cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
     print(request.form)
@@ -34,7 +35,7 @@ def set_entry(user):
             cursor.execute(f"""
                 UPDATE test.users
                 SET home_location = {home_location}, fav_cuisine = ARRAY{fav_cuisine}
-                WHERE username = (SELECT username FROM test.users WHERE user_id={user["id"]});
+                WHERE username = (SELECT username FROM test.users WHERE user_id={user_id});
             """)
             conn.commit()
             return {"message": "Done"}

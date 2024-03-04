@@ -21,6 +21,7 @@ const UserProfile = () => {
       try {
         const response = await fetch('http://127.0.0.1:5000/create-entry', {
           method: 'POST',
+          credentials: 'include',
           body: formData,
         });
         
@@ -201,20 +202,20 @@ const UserProfile = () => {
         <label style={labelStyle}>Choose your favourite cuisine:</label>
         <div style={buttonGroupStyle}>
         <button style={buttonStyle2('Chinese')} onClick={() => toggleCuisine('Chinese')}>
-  Chinese
-</button>
-<button style={buttonStyle2('Barbeque')} onClick={() => toggleCuisine('Barbeque')}>
-  Barbeque
-</button>
-<button style={buttonStyle2('North Indian')} onClick={() => toggleCuisine('North Indian')}>
-  North Indian
-</button>
-<button style={buttonStyle2('Fast Food')} onClick={() => toggleCuisine('Fast Food')}>
-  Fast Food
-</button>
-<button style={buttonStyle2('South Indian')} onClick={() => toggleCuisine('South Indian')}>
-  South Indian
-</button>
+          Chinese
+        </button>
+        <button style={buttonStyle2('Barbeque')} onClick={() => toggleCuisine('Barbeque')}>
+          Barbeque
+        </button>
+        <button style={buttonStyle2('North Indian')} onClick={() => toggleCuisine('North Indian')}>
+          North Indian
+        </button>
+        <button style={buttonStyle2('Fast Food')} onClick={() => toggleCuisine('Fast Food')}>
+          Fast Food
+        </button>
+        <button style={buttonStyle2('South Indian')} onClick={() => toggleCuisine('South Indian')}>
+          South Indian
+        </button>
         </div>
         <button style={buttonStyle} onClick={handleProfileCompletion}>Continue</button>
       </div>

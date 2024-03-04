@@ -1,4 +1,5 @@
 from flask import Blueprint, request, session, jsonify
+from flask_session import Session
 from middleware import needs_auth
 from werkzeug.security import generate_password_hash, check_password_hash
 from config import load_config
@@ -33,7 +34,7 @@ def login():
             print(password_rs)
             if check_password_hash(password_rs, password):
                 session['loggedin'] = True
-                session['id'] = account['user_id']
+                session['uid'] = account['user_id']
                 session['username'] = account['username']
                 print(session)
                 return jsonify({"message": "Done"}), 200
@@ -70,7 +71,7 @@ def register():
                 cursor.execute('SELECT * FROM test.users WHERE username = %s', (username,))
                 account = cursor.fetchone()
                 session['loggedin'] = True
-                session['id'] = account['user_id']
+                session['uid'] = account['user_id']
                 session['username'] = account['username']
                 print(session)
 

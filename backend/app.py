@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory, session, render_template
+from flask import Flask, request, jsonify, send_from_directory, session
 from flask_session import Session
 from flask_cors import CORS
 import psycopg2 
@@ -13,20 +13,33 @@ import os
 # import csv
 # from db import entries
 from cbf_pipeline.scrap import check_path
+from datetime import timedelta
 
 app = Flask(__name__)
+app.debug = True
 load_dotenv()
 
 # client = MongoClient('mongodb://localhost:27017')
-app.config['SECRET_KEY'] = 'food-easy'
-app.config['SESSION_PERMANENT'] = False
+app.config['SECRET_KEY'] = 'food-easy-new-one'
+app.config['SESSION_PERMANENT'] = True
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7) 
 app.config['SESSION_TYPE'] = "filesystem"
+# app.config['SESSION_COOKIE_PATH'] = "/"
 Session(app)
 
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(main_blueprint)
 
-CORS(app) 
+CORS(app, supports_credentials=True) 
+
+
+@app.route('/check_session', methods=['GET'])
+def check_session():
+    user_id = session.get('user_id')
+    if user_id:
+        return 'Session found'
+    else:
+        return 'Session not found'
 
 @app.route('/')
 def hello_world():
@@ -142,5 +155,5 @@ def fetch_details(location, restaurant_name):
     #     return None
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
 
