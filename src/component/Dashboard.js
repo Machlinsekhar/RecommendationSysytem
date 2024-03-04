@@ -86,7 +86,7 @@ const Dashboard = () => {
       const data = await fetchRecommendations();
       const details = await fetchRestDetails(data);
 
-      navigate('/recommendation', { state: { recommendations: details } });
+      navigate('/recommendation', { state: { recommendations: details, count: 7 } });
       console.log('Form submitted');
     }, 10); 
   };
@@ -168,13 +168,21 @@ const Dashboard = () => {
 
   const handleCollabClick = async () => {
     try {
-      setLoadingModalOpen(true);
+      setShowModal(true); 
       setTimeout(async () => {
-          const data = await fetchCollabRecommendations();
-          setLoadingModalOpen(false);
-          navigate('/recommendation', { state: { recommendations: data } });
-          console.log('Form submitted:', data);
-      }, 3000);
+        const data = await fetchRecommendations();
+        const details = await fetchRestDetails(data);
+
+        navigate('/recommendation', { state: { recommendations: details, count:3 } });
+        console.log('Form submitted');
+      }, 1000); 
+      // setLoadingModalOpen(true);
+      // setTimeout(async () => {
+      //     const data = await fetchCollabRecommendations();
+      //     setLoadingModalOpen(false);
+      //     navigate('/recommendation', { state: { recommendations: data } });
+      //     console.log('Form submitted:', data);
+      // }, 3000);
     } 
     catch (error) {
       console.error('Error fetching data:', error);

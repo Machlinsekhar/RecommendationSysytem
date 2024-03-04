@@ -88,6 +88,7 @@ def main_function(driver, jagah, place_, warning):
         restaurant_type = "any"
         img_url = "N/A"
         count = "N/A"
+        rev_count = 0
         print("warning=",warning)
 
         try:
@@ -153,6 +154,7 @@ def main_function(driver, jagah, place_, warning):
                 count_element = driver.find_element(By.XPATH, REVIEW_COUNT)
                 rev_count = int(count_element.text.split()[0].replace(',', ''))
             except NoSuchElementException:
+                rev_count = 50
                 pass 
 
             # REVIEW RATING
