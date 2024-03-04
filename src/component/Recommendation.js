@@ -25,8 +25,22 @@ import Image from './Image';
 const Recommendation = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const details = location.state?.recommendations || [];
+  let details = location.state?.recommendations || [];
+  const count = location.state?.count || 0;
+  details = details.slice(0, count);
   console.log(details);
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  if (count === 3) {
+    details = shuffleArray(details);
+}
 
   const [modalIsOpen, setModalIsOpen] = useState(null);
 
@@ -49,7 +63,7 @@ const Recommendation = () => {
     <div>
       <Navbar />
       <div className="recommendation-container">
-        <h2 className="header">Our Top 7 Suggestions:</h2>
+        <h2 className="header">Our Top Suggestions:</h2>
         <div className="restaurant-list">
           {details.map((restaurant, index) => {
             // const ImageUrl = restaurant.ImageUrl;

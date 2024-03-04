@@ -53,6 +53,7 @@ def google_search(query, location):
             # Check if the review count is greater than 50
             if review_count > 50:
                 top_restaurants.append(restaurant_name)
+
                 if len(top_restaurants) >= 2:
                     break
 

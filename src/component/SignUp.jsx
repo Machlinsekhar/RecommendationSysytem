@@ -24,23 +24,23 @@ const SignUp = () => {
           method: 'POST',
           body: formData,
         });
-    
+        const data = await response.json();
         if (response.ok) {
           console.log('Sign up successful');
           console.log('Logging in with:', username, password);
           navigate('/userprofile');
         } else {
-          // Handle errors
-          alert('Sign up failed');
+          setUsername('');
+          setPassword('');
+          alert(data.message);
         }
       } catch (error) {
         console.error('Error during sign up:', error);
       }
     }
-      else {
-        // If either field is empty, alert the user
-        alert('Username and password fields cannot be empty.');
-      }
+    else {
+      alert('Username and password fields cannot be empty.');
+    }
     
   };
 

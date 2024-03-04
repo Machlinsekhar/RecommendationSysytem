@@ -23,13 +23,16 @@ const Login = () => {
           method: 'POST',
           body: formData,
         });
-    
+        const data = await response.json();
         if (response.ok) {
           console.log('Login successful');
           console.log('Logging in with:', username, password);
           navigate('/home');
-        } else {
-          alert('Incorrect password or username!');
+        } 
+        else {
+          setUsername('');
+          setPassword('');
+          alert(data.message);
         }
       } catch (error) {
         console.error('Error during login:', error);
