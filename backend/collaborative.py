@@ -26,12 +26,24 @@ def find_similar_users(target_user_id, conn):
                 similarity_scores[row[0]] = row[1]
         return similarity_scores
 
-def recommend_restaurants(target_user_id, similar_users, conn):
+def recommend_restaurants(target_user_id, similar_users,conn):
     pred_ratings = defaultdict(int)
+    rest_names = {}
     with conn.cursor() as cur:
         cur.execute("""
             SELECT
-                rest_id, rating, user_id
+                rest_id, rest_name
+            FROM
+                test.restaurants
+        """)
+        rest_rows = cur.fetchall()
+        for rest_row in rest_rows:
+            rest_names[rest_row[0]] = rest_row[1]
+            #print(rest_names[1])
+
+        cur.execute("""
+            SELECT
+                user_rating.rest_id, user_rating.rating, user_rating.user_id
             FROM
                 test.user_rating
             WHERE
@@ -39,12 +51,27 @@ def recommend_restaurants(target_user_id, similar_users, conn):
         """, (tuple(similar_users.keys()),))
         rows = cur.fetchall()
         print(f"Number of rows returned by the query: {len(rows)}")
+        restaurants=[]
         for row in rows:
             print(f"Processing row: {row}")
             if row[2] in similar_users and similar_users[row[2]] is not None:
                 pred_ratings[(row[0], target_user_id)] += similar_users[row[2]] * row[1]
+            
+            cur.execute("""
+            SELECT rest_name
+            FROM test.restaurants
+            WHERE rest_id = %s
+            """, (row[0],))
+            fetched_name = cur.fetchone()[0]
+            restaurants.append(fetched_name)
+
+        print(restaurants)
+
         for restaurant in set(r[0] for r in pred_ratings):
-            yield restaurant, pred_ratings[(restaurant, target_user_id)]
+            rest_names[restaurant]
+            yield (rest_names[restaurant], pred_ratings[(restaurant, target_user_id)])
+        
+        
 
 def collaborative_filtering_recommendation(target_user_id, conn):
     similar_users = find_similar_users(target_user_id, conn)
@@ -69,7 +96,7 @@ def main():
     try:
         with psycopg2.connect(**config) as conn:
             # Replace 1 with the target user_id you want recommendations for
-            target_user_id = 4
+            target_user_id = 3
             similar_users, recommended_restaurants = collaborative_filtering_recommendation(target_user_id, conn)
             
 
