@@ -1,7 +1,7 @@
 import psycopg2
 from config import load_config
 from extract_from_json import main_connect
-from google_scraper.main import scrape_data
+from google_scraper_new.main import scrape_data
 import shutil
 
 def check_path(location):

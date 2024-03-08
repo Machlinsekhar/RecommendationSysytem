@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 uploads_directory = os.getenv("UPLOADS_DIRECTORY")
+driver_directory = os.getenv("DRIVER_DIRECTORY")
 
 IMG_URL = '//g-img[@class="ZGomKf"]/img'
 
@@ -71,7 +72,7 @@ def download_image(url, save_path, call_count):
 
 
 def main_function(location, resto, address, call_count):
-    service = Service(executable_path='D:\Projects\RecommendationSysytem\\backend\\build\chromedriver-122.exe')
+    service = Service(executable_path={driver_directory})
     driver = webdriver.Chrome(service=service, options=options)
     driver2 = run_query_function(driver, location, resto, address)
     image_url_scraper(driver2, location, resto, address, call_count)

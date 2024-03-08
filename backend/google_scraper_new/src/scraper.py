@@ -226,7 +226,7 @@ def scrape_places(driver: AntiDetectDriver, data):
     def get_sponsored_links():
          nonlocal sponsored_links
          if sponsored_links is None:
-              sponsored_links = driver.execute_file('google_scraper/get_sponsored_links.js')
+              sponsored_links = driver.execute_file('google_scraper_new/get_sponsored_links.js')
          return sponsored_links
 
 
