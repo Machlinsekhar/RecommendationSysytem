@@ -12,6 +12,14 @@ bs4
 psycopg2
 python-dotenv
 matplotlib
+Unidecode
+geonamescache
+dateutils
+casefy
+lxml
+regex
+botasaurus
+Flask_session
 
 
 

@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 const Image = ({ place, filename }) => {
   const [imageUrl, setImageUrl] = useState(null);
 
+  place = place.replace(/[^a-zA-Z0-9\s]/g, '');
+
   useEffect(() => {
     const fetchImage = async () => {
       try {

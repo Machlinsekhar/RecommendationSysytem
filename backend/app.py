@@ -9,21 +9,24 @@ from dotenv import load_dotenv
 from auth import auth as auth_blueprint
 from main import main as main_blueprint
 # from pymongo import MongoClient
-import os
+import os, re
 # import csv
 # from db import entries
 from cbf_pipeline.scrap import check_path
 from datetime import timedelta
+from middleware import needs_auth
 
 app = Flask(__name__)
 app.debug = True
 load_dotenv()
 
 # client = MongoClient('mongodb://localhost:27017')
-app.config['SECRET_KEY'] = 'food-easy-new-one'
+app.config['SECRET_KEY'] = 'random'
 app.config['SESSION_PERMANENT'] = True
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7) 
 app.config['SESSION_TYPE'] = "filesystem"
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'None' 
 # app.config['SESSION_COOKIE_PATH'] = "/"
 Session(app)
 
@@ -33,9 +36,13 @@ app.register_blueprint(main_blueprint)
 CORS(app, supports_credentials=True) 
 
 
-@app.route('/check_session', methods=['GET'])
-def check_session():
-    user_id = session.get('user_id')
+@app.route('/check_session', methods=['POST'])
+@needs_auth()
+def check_session(account):
+    print("in check session route")
+    print(account)
+    print(session)
+    user_id = session.get('uid')
     if user_id:
         return 'Session found'
     else:
@@ -48,6 +55,7 @@ def hello_world():
 @app.route('/receive-location', methods=['POST'])
 def receive_location():
     location = request.json.get('location')
+    location = location.lower()
     print(location)
     result = check_path(location)
     return jsonify(result)
@@ -112,12 +120,14 @@ def fetch_details(location, restaurant_name):
         with psycopg2.connect(**config) as conn:
             cur = conn.cursor()
             get_query = f"""
-                SELECT rest_id, rest_name, rest_budget, rest_cuisine, rest_rating, rev_count
+                SELECT rest_id, rest_name, rest_budget, main_category, rest_rating, rest_rev_count
                 FROM test.restaurants
                 WHERE rest_name = '{restaurant_name}'
             """
             cur.execute(get_query)
             row = cur.fetchone()
+
+            img_name = re.sub(r'[^a-zA-Z0-9\s]', '', row[1])
 
             return {
                 "rest_id":f"{row[0]}",
@@ -126,7 +136,8 @@ def fetch_details(location, restaurant_name):
                 "type": f"{row[3]}",
                 "rating": f"{row[4]}",
                 "rev_count":f"{row[5]}",
-                "location":location
+                "location":location,
+                "img_name": img_name
             }
 
 

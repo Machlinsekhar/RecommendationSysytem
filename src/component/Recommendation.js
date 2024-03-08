@@ -75,7 +75,7 @@ const Recommendation = () => {
               <div className="restaurant-item" key={index}>
                 <div className="restaurant-image-wrapper">
                   <div className="restaurant-image">
-                      <Image place={restaurant.location} filename={`${restaurant.restaurant_name}.jpg`}/>
+                      <Image place={restaurant.location} filename={`${restaurant.img_name}.jpg`}/>
                   </div>
                 </div>
                 <div className="restaurant-details">

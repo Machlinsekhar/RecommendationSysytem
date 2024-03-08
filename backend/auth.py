@@ -28,6 +28,8 @@ def login():
  
         cursor.execute('SELECT * FROM test.users WHERE username = %s', (username,))
         account = cursor.fetchone()
+        print("in login auth code")
+        print(account)
  
         if account:
             password_rs = account['pwd']

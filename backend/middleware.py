@@ -20,7 +20,7 @@ def needs_auth():
 
             print(session)
 
-            id = session.get('id')
+            id = session.get('uid')
 
             if not id:
                 print("no user")
@@ -34,6 +34,7 @@ def needs_auth():
 
             if not account:
                 return {}, 401
+            
             result = f(account, *args, **kwargs)
             return result
 

@@ -6,9 +6,8 @@ const SessionChecker = () => {
   useEffect(() => {
     const fetchSessionStatus = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:5000/check_session',{
-        method: 'GET',
-        credentials: 'include'
+        const response = await fetch('/check_session',{
+        method: 'POST',
         });
         const data = await response.text();
         setSessionStatus(data);
