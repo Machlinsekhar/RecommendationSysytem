@@ -19,6 +19,7 @@ casefy
 lxml
 regex
 botasaurus
+Flask_session
 
 
 
