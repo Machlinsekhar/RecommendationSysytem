@@ -21,7 +21,7 @@ def login():
     cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
    
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-        session.pop('user',None)
+        session.pop('user', None)
 
         username = request.form.get('username')
         password = request.form.get('password')
@@ -52,7 +52,7 @@ def register():
     cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
  
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-        session.pop('user',None)
+        session.pop('user', None)
 
         username = request.form.get('username')
         password = request.form.get('password')

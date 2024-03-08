@@ -18,6 +18,7 @@ const UserProfile = () => {
     const formData = new FormData();
     formData.append('home_location', location);
     formData.append('fav_cuisine', JSON.stringify(cuisine));
+    console.log(formData);
 
     if (location !== '' && cuisine !== '') {
       try {

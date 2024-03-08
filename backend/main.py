@@ -21,7 +21,7 @@ conn = psycopg2.connect(**config)
 @main.route('/create-entry', methods=['POST'])
 # @needs_auth()
 def set_entry():
-
+    print(session)
     user_id = session.get('uid')
     cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
@@ -34,8 +34,8 @@ def set_entry():
         try:
             cursor.execute(f"""
                 UPDATE test.users
-                SET home_location = {home_location}, fav_cuisine = ARRAY{fav_cuisine}
-                WHERE username = (SELECT username FROM test.users WHERE user_id={user_id});
+                SET home_location = '{home_location}', fav_cuisine = (ARRAY{fav_cuisine})
+                WHERE user_id= {user_id};
             """)
             conn.commit()
             return {"message": "Done"}
@@ -43,14 +43,5 @@ def set_entry():
             conn.rollback()
             raise Exception("An error occurred: {}".format(e))
 
-# @main.route('/create-entry', methods=['POST'])
-# @needs_auth()
-# def set_entry(user):
-#     print(request.form)
-#     if request.method == 'POST':
-#         print(request.form)
-#         start_date = request.form['startDate']
-#         end_date = request.form['endDate']
-#         symptoms = json.loads(request.form['symptoms'])
-#         entries.insert_one({'username': user["email"], 'start_date': start_date, 'end_date': end_date, 'symptoms': symptoms})
-#         return {"message": "Done"}
+
+

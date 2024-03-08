@@ -4,7 +4,6 @@ from flask_cors import CORS
 import psycopg2 
 from config import load_config
 import cbf as cbf
-#import collab_algo as col
 from dotenv import load_dotenv
 from auth import auth as auth_blueprint
 from main import main as main_blueprint
@@ -38,9 +37,8 @@ CORS(app, supports_credentials=True)
 
 @app.route('/check_session', methods=['POST'])
 @needs_auth()
-def check_session(account):
+def check_session():
     print("in check session route")
-    print(account)
     print(session)
     user_id = session.get('uid')
     if user_id:
