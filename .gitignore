@@ -30,6 +30,7 @@ backend/dataset/
 backend/uploads/
 backend/flask_session/
 backend/build/
+.env
 backend/error_logs
 
 npm-debug.log*

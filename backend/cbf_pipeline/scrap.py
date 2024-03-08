@@ -22,29 +22,28 @@ def check_path(location):
             else:
                 print('does not exist')
 
-                add_sql = f"""
-                INSERT INTO test.locations(loc_name)
-                VALUES('{location}');
-                SELECT loc_id FROM test.locations WHERE loc_name = '{location}';
-                """
-                cur.execute(add_sql)
-                loc_id = cur.fetchone()[0]
-
-                conn.commit()
-
                 queries = []
                 query = "top restaurants in " + location
                 queries.append(query)
                 scrape_data(queries) # call to scrape data
 
-                status = main_connect(location, loc_id) # call for database storage
+                status = main_connect(location) # call for database storage
 
                 if status:
+
+                    add_sql = f"""
+                    INSERT INTO test.locations(loc_name)
+                    VALUES('{location}');
+                    """
+                    cur.execute(add_sql)
+
+                    conn.commit()
+
                     name = 'top-restaurants-in-' + location
-                    directory_path = 'output\\all'
-                    shutil.rmtree(directory_path)
-                    directory_path = 'output\\'+name
-                    shutil.rmtree(directory_path)
+                    # directory_path = 'output\\all'
+                    # shutil.rmtree(directory_path)
+                    # directory_path = 'output\\'+name
+                    # shutil.rmtree(directory_path)
                     # directory_path = 'cache'
                     # shutil.rmtree(directory_path)
                     return True

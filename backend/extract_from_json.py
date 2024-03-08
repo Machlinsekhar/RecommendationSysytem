@@ -6,7 +6,7 @@ from graph import graph_fun
 import re
 import json
 
-def extract_data_for_restaurant(file_path, loc_id):
+def extract_data_for_restaurant(file_path, location):
     config = load_config()
     rest_names = []
     torestaurants = []
@@ -19,7 +19,6 @@ def extract_data_for_restaurant(file_path, loc_id):
                 print('Connected to the PostgreSQL server.')
                 cur = conn.cursor()
                 for restaurant in data:
-                    print(restaurant)
                     torestaurants = []
                     toreviews = []
                 
@@ -36,13 +35,30 @@ def extract_data_for_restaurant(file_path, loc_id):
                     # Store the extracted information in the list
                     torestaurants.append((place_id, rest_name, budget, rating, rev_count, main_category, categories, address))
                     
-                    torestaurants[0][1] = re.sub(r"[^a-zA-Z0-9\s']", '', torestaurants[0][1])
-                    torestaurants[0][1] = torestaurants[0][1].replace("'","")
+                    temp_list = list(torestaurants[0])
+                    temp_list[1] = re.sub(r"[^a-zA-Z0-9\s']", '', temp_list[1]).replace("'","")
+                    temp_list[7] = re.sub(r"[^a-zA-Z0-9\s']", '', temp_list[7]).replace("'","")
+                    if temp_list[2] != None:
+                        rest_budget = temp_list[2].lower().strip()
+                        if rest_budget == "inexpensive":
+                            temp_list[2] = 0
+                        elif rest_budget == "moderately expensive":
+                            temp_list[2] = 1
+                        elif rest_budget == "expensive":
+                            temp_list[2] = 2
+                        elif rest_budget == "very expensive":
+                            temp_list[2] = 3
+                    else:
+                        temp_list[2] = 2
+                    temp_list[5] = re.sub(r"[^a-zA-Z0-9\s']", '', temp_list[5]).replace("'","")
+                    for i in range(0,len(temp_list[6])):
+                        temp_list[6][i] = re.sub(r"[^a-zA-Z0-9\s']", '', temp_list[6][i]).replace("'","")
+                    torestaurants[0] = tuple(temp_list)
 
                     print(torestaurants[0][1])
                     add_resto_sql = f"""
-                    INSERT INTO test.restaurants(rest_id, rest_name, loc_id)
-                    VALUES('{torestaurants[0][0]}','{torestaurants[0][1]}',{loc_id});
+                    INSERT INTO test.restaurants(rest_id, rest_name, rest_budget, rest_rating, rest_rev_count, address, main_category, categories, rest_location)
+                    VALUES('{torestaurants[0][0]}','{torestaurants[0][1]}', {torestaurants[0][2]}, {torestaurants[0][3]}, {torestaurants[0][4]}, '{torestaurants[0][7]}', '{torestaurants[0][5]}', (ARRAY{torestaurants[0][6]}), '{location}');
                     """
                     cur.execute(add_resto_sql)
                     rest_id = torestaurants[0][0]
@@ -51,17 +67,6 @@ def extract_data_for_restaurant(file_path, loc_id):
                     print(torestaurants[0][1])
                     rest_names.append((torestaurants[0][1],torestaurants[0][7]))
 
-                    if torestaurants[0][2] == '' or torestaurants[0][2] == None:
-                        temp_list = list(torestaurants[0])
-                        temp_list[2] = 'Moderately expensive'
-                        torestaurants[0] = tuple(temp_list)
-
-                    update_resto_sql = f"""
-                    UPDATE test.restaurants
-                    SET rest_budget = '{torestaurants[0][2]}', rest_rating = {torestaurants[0][3]}, rest_rev_count = {torestaurants[0][4]}, address = '{torestaurants[0][7]}', main_category ='{torestaurants[0][5]}', categories = (ARRAY{torestaurants[0][6]})
-                    WHERE rest_id = '{rest_id}'
-                    """
-                    cur.execute(update_resto_sql)
                     print("updated restaurants")
 
                     for review in restaurant.get('detailed_reviews', []):
@@ -85,23 +90,22 @@ def extract_data_for_restaurant(file_path, loc_id):
 
                         print("updated reviews")
 
-                    conn.commit()
-
-                print(loc_id)
-                graph_fun(loc_id)
-
+                print(location)
+                conn.commit()
                 return rest_names
             
         except (psycopg2.DatabaseError, Exception) as error:
             print(error)
             conn.rollback()
         
-def main_connect(location, loc_id):
+def main_connect(location):
     name = 'top-restaurants-in-' + location
     file_path = 'output/'+name+'/json/'+'places-of-'+name+'.json'
     print(file_path)
-    rest_names = extract_data_for_restaurant(file_path, loc_id)
-    if rest_names != None:
+    rest_names = extract_data_for_restaurant(file_path, location)
+    print(rest_names)
+    graph_fun(location)
+    if rest_names:
         for each in rest_names:
             main_function(location, each[0], each[1], 0)
     return True

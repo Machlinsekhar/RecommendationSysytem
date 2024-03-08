@@ -19,7 +19,7 @@ def recommend_restaurants(min_rating, restaurant_type, budget_range, location):
             match_query = f"""
                 SELECT rest_name
                 FROM test.restaurants
-                WHERE main_category = '{restaurant_type}' and loc_id = (SELECT loc_id FROM test.locations WHERE loc_name = '{location}')
+                WHERE main_category = '{restaurant_type}' and rest_location = '{location}'
                 ORDER BY rest_rating DESC
             """
             cur.execute(match_query)
@@ -29,7 +29,7 @@ def recommend_restaurants(min_rating, restaurant_type, budget_range, location):
             unmatch_query = f"""
                 SELECT rest_name
                 FROM test.restaurants
-                WHERE main_category != '{restaurant_type}' and loc_id = (SELECT loc_id FROM test.locations WHERE loc_name = '{location}')
+                WHERE main_category != '{restaurant_type}' and rest_location = '{location}'
                 ORDER BY rest_rating DESC
             """
             cur.execute(unmatch_query)
