@@ -2,8 +2,8 @@ from botasaurus.decorators_utils import create_directory_if_not_exists
 from botasaurus.decorators import print_filenames
 from botasaurus import bt
 
-from google_scraper.src.fields import Fields
-from google_scraper.src.utils import kebab_case, sort_dict_by_keys, unicode_to_ascii
+from google_scraper_new.src.fields import Fields
+from google_scraper_new.src.utils import kebab_case, sort_dict_by_keys, unicode_to_ascii
 
 
 def make_folders(query_kebab):

@@ -2,7 +2,7 @@ import re as rex
 import json
 from datetime import datetime
 
-from google_scraper.src.scraper_utils import create_search_link
+from google_scraper_new.src.scraper_utils import create_search_link
 
 def toiso(date):
     return date.isoformat() 

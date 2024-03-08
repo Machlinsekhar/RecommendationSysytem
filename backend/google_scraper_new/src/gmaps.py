@@ -1,8 +1,8 @@
 from botasaurus import bt
 from typing import List, Optional, Dict
-from google_scraper.src import scraper
-from google_scraper.src.write_output import write_output
-from google_scraper.src.sort_filter import filter_places, sort_places
+from google_scraper_new.src import scraper
+from google_scraper_new.src.write_output import write_output
+from google_scraper_new.src.sort_filter import filter_places, sort_places
 from .cities import Cities
 from .lang import Lang
 from .category import Category

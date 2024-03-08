@@ -2,9 +2,9 @@ from botasaurus import *
 from hashlib import md5
 from botasaurus import cl
 from botasaurus.cache import DontCache
-from google_scraper.src.extract_data import extract_data, perform_extract_possible_map_link
-from google_scraper.src.scraper_utils import create_search_link, perform_visit
-from google_scraper.src.utils import convert_unicode_dict_to_ascii_dict, unique_strings
+from google_scraper_new.src.extract_data import extract_data, perform_extract_possible_map_link
+from google_scraper_new.src.scraper_utils import create_search_link, perform_visit
+from google_scraper_new.src.utils import convert_unicode_dict_to_ascii_dict, unique_strings
 from .reviews_scraper import GoogleMapsAPIScraper
 from time import sleep, time
 from botasaurus.utils import retry_if_is_error

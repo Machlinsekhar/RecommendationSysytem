@@ -1,4 +1,4 @@
-from google_scraper.src.utils import kebab_case, unicode_to_ascii
+from google_scraper_new.src.utils import kebab_case, unicode_to_ascii
 
 def sort_place(places:list, sort):
      
