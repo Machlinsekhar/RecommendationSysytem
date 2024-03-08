@@ -36,6 +36,9 @@ def extract_data_for_restaurant(file_path, loc_id):
                     # Store the extracted information in the list
                     torestaurants.append((place_id, rest_name, budget, rating, rev_count, main_category, categories, address))
                     
+                    torestaurants[0][1] = re.sub(r"[^a-zA-Z0-9\s']", '', torestaurants[0][1])
+                    torestaurants[0][1] = torestaurants[0][1].replace("'","")
+
                     print(torestaurants[0][1])
                     add_resto_sql = f"""
                     INSERT INTO test.restaurants(rest_id, rest_name, loc_id)

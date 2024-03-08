@@ -26,7 +26,6 @@ backend/collab_alg.py
 backend/old_dataset_store
 backend/Output
 Output
-.env
 backend/dataset/
 backend/uploads/
 backend/flask_session/
