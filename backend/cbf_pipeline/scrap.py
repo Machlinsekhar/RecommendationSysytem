@@ -40,10 +40,10 @@ def check_path(location):
                     conn.commit()
 
                     name = 'top-restaurants-in-' + location
-                    # directory_path = 'output\\all'
-                    # shutil.rmtree(directory_path)
-                    # directory_path = 'output\\'+name
-                    # shutil.rmtree(directory_path)
+                    directory_path = 'output\\all'
+                    shutil.rmtree(directory_path)
+                    directory_path = 'output\\'+name
+                    shutil.rmtree(directory_path)
                     # directory_path = 'cache'
                     # shutil.rmtree(directory_path)
                     return True
