@@ -1,0 +1,26 @@
+@keyframes shining {
+    0% {
+      transform: translate(-50%, 0);
+    }
+    100% {
+      transform: translate(100%, 0);
+    }
+  }
+  
+  .shining-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 2px;
+    background-color: white;
+    animation: shining 2s linear infinite;
+    opacity: 0.6;
+    transform-origin: top left;
+  }
+  
+  .button-with-shining-line {
+    position: relative;
+    overflow: hidden;
+  }
+  
