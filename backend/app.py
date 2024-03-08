@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from auth import auth as auth_blueprint
 from main import main as main_blueprint
 # from pymongo import MongoClient
-import os
+import os, re
 # import csv
 # from db import entries
 from cbf_pipeline.scrap import check_path
@@ -55,6 +55,7 @@ def hello_world():
 @app.route('/receive-location', methods=['POST'])
 def receive_location():
     location = request.json.get('location')
+    location = location.lower()
     print(location)
     result = check_path(location)
     return jsonify(result)
@@ -119,12 +120,14 @@ def fetch_details(location, restaurant_name):
         with psycopg2.connect(**config) as conn:
             cur = conn.cursor()
             get_query = f"""
-                SELECT rest_id, rest_name, rest_budget, rest_cuisine, rest_rating, rev_count
+                SELECT rest_id, rest_name, rest_budget, main_category, rest_rating, rest_rev_count
                 FROM test.restaurants
                 WHERE rest_name = '{restaurant_name}'
             """
             cur.execute(get_query)
             row = cur.fetchone()
+
+            img_name = re.sub(r'[^a-zA-Z0-9\s]', '', row[1])
 
             return {
                 "rest_id":f"{row[0]}",
@@ -133,7 +136,8 @@ def fetch_details(location, restaurant_name):
                 "type": f"{row[3]}",
                 "rating": f"{row[4]}",
                 "rev_count":f"{row[5]}",
-                "location":location
+                "location":location,
+                "img_name": img_name
             }
 
 

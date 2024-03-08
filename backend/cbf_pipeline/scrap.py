@@ -1,5 +1,5 @@
 import os
-from connect import main_connect
+from extract_from_json import main_connect
 
 def check_path(location):
 

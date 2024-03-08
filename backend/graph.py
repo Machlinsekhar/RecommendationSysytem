@@ -57,15 +57,18 @@ def graph_fun(loc_id):
             for id in rest_ids:
 
                 fetch_name_sql = f"""
-                    SELECT rest_name FROM test.restaurants WHERE rest_id={id}
+                    SELECT rest_name FROM test.restaurants WHERE rest_id='{id}'
                 """
                 cur.execute(fetch_name_sql)
                 name = cur.fetchone()[0]
                 print(name)
 
+                jagah = jagah.lower()
+                os.makedirs(f"{uploads_directory}/{jagah}", exist_ok=True)
+
                 # RATING GRAPH
                 fetch_rev_rating_sql = f"""
-                    SELECT rev_rating FROM test.reviews WHERE rest_id={id}
+                    SELECT rev_rating FROM test.reviews WHERE rest_id='{id}'
                 """
                 cur.execute(fetch_rev_rating_sql)
                 ratings_raw = cur.fetchall()
@@ -82,7 +85,7 @@ def graph_fun(loc_id):
 
                 # SENTIMENT GRAPH
                 fetch_sentiments_sql = f"""
-                    SELECT sentiment_score FROM test.reviews WHERE rest_id={id}
+                    SELECT sentiment_score FROM test.reviews WHERE rest_id='{id}'
                 """
                 cur.execute(fetch_sentiments_sql)
                 sentiments_raw = cur.fetchall()
@@ -100,24 +103,24 @@ def graph_fun(loc_id):
                 plot_and_save_graph(sentiment_counts, 'Sentiment', sentiment_graph_filename, "#869937")
                 print("Plotted sentiments and stored")
 
-                rest_name = f"{name}.jpg"
-                rest_graph_1 = f"{name}_rating_graph.jpg"
-                rest_graph_2 = f"{name}_sentiment_graph.jpg"
+                # rest_name = f"{name}.jpg"
+                # rest_graph_1 = f"{name}_rating_graph.jpg"
+                # rest_graph_2 = f"{name}_sentiment_graph.jpg"
 
-                store_img_name_sql = f"""
-                    INSERT INTO test.images(img_name)
-                    VALUES('{rest_name}'),
-                        ('{rest_graph_1}'),
-                        ('{rest_graph_2}');
-                """
-                cur.execute(store_img_name_sql) 
+                # store_img_name_sql = f"""
+                #     INSERT INTO test.images(img_name)
+                #     VALUES('{rest_name}'),
+                #         ('{rest_graph_1}'),
+                #         ('{rest_graph_2}');
+                # """
+                # cur.execute(store_img_name_sql) 
 
-                store_img_id_sql = f"""
-                    UPDATE test.restaurants
-                    SET img_id = (SELECT img_id FROM test.images WHERE img_name = '{rest_name}')
-                    WHERE rest_id = {id}
-                """
-                cur.execute(store_img_id_sql)
+                # store_img_id_sql = f"""
+                #     UPDATE test.restaurants
+                #     SET img_id = (SELECT img_id FROM test.images WHERE img_name = '{rest_name}')
+                #     WHERE rest_id = '{id}'
+                # """
+                # cur.execute(store_img_id_sql)
 
             conn.commit()
             
@@ -135,4 +138,4 @@ def graph_fun(loc_id):
     #     os.makedirs(f"backend/dataset/{jagah}/graphs/{file}", exist_ok=True)
         
 # graph_fun("pune")
-# graph_fun(41)
+# graph_fun(1)

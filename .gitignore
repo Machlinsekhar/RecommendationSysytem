@@ -30,6 +30,7 @@ backend/database.ini
 .env
 backend/dataset/
 backend/uploads/
+backend/flask_session/
 
 npm-debug.log*
 yarn-debug.log*
