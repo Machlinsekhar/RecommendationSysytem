@@ -1,9 +1,9 @@
 /* Navbar.css */
 .navbar {
     align-items: center;
-    background-color: #EFBA55;
+    background-color: black;
     padding: 10px 20px;
-    color: #000;
+    color: #f5f5dc;
     display: flex;
     margin: 0;
     padding: 0.01rem;
@@ -48,7 +48,7 @@
   
   .menu a {
     text-decoration: none;
-    color: #000;
+    color: #f5f5dc;
     font-weight: 900;
     font-size: large;
   }
