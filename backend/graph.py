@@ -31,6 +31,8 @@ def graph_fun(loc_id):
     # for name in file_names:
     #     names.append(name)
 
+    print("in graph function")
+
     config = load_config()
     try:
         with psycopg2.connect(**config) as conn:

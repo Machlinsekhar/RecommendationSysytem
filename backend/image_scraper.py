@@ -71,7 +71,7 @@ def download_image(url, save_path, call_count):
 
 
 def main_function(location, resto, address, call_count):
-    service = Service(executable_path='D:\Projects\RecommendationSysytem\\build\chromedriver-122.exe')
+    service = Service(executable_path='D:\Projects\RecommendationSysytem\\backend\\build\chromedriver-122.exe')
     driver = webdriver.Chrome(service=service, options=options)
     driver2 = run_query_function(driver, location, resto, address)
     image_url_scraper(driver2, location, resto, address, call_count)
