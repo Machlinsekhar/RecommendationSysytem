@@ -19,10 +19,13 @@ conn = psycopg2.connect(**config)
 
 
 @main.route('/create-entry', methods=['POST'])
-# @needs_auth()
-def set_entry():
+@needs_auth()
+def set_entry(account):
+    print(account)
     print(session)
     user_id = session.get('uid')
+    print("from session: ", user_id)
+
     cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
     print(request.form)
@@ -30,7 +33,9 @@ def set_entry():
     if request.method == 'POST':
         print(request.form)
         home_location = request.form['home_location']
-        fav_cuisine = request.form['fav_cuisine']
+        fav_cuisine = json.loads(request.form['fav_cuisine'])
+        print(fav_cuisine)
+
         try:
             cursor.execute(f"""
                 UPDATE test.users
