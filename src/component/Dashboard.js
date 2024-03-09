@@ -166,14 +166,28 @@ const Dashboard = () => {
     setCuisine(selectedCuisine);
   };
 
+  const fetchCollabRecommendations = async () => {
+    try {
+        const response = await fetch('/collabrecommend', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }})
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Failed to fetch recommendations:', error);
+    }
+  };
+
   const handleCollabClick = async () => {
     try {
       setShowModal(true); 
       setTimeout(async () => {
-        const data = await fetchRecommendations();
+        const data = await fetchCollabRecommendations();
         const details = await fetchRestDetails(data);
 
-        navigate('/recommendation', { state: { recommendations: details, count:3 } });
+        navigate('/recommendation', { state: { recommendations: details, count:5 } });
         console.log('Form submitted');
       }, 1000); 
       // setLoadingModalOpen(true);
@@ -187,21 +201,6 @@ const Dashboard = () => {
     catch (error) {
       console.error('Error fetching data:', error);
       setLoadingModalOpen(false);
-    }
-  };
-    
-
-  const fetchCollabRecommendations = async () => {
-    try {
-        const response = await fetch('http://localhost:5000/collabrecommend', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            }})
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Failed to fetch recommendations:', error);
     }
   };
 

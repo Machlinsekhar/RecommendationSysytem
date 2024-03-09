@@ -88,7 +88,7 @@ def colrecommend():
     print(session)
     user_id = session.get('uid')
     recommendations = col.main(user_id)
-    print(recommendations)
+    
     return jsonify(recommendations)
 
 
