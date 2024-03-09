@@ -97,7 +97,7 @@ def set_rating_entry(account):
 
             for id, rating in ratings.items():
                 cursor.execute(f"""
-                    INSERT INTO test.user_rating(user_id, rest_id, user_rating, loc_name)
+                    INSERT INTO test.user_rating(user_id, rest_id, rating, loc_name)
                     VALUES (%s,%s,%s,%s)
                 """, (user_id, id, rating, location))
 

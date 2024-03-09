@@ -65,11 +65,11 @@ def recommend_restaurants(target_user_id, similar_users,conn):
             fetched_name = cur.fetchone()[0]
             restaurants.append(fetched_name)
 
+        for restaurant in set(r[0] for r in pred_ratings):
+            rest_names[restaurant]
+            yield (rest_names[restaurant], pred_ratings[(restaurant, target_user_id)])
+            
         print(restaurants)
-        append_recommendation_to_database((row[0], pred_ratings[(row[0], target_user_id)]), target_user_id, conn)
-
-        for restaurants in set(r[0] for r in pred_ratings):
-            yield (restaurants, pred_ratings[(restaurants, target_user_id)])
         
         
 
@@ -92,26 +92,24 @@ def append_recommendation_to_database(recommended_restaurant, target_user_id, co
         print("Appended")
 
 # Example usage
-def main():
+def main(target_user_id):
     config = load_config()
     try:
         with psycopg2.connect(**config) as conn:
             # Replace 1 with the target user_id you want recommendations for
-            target_user_id = 4
-            similar_users, recommended_restaurants = collaborative_filtering_recommendation(target_user_id, conn)
             
+            similar_users, recommended_restaurants = collaborative_filtering_recommendation(target_user_id, conn)
 
             # print("Similar Users:")
             # print(similar_users)
 
             print("\nRecommended Restaurants:")
-            for restaurants, predicted_rating in recommended_restaurants:
-                print(f"Restaurant ID: {restaurants}, Predicted Rating: {predicted_rating}")
-
-            # append_recommendation_to_database(restaurants[0],target_user_id,conn)
+            for restaurant, predicted_rating in recommended_restaurants:
+                print(f"Restaurant ID: {restaurant}, Predicted Rating: {predicted_rating}")
+            
+            return recommend_restaurants
 
     except (psycopg2.DatabaseError, Exception) as error:
         print(error)
-
-if __name__ == "__main__":
-    main()
+        
+main(3)
