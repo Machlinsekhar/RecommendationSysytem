@@ -76,11 +76,21 @@ def extract_data_for_restaurant(file_path, location):
                         reliability_count = review.get('total_number_of_reviews_by_reviewer', 0)
                         is_local_guide = review.get('is_local_guide', False)
 
+                        if review_text == "" or review_text == None:
+                            review_text = "average"
                         review_text = re.sub(r"[^a-zA-Z0-9\s']", '', review_text)
                         review_text = review_text.replace("'","")
                         sentiment_score = preprocess_fun(review_text)
 
                         toreviews=[rev_rating, review_text, reliability_count, is_local_guide, sentiment_score]
+
+                        if toreviews[0] == "" or toreviews[0] == None or toreviews[0] == "null":
+                            toreviews[0] = 3
+                        if toreviews[2] == "" or toreviews[2] == None or toreviews[2] == "null":
+                            toreviews[2] = 0
+                        if toreviews[3] == "" or toreviews[3] == None or toreviews[3] == "null":
+                            toreviews[3] = False
+
 
                         update_rev_sql = f"""
                         INSERT INTO test.reviews(rev_rating, review_text, reliability_score, is_local_guide, rest_id, sentiment_score)

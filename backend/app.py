@@ -37,8 +37,9 @@ CORS(app, supports_credentials=True)
 
 @app.route('/check_session', methods=['POST'])
 @needs_auth()
-def check_session():
+def check_session(account):
     print("in check session route")
+    print(account)
     print(session)
     user_id = session.get('uid')
     if user_id:
