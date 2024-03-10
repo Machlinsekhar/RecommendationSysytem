@@ -16,10 +16,7 @@ def needs_auth():
         def __needs_auth(*args, **kwargs):
             print("inside needs auth")
 
-            cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-
             print(session)
-
             id = session.get('uid')
 
             if not id:
@@ -28,6 +25,7 @@ def needs_auth():
             
             print(id)
 
+            cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
             cursor.execute('SELECT * FROM test.users WHERE user_id = %s', (id,))
             account = cursor.fetchone()
             print(account)
@@ -36,6 +34,7 @@ def needs_auth():
                 return {}, 401
             
             result = f(account, *args, **kwargs)
+            print(result)
             return result
 
         return __needs_auth

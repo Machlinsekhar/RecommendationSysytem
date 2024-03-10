@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import plateBig from '../image/plate2.png';
@@ -7,31 +7,78 @@ import bg from '../image/bg.jpg';
 import TitleBlock from './TitleBlock';
 
 const UserProfile2 = () => {
-  const [location, setLocation] = useState('');
   const [cuisine, setCuisine] = useState('');
   const navigate = useNavigate();
-  const [ratings, setRatings] = useState({
-    r1: '',
-    r2: '',
-    r3: '',
-    r4: '',
-    r5: '',
-  });
+  const [restaurants, setRestaurants] = useState([]);
+  const [ratings, setRatings] = useState([]);
 
   // Generate a random array of 5 restaurants
-  const restaurants = [
-    { id: 1, name: 'Shree Cafe' },
-    { id: 2, name: 'Barbeque' },
-    { id: 3, name: 'Ahemed Bhai' },
-    { id: 4, name: 'Mosho' },
-    { id: 5, name: 'Manis Cafe' },
-  ];
+  // const restaurants = [
+  //   { id: 1, name: 'Shree Cafe' },
+  //   { id: 2, name: 'Barbeque' },
+  //   { id: 3, name: 'Ahemed Bhai' },
+  //   { id: 4, name: 'Mosho' },
+  //   { id: 5, name: 'Manis Cafe' },
+  // ];
 
-  const handleProfileCompletion = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    const fetchRestFromLocation = async () => {
+      try {
+        const response = await fetch('/fetch-top-from-location', {
+          method: 'POST'
+        });
+        console.log(response)
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+        let selected = responseData.sort(() => 0.5 - Math.random()).slice(0, 5);
+        setRestaurants(selected)
+        // navigate('/userprofile2');
+
+      } catch (error) {
+        console.error('Error fetching:', error);
+      }
+    };
+
+    fetchRestFromLocation();
+  }, []);
+
+  const handleProfileCompletion = async() => {
+    console.log(ratings)
     if (Object.values(ratings).some((rating) => rating !== '')) {
-      navigate('/home');
-    } else {
+      try 
+      {
+        console.log('in store user ratings api')
+  
+        const response = await fetch('/store-user-ratings', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(ratings),
+        });
+
+        console.log(response)
+  
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log('Success:', result);
+        if (result.message === 'Done') {
+          navigate('/home');
+        }
+      } 
+      catch (error) {
+        console.error('Error in storeUserRatings:', error);
+      }
+      
+    } 
+    else {
       alert('Enter your preferences.');
     }
   };
@@ -198,10 +245,16 @@ const boxcontainer = {
 
 
   const handleRatingChange = (restaurantId, value) => {
-    setRatings((prevRatings) => ({
-      ...prevRatings,
-      [`r${restaurantId}`]: value,
-    }));
+    setRatings((prevRatings) => {
+      const updatedRatings = { ...prevRatings };
+      if (value === '') {
+        delete updatedRatings[restaurantId];
+      } else {
+        updatedRatings[restaurantId] = value;
+      }
+      return updatedRatings;
+    });
+  console.log(ratings);
   };
 
 
@@ -351,15 +404,20 @@ const boxcontainer = {
      />
         <h3 htmlFor="restaurants-visited" style={labelStyle}>Which restaurants have you visited?</h3>
         <div style={boxcontainer}>
-          {restaurants.map((restaurant) => (
-            <div key={restaurant.id}>
+        {/* {restaurants.map((restaurant, index) => (
+          <li key={index}>
+            {restaurant[1]}
+          </li>
+        ))} */}
+          {restaurants.map((restaurant, index) => (
+            <div key={restaurant[0]}>
               <label>
-              {restaurant.id}. {restaurant.name}
+              {index+1}. {restaurant[1]}
                 <input
                   type="text"
                   placeholder="Rating out of 5"
-                  value={ratings[`r${restaurant.id}`]}
-                  onChange={(e) => handleRatingChange(restaurant.id, e.target.value)}
+                  value={ratings[restaurant[0]]}
+                  onChange={(e) => handleRatingChange(restaurant[0], e.target.value)}
                   style={inputStyle}
                   autoComplete="off"
                 />

@@ -172,70 +172,9 @@ const Dashboard = () => {
     setCuisine(selectedCuisine);
   };
 
-  const handleCollabClick = async () => {
-    try {
-  // Show modal with some content (presumably a loading indicator)
-  setShowModal(true);
-  const data = await fetchRecommendations();
-
-  // Fetch additional details based on recommendations
-  const details = await fetchRestDetails(data);
-  // Delay the execution of the following code for 1000 milliseconds (1 second)
-  setTimeout(async () => {
-    // Fetch recommendations asynchronously
-  //   const data = await fetchRecommendations();
-
-  // // Fetch additional details based on recommendations
-  // const details = await fetchRestDetails(data);
-
-    // Navigate to '/recommendation' route with recommendations and count as state
-    navigate('/recommendation', { state: { recommendations: details, count: 3 } });
-
-    // Log a message to the console indicating that the form has been submitted
-    console.log('Form submitted');
-  }, 8000);
-
-  // Show modal 2 when data is not null
-  if (data !== null) {
-    setShowModal2(true);
-  }
-
-  // Show modal 3 when details is not null
-  if (details !== null) {
-    setShowModal3(true);
-  }
-} catch (error) {
-  // Handle any errors that might occur during the try block
-  console.error('An error occurred:', error);
-}
-
-    // try {
-    //   setShowModal(true); 
-    //   setTimeout(async () => {
-    //     const data = await fetchRecommendations();
-    //     const details = await fetchRestDetails(data);
-
-    //     navigate('/recommendation', { state: { recommendations: details, count:3 } });
-    //     console.log('Form submitted');
-    //   }, 1000); 
-    //   // setLoadingModalOpen(true);
-    //   // setTimeout(async () => {
-    //   //     const data = await fetchCollabRecommendations();
-    //   //     setLoadingModalOpen(false);
-    //   //     navigate('/recommendation', { state: { recommendations: data } });
-    //   //     console.log('Form submitted:', data);
-    //   // }, 3000);
-    // } 
-    // catch (error) {
-    //   console.error('Error fetching data:', error);
-    //   setLoadingModalOpen(false);
-    // }
-  };
-    
-
   const fetchCollabRecommendations = async () => {
     try {
-        const response = await fetch('http://localhost:5000/collabrecommend', {
+        const response = await fetch('/collabrecommend', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -244,6 +183,30 @@ const Dashboard = () => {
         return data;
     } catch (error) {
         console.error('Failed to fetch recommendations:', error);
+    }
+  };
+
+  const handleCollabClick = async () => {
+    try {
+      setShowModal(true); 
+      setTimeout(async () => {
+        const data = await fetchCollabRecommendations();
+        const details = await fetchRestDetails(data);
+
+        navigate('/recommendation', { state: { recommendations: details, count:5 } });
+        console.log('Form submitted');
+      }, 1000); 
+      // setLoadingModalOpen(true);
+      // setTimeout(async () => {
+      //     const data = await fetchCollabRecommendations();
+      //     setLoadingModalOpen(false);
+      //     navigate('/recommendation', { state: { recommendations: data } });
+      //     console.log('Form submitted:', data);
+      // }, 3000);
+    } 
+    catch (error) {
+      console.error('Error fetching data:', error);
+      setLoadingModalOpen(false);
     }
   };
 

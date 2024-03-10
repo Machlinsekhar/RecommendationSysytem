@@ -7,7 +7,7 @@ const SessionChecker = () => {
     const fetchSessionStatus = async () => {
       try {
         const response = await fetch('/check_session',{
-        method: 'POST',
+        method: 'POST'
         });
         const data = await response.text();
         setSessionStatus(data);

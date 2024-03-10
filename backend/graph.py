@@ -22,7 +22,7 @@ def plot_and_save_graph(data, title, filename, color):
 
 # jagah = "pune"
 
-def graph_fun(loc_id):
+def graph_fun(location):
     # folder_path = f'backend/dataset/{jagah}'
     # main_csv_file = f'{jagah}_profile.csv'
     # main_df = pd.read_csv(os.path.join(folder_path, main_csv_file))
@@ -39,18 +39,14 @@ def graph_fun(loc_id):
             print('Connected to the PostgreSQL server.')
             cur = conn.cursor()
 
-            fetch_location = f"""
-                SELECT loc_name FROM test.locations WHERE loc_id={loc_id}
-            """
-            cur.execute(fetch_location)
-            jagah = cur.fetchone()[0]
-            print(jagah)
+            jagah = location
 
             fetch_rest_sql = f"""
-                SELECT rest_id FROM test.restaurants WHERE loc_id={loc_id}
+                SELECT rest_id FROM test.restaurants WHERE rest_location='{jagah}'
             """
             cur.execute(fetch_rest_sql)
             rest_raw = cur.fetchall()
+            print(rest_raw)
             rest_ids = []
             for item in rest_raw:
                 rest_ids.append(item[0])
@@ -140,4 +136,4 @@ def graph_fun(loc_id):
     #     os.makedirs(f"backend/dataset/{jagah}/graphs/{file}", exist_ok=True)
         
 # graph_fun("pune")
-# graph_fun(1)
+# graph_fun("banglore")

@@ -47,7 +47,10 @@ def image_url_scraper(driver, jagah, place_, address, call_count):
             print("image processing done")
         else: 
             call_count += 1
-            main_function(jagah, place_, address, call_count)
+            if call_count<2:
+                main_function(jagah, place_, address, call_count)
+            else:
+                pass
 
     except NoSuchElementException:
         print("url not found")
@@ -72,7 +75,8 @@ def download_image(url, save_path, call_count):
 
 
 def main_function(location, resto, address, call_count):
-    service = Service(executable_path={driver_directory})
+    print("in images extraction")
+    service = Service(executable_path=f"{driver_directory}")
     driver = webdriver.Chrome(service=service, options=options)
     driver2 = run_query_function(driver, location, resto, address)
     image_url_scraper(driver2, location, resto, address, call_count)

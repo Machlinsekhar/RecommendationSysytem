@@ -14,17 +14,18 @@ const UserProfile = () => {
   const handleProfileCompletion = async(e) => {
 
     e.preventDefault();
-
+    
+    console.log(location, cuisine)
     const formData = new FormData();
     formData.append('home_location', location);
     formData.append('fav_cuisine', JSON.stringify(cuisine));
+    console.log(formData);
 
     if (location !== '' && cuisine !== '') {
       try {
-        const response = await fetch('http://127.0.0.1:5000/create-entry', {
+        const response = await fetch('/create-entry', {
           method: 'POST',
-          credentials: 'include',
-          body: formData,
+          body: formData
         });
         
         const responseData = await response.json();

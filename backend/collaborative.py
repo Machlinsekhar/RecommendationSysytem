@@ -37,6 +37,7 @@ def recommend_restaurants(target_user_id, similar_users,conn):
                 test.restaurants
         """)
         rest_rows = cur.fetchall()
+
         for rest_row in rest_rows:
             rest_names[rest_row[0]] = rest_row[1]
             #print(rest_names[1])
@@ -64,12 +65,15 @@ def recommend_restaurants(target_user_id, similar_users,conn):
             """, (row[0],))
             fetched_name = cur.fetchone()[0]
             restaurants.append(fetched_name)
+        
+        append_recommendation_to_database(restaurants,target_user_id,conn)
+        return(rest_names)
 
-        print(restaurants)
-
-        for restaurant in set(r[0] for r in pred_ratings):
-            rest_names[restaurant]
-            yield (rest_names[restaurant], pred_ratings[(restaurant, target_user_id)])
+        # for restaurant in set(r[0] for r in pred_ratings):
+        #     rest_names[restaurant]
+        #     yield (rest_names[restaurant], pred_ratings[(restaurant, target_user_id)])
+            
+        # print(restaurants)
         
         
 
@@ -86,29 +90,37 @@ def append_recommendation_to_database(recommended_restaurant, target_user_id, co
     conn.set_isolation_level(psycopg2.extensions.ISOLATION_LEVEL_AUTOCOMMIT)
     with conn.cursor() as cur:
         cur.execute("""
-            INSERT INTO test.test.user_rating (user_id, rest_id, rest_rating, loc_id)
+            INSERT INTO test.user_rating (user_id, rest_id, rating, loc_name)
             VALUES (%s, %s, %s,%s);
         """, (target_user_id, recommended_restaurant[0], recommended_restaurant[1], 1))
+        print("Appended")
 
 # Example usage
-def main():
+def main(target_user_id):
     config = load_config()
     try:
         with psycopg2.connect(**config) as conn:
             # Replace 1 with the target user_id you want recommendations for
-            target_user_id = 3
-            similar_users, recommended_restaurants = collaborative_filtering_recommendation(target_user_id, conn)
             
+            similar_users, recommended_restaurants = collaborative_filtering_recommendation(target_user_id, conn)
 
             # print("Similar Users:")
             # print(similar_users)
 
             print("\nRecommended Restaurants:")
-            for restaurant, predicted_rating in recommended_restaurants:
-                print(f"Restaurant ID: {restaurant}, Predicted Rating: {predicted_rating}")
+            recommended_names = []
+
+            for id, name in recommended_restaurants.items():
+                recommended_names.append(name)
+            
+            print(recommended_names)
+            return(recommended_names)
+
+            # for restaurant, predicted_rating in recommended_restaurants:
+            #     print(f"Restaurant ID: {restaurant}, Predicted Rating: {predicted_rating}")
+            
 
     except (psycopg2.DatabaseError, Exception) as error:
         print(error)
-
-if __name__ == "__main__":
-    main()
+        
+# main(2)

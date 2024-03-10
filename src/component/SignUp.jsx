@@ -22,7 +22,7 @@ const SignUp = () => {
 
     if(username!=='' && password!==''){
       try {
-        const response = await fetch('http://127.0.0.1:5000/signup', {
+        const response = await fetch('/signup', {
           method: 'POST',
           body: formData,
         });
