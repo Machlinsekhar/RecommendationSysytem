@@ -13,17 +13,19 @@
     font-size: large;
     width:100%;
     z-index: 2;
+    height: 4rem;
   }
   
   .logo {
     /* font-size: 1px; */
     /* font-weight: bold; */
     flex:1;
-    /* padding-left: 10px; */
+    /* transform: scale(2); */
+    /* padding-left: 120px; */
   }
   
   .logo-img{
-    width: 100px;
+    width: 15rem;
   }
 
   .menu {

@@ -2,11 +2,12 @@ import React, { useState }  from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import modal from '../image/modal.jpg';
+import modal from '../image/modal.png';
 import content from '../image/content.jpg';
 import collaborative from '../image/collaborative.jpg';
 import { useNavigate, useLocation } from 'react-router-dom';
 import NavBar from './NavBar';
+import TitleBlock from './TitleBlock';
 
 const Dashboard = () => {
   const [loadingModalOpen, setLoadingModalOpen] = useState(false);
@@ -15,6 +16,8 @@ const Dashboard = () => {
   const [rating, setRating] = useState('1');
   const [budget, setBudget] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [showModal2, setShowModal2] = useState(false);
+  const [showModal3, setShowModal3] = useState(false);
   const navigate = useNavigate();
   const location = useLocation().pathname.split('/').pop();
 
@@ -26,7 +29,7 @@ const Dashboard = () => {
       alignItems: 'flex-start', 
       paddingTop: '60px',
       paddingLeft:'8rem',
-      backgroundColor: '#ffff',
+      backgroundColor: '#D9D9D9',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat', 
   };
@@ -38,7 +41,7 @@ const Dashboard = () => {
     color: 'black',
     borderRadius: '15px',
     cursor: 'pointer',
-    border: '2px solid #EFBA55', 
+    // border: '2px solid #EFBA55', 
     fontWeight: 'bold',
   };
 
@@ -49,17 +52,20 @@ const Dashboard = () => {
   
   const lowButtonStyle = {
     ...buttonStyleInline,
-    backgroundColor: budget === 'Moderate' ? '#EFBA55' : '#ffff',
+     color: budget === 'Moderate' ? '#E4E4E4' : 'black',
+    backgroundColor: budget === 'Moderate'  ? 'black' : 'white',
   };
   
   const moderateButtonStyle = {
     ...buttonStyleInline,
-    backgroundColor: budget === 'Expensive' ? '#EFBA55' : '#ffff',
+    color: budget === 'Expensive' ? '#E4E4E4' : 'black',
+    backgroundColor: budget === 'Expensive'  ? 'black' : 'white',
   };
   
   const highButtonStyle = {
     ...buttonStyleInline,
-    backgroundColor: budget === 'Very Expensive' ? '#EFBA55' : '#ffff',
+    color: budget === 'Very Expensive' ? '#E4E4E4' : 'black',
+    backgroundColor: budget === 'Very Expensive'  ? 'black' : 'white',
   };
 
    
@@ -168,26 +174,62 @@ const Dashboard = () => {
 
   const handleCollabClick = async () => {
     try {
-      setShowModal(true); 
-      setTimeout(async () => {
-        const data = await fetchRecommendations();
-        const details = await fetchRestDetails(data);
+  // Show modal with some content (presumably a loading indicator)
+  setShowModal(true);
+  const data = await fetchRecommendations();
 
-        navigate('/recommendation', { state: { recommendations: details, count:3 } });
-        console.log('Form submitted');
-      }, 1000); 
-      // setLoadingModalOpen(true);
-      // setTimeout(async () => {
-      //     const data = await fetchCollabRecommendations();
-      //     setLoadingModalOpen(false);
-      //     navigate('/recommendation', { state: { recommendations: data } });
-      //     console.log('Form submitted:', data);
-      // }, 3000);
-    } 
-    catch (error) {
-      console.error('Error fetching data:', error);
-      setLoadingModalOpen(false);
-    }
+  // Fetch additional details based on recommendations
+  const details = await fetchRestDetails(data);
+  // Delay the execution of the following code for 1000 milliseconds (1 second)
+  setTimeout(async () => {
+    // Fetch recommendations asynchronously
+  //   const data = await fetchRecommendations();
+
+  // // Fetch additional details based on recommendations
+  // const details = await fetchRestDetails(data);
+
+    // Navigate to '/recommendation' route with recommendations and count as state
+    navigate('/recommendation', { state: { recommendations: details, count: 3 } });
+
+    // Log a message to the console indicating that the form has been submitted
+    console.log('Form submitted');
+  }, 8000);
+
+  // Show modal 2 when data is not null
+  if (data !== null) {
+    setShowModal2(true);
+  }
+
+  // Show modal 3 when details is not null
+  if (details !== null) {
+    setShowModal3(true);
+  }
+} catch (error) {
+  // Handle any errors that might occur during the try block
+  console.error('An error occurred:', error);
+}
+
+    // try {
+    //   setShowModal(true); 
+    //   setTimeout(async () => {
+    //     const data = await fetchRecommendations();
+    //     const details = await fetchRestDetails(data);
+
+    //     navigate('/recommendation', { state: { recommendations: details, count:3 } });
+    //     console.log('Form submitted');
+    //   }, 1000); 
+    //   // setLoadingModalOpen(true);
+    //   // setTimeout(async () => {
+    //   //     const data = await fetchCollabRecommendations();
+    //   //     setLoadingModalOpen(false);
+    //   //     navigate('/recommendation', { state: { recommendations: data } });
+    //   //     console.log('Form submitted:', data);
+    //   // }, 3000);
+    // } 
+    // catch (error) {
+    //   console.error('Error fetching data:', error);
+    //   setLoadingModalOpen(false);
+    // }
   };
     
 
@@ -234,12 +276,12 @@ const Dashboard = () => {
     padding: '12px 20px',
     display: 'block',
     margin: 'auto auto 4px auto',
-    color: 'black',
-    backgroundColor: cuisine.includes(currentCuisine) ? '#EFBA55' : '#ffff',
+    color: cuisine.includes(currentCuisine) ? '#E4E4E4' : 'black',
+    backgroundColor: cuisine.includes(currentCuisine) ? 'black' : 'white',
     borderRadius: '15px',
     cursor: 'pointer',
     fontWeight: 'bold',
-    border:  '2px solid #EFBA55',
+    // border:  '2px solid #EFBA55',
   });  
       
   const [showCards, setShowCards] = useState(false);
@@ -250,11 +292,12 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
+    <div className='font-jost' style={{backgroundColor: '#D9D9D9'}}>
     <NavBar/>
     <div style={dashboardContainer}>  
-    <h2 style={{ alignSelf: 'left', fontWeight: '900', fontSize: '2rem' }}>Query Parameters</h2>
-
+    <div style={{marginTop: '1rem'}}>
+    <TitleBlock title='Query Parameter' />
+    </div>
     <label style={labelStyle}>1. Preferred Cuisine:</label>
     <div style={buttonGroupStyle}>
       <button style={buttonStyle2('Any')} onClick={() => toggleCuisine('Any')}>
@@ -313,31 +356,26 @@ const Dashboard = () => {
     marginBottom: '0.4rem',
     }}>
     <label style={labelStyle}>4. Model:</label>
-      <Card sx={{ maxWidth: 205, marginLeft: 0, marginTop: 5 , backgroundColor: '#f1f1f1'}} onClick={handleCardClick} >
+      <Card sx={{ maxWidth: 205, marginLeft: 0, marginTop: 5 , backgroundColor: '#f1f1f1', marginLeft: 10, borderRadius: '1rem'}} onClick={handleCardClick} >
         {/* <CardMedia
             sx={{ height: 140 }}
             image= {content}
             title="green iguana"
         /> */}
-        <CardContent>
-            <Typography gutterBottom variant="h5" component="div" style={{backgroundImage: content, textAlign: 'center', fontWeight:'600',}}>
-                Content Based Filtering
-            {/* </Typography>
-            <Typography variant="body2" color="text.secondary">
-            Suggests restaurants by analyzing their features, aligning with users' past preferences and profile characteristics.
-          */}  </Typography> 
+        <CardContent style={{backgroundColor:'black', borderRadius: '1rem'}}>
+            
+            <div className='font-jost' style={{ color:'white', textAlign: 'center', fontWeight:'600', fontSize: '2rem'}}> Personalized Picks</div>
+             
         </CardContent>
       </Card>
-      <Card sx={{ maxWidth: 205, marginLeft: 40, marginTop: 5,  backgroundColor: '#f1f1f1' }} onClick={handleCollabClick}>
+      <Card sx={{ maxWidth: 205, marginLeft: 20, marginTop: 5,  backgroundColor: '#f1f1f1', borderRadius: '1rem' }} onClick={handleCollabClick}>
         {/* <CardMedia
             sx={{ height: 140 }}
             image={collaborative}
             title="elephant"
         /> */}
-        <CardContent>
-            <Typography gutterBottom variant="h5" component="div" style={{backgroundImage: collaborative,  textAlign: 'center', fontWeight:'600'}}>
-                Collaborative Filtering
-            </Typography>
+        <CardContent style={{backgroundColor:'black', borderRadius: '1rem'}}>
+        <div className='font-jost' style={{color:'white', textAlign: 'center', fontWeight:'600', fontSize: '2rem'}}> Team Taste Matcher</div>
             {/* <Typography variant="body2" color="text.secondary">
             Recommends restaurants based on the preferences of similar users, leveraging collective user behavior.
             </Typography> */}
@@ -346,6 +384,13 @@ const Dashboard = () => {
     </div>
 
     {showModal && (
+      <div className="modal">
+        <div className="modal-content">
+          <img src={modal} alt="Loading..." />
+        </div>
+      </div>
+    )}
+     {showModal && (
       <div className="modal">
         <div className="modal-content">
           <img src={modal} alt="Loading..." />

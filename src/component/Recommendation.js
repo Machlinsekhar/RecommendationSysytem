@@ -21,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import Navbar from './NavBar';
 import Image from './Image';
+import TitleBlock from './TitleBlock';
 
 const Recommendation = () => {
   const location = useLocation();
@@ -63,7 +64,9 @@ const Recommendation = () => {
     <div>
       <Navbar />
       <div className="recommendation-container">
-        <h2 className="header">Our Top Suggestions:</h2>
+        <div>
+        <TitleBlock title='Our Top Suggestions:'/>
+        </div>
         <div className="restaurant-list">
           {details.map((restaurant, index) => {
             // const ImageUrl = restaurant.ImageUrl;

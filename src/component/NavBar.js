@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css'; 
-import recom from '../image/recom-nobg.png'
+import recom from '../image/logo.png'
 import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
@@ -37,16 +37,16 @@ function Navbar() {
   // };
 
   return (
-    <nav className="navbar">
-      <div className="logo">
-        <img src={recom} alt="logo" className='logo-img'/>
+    <nav className="navbar font-header font-jost">
+      <div className="logo"><Link to="/home">
+        <img src={recom} alt="logo" className='logo-img'/></Link>
       </div>
       <ul className={`menu ${isMobileMenuOpen ? 'active' : ''}`}>
         <li><Link to="/home"className='li' onClick={closeMobileMenu}>Home</Link></li>
         <li><Link to="/aboutus" className='li' onClick={closeMobileMenu}>About Us</Link></li>
        
           
-          <li >Log Out</li>
+          <li ><Link to="/"className='li' onClick={closeMobileMenu}>Log Out</Link></li>
          
       </ul>
       <div className="mobile-menu-toggle" onClick={toggleMobileMenu}>

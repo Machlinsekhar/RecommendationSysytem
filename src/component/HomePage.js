@@ -6,7 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import arya from '../image/shy1.png';
-import modal from '../image/modal.jpg';
+import modal from '../image/modal.png';
 import TestimonialBlock from './TestimonialBlock';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
@@ -14,7 +14,11 @@ import { ScrollingCarousel } from '@trendyol-js/react-carousel';
 import TitleBlock from './TitleBlock';
 import Card from './Card';
 import Foooter from './Foooter.js';
-import bg from '../image/bg.jpg';
+import one from '../image/1.png';
+import two from '../image/2.png';
+import three from '../image/3.png';
+import four from '../image/4.png';
+
 
 const Home = () => {
 
@@ -29,7 +33,7 @@ const Home = () => {
     justifyContent: 'flex-start', /* Align content at the top */
     alignItems: 'center', /* Align content to the left */
     paddingTop: '120px',
-    paddingLeft: '8rem',
+    // paddingLeft: '8rem',
 
     backgroundSize: 'cover', /* Cover the entire container */
     backgroundRepeat: 'no-repeat',
@@ -98,26 +102,26 @@ const Home = () => {
   const why = [
     {
       id: 1,
-      // image: rocket,
-      title: 'SKYROCKET YOUR CAREER',
-      description: 'Why settle for less when you can aim for the stars? Get mentored by industry leaders and secure placements at India\'s top companies.'
+      image: one,
+      title: 'Personalization',
+      description: 'Why settle for less when you can aim for the stars? Get personalized recommendations of your own taste.'
     },
     {
       id: 2,
-      // image: coinbag,
-      title: 'BUILD SKILLS THAT SHAPE TOMORROW',
-      description: 'The world evolves, and so should your skills. Source Catalyst equips you with the tools of tomorrow, setting you on a path to conquer future challenges.'
+      image: two,
+      title: 'Awesome Recommendations',
+      description: 'The world evolves, and so should your taste. Food Easy equips you with the tools of tomorrow, sense dishes from future.'
     },
     {
-      // id: 3, image: handshake,
-      title: 'JOIN THE ELITE CIRCLE',
-      description: 'Become a part of an exclusive community where you\'re not just a student; you\'re a future industry leader.'
+      id: 3, image: three,
+      title: 'Spectacular Performance',
+      description: 'Best accuracy is a part of our great two models exclusive locations, different cuisines matching every one out there.'
     },
-    {
-      // id: 4, image: phone,
-      title: 'IGNITE LEARNING',
-      description: 'Education comes alive when knowledge meets action. Source Catalyst transforms learning with hands-on projects, letting you turn theory into real-world expertise'
-    }
+    // {
+    //   id: 4, image: four,
+    //   title: 'IGNITE LEARNING',
+    //   description: 'Education comes alive when knowledge meets action. Source Catalyst transforms learning with hands-on projects, letting you turn theory into real-world expertise'
+    // }
   ];
 
   const handleInputChange = (event) => {
@@ -162,12 +166,12 @@ const Home = () => {
 
 
   return (
-    <div style={{ height: '100vh' }}>
+    <div style={{ height: '100vh', backgroundColor: '#D9D9D9' }}>
       <NavBar />
       <div style={dashboardContainer}>
         <TitleBlock
 
-          title="Enter location to get suggestions!"
+           title="Enter location to get suggestions!"
         />
 
         <div style={{ display: 'flex', flexDirection: 'row', marginTop: '2rem' }}>
@@ -185,36 +189,24 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className=" py-8 md:ml-10">
-      <TitleBlock
-
-subtitle="You may also like"
-/>
-        <ScrollingCarousel>
-
-          {testimonials.map((testimonials) => (
-            <TestimonialBlock key={testimonials.id}
-              testimonial={testimonials.testimonialText}
-              testimonialImage={testimonials.testimonialImage}
-              tname={testimonials.tname}
-              title={testimonials.title} />
-          ))}
-
-        </ScrollingCarousel>
-
+      <div className=" py-3">
+     
+        
       </div>
+     
 
       <TitleBlock
-              title="Choose Food Easy Because..."
+             
               subtitle="Get Exciting Food with Us" />
 
-            <div className="container mx-auto py-8">
-              <div className="flex flex-wrap justify-center">
+            <div className="container mx-auto py-8" style={{backgroundColor: '#D9D9D9'}}>
+              <div className="flex flex-wrap justify-center" >
                 {why.map((item) => (
                   <Card key={item.id} data={item} />
                 ))}
               </div>
             </div>
+            
             <Foooter />
       {showModal && (
         <div className="modal">

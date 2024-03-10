@@ -9,7 +9,7 @@ const Foooter = () => {
       <div className="container mx-auto flex flex-wrap">
         <div className="w-full  lg:w-1/3">
           <h2 className="text-xl font-semibold mb-2">Details</h2>
-          <p className="text-gray-200 ">The Crakheads Official Presents</p>
+          <p className="text-gray-200 ">The Crackheads Official Presents</p>
           <p className="text-gray-200">Food Easy</p>
           {/* <div className="mt-4 pt-3 flex">
             <input
@@ -52,7 +52,7 @@ const Foooter = () => {
       </div>
       <hr className="my-8 border-gray-200" />
       <div className="container mx-auto flex flex-col items-center justify-center lg:flex-row lg:justify-between">
-        <p className="text-gray-200">&copy; 2023 Source Catalyst. All rights reserved.</p>
+        <p className="text-gray-200">&copy; 2024 Crackheads. All rights reserved.</p>
       </div>
     </footer>
   );

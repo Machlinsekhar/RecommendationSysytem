@@ -9,7 +9,7 @@ function TitleBlock(props) {
         {title}
       </p>
 
-      <p className="md:text-2xl text-xl font-lexend text-center ml-5 mr-5 md:max-w-[1300px] md:mx-auto">
+      <p className="md:text-2xl text-xl font-lexend mb-5 text-center ml-5 mr-5 md:max-w-[1300px] md:mx-auto">
         {subtitle}
       </p>
     </div>

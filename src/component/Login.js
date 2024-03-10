@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import recom from '../image/recom-nobg.png';
 import plate from '../image/recom.png';
 import bg from '../image/bg.jpg';
+import logo from '../image/logo.png';
 import TitleBlock from './TitleBlock';
 
 const Login = () => {
@@ -135,10 +136,10 @@ const Login = () => {
   };
 
   const plateStyle = {
-    position: 'fixed', // Position the image absolutely within its container
-    bottom: '0',          // Center vertically
-    right: '0',        // Center horizontally
-    transform: ' scale(1) rotate(180deg)', // Offset by half the width and height of the image
+    position: 'absolute', // Position the image absolutely within its container
+    top: '0',          // Center vertically
+    right: '-8',        // Center horizontally
+    transform: ' scale(0.5) ', // Offset by half the width and height of the image
     zIndex: 1, 
               // Set z-index to 1 to ensure it's above other content
   };
@@ -156,7 +157,7 @@ const Login = () => {
 
   return (
     <div style={divStyle}>
-      {/* <img src={recom} alt="Plate" style={plateStyle} /> */}
+      <img src={logo} alt="Plate" style={plateStyle} />
       <img src={plate} alt="Plate" style={plate1Style} />
       <div className="container">
         <div className="title">

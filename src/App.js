@@ -11,7 +11,7 @@ import Login from './component/Login';
 import SignUp from './component/SignUp';
 import UserProfile from './component/UserProfile';
 import UserProfile2 from './component/UserProfile2';
-import Navbar from './component/NavBar';
+import Waiting from './component/Waiting';
 import Image from './component/Image';
 import Session from './component/Session';
 // import { store, persistor } from './redux/store';
@@ -31,6 +31,7 @@ function App() {
       <Route path="/signup" element={<SignUp/>}/>
       <Route path="/profile/:location" element={<Profile/>}/>
       <Route path="/dashboard/:location" element={<Dashboard/>}/>
+      <Route path="/waiting" element={<Waiting/>}/>
       <Route path="/recommendation" element={<Recommendation/>}/>
       <Route path="/session" element={<Session/>}/>
       </Routes>
