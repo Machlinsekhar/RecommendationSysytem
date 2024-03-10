@@ -2,6 +2,7 @@ import psycopg2
 from config import load_config
 from image_scraper import main_function
 from cbf_pipeline.preprocess import preprocess_fun
+from feature_mining import feature_main_function
 from graph import graph_fun
 import re
 import json
@@ -11,6 +12,7 @@ def extract_data_for_restaurant(file_path, location):
     rest_names = []
     torestaurants = []
     toreviews = []
+    rest_ids = []
 
     with open(file_path, 'r') as file:
         data = json.load(file)
@@ -63,6 +65,7 @@ def extract_data_for_restaurant(file_path, location):
                     cur.execute(add_resto_sql)
                     rest_id = torestaurants[0][0]
                     print("extracted rest_id", rest_id)
+                    rest_ids.append(rest_id)
 
                     print(torestaurants[0][1])
                     rest_names.append((torestaurants[0][1],torestaurants[0][7]))
@@ -102,7 +105,7 @@ def extract_data_for_restaurant(file_path, location):
 
                 print(location)
                 conn.commit()
-                return rest_names
+                return rest_ids, rest_names
             
         except (psycopg2.DatabaseError, Exception) as error:
             print(error)
@@ -112,8 +115,10 @@ def main_connect(location):
     name = 'top-restaurants-in-' + location
     file_path = 'output/'+name+'/json/'+'places-of-'+name+'.json'
     print(file_path)
-    rest_names = extract_data_for_restaurant(file_path, location)
+    rest_ids, rest_names = extract_data_for_restaurant(file_path, location)
     print(rest_names)
+    for each in rest_ids:
+        feature_main_function(each)
     graph_fun(location)
     if rest_names:
         for each in rest_names:
