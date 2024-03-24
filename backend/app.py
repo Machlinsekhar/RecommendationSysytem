@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory, session
+from flask import Flask, request, jsonify, send_from_directory, session, send_file
 from flask_session import Session
 from flask_cors import CORS
 import psycopg2 
@@ -119,7 +119,7 @@ def fetch_details(location, restaurant_name):
         with psycopg2.connect(**config) as conn:
             cur = conn.cursor()
             get_query = f"""
-                SELECT rest_id, rest_name, rest_budget, main_category, rest_rating, rest_rev_count
+                SELECT rest_id, rest_name, rest_budget, main_category, rest_rating, rest_rev_count, feature_opinions
                 FROM test.restaurants
                 WHERE rest_name = '{restaurant_name}'
             """
@@ -136,7 +136,8 @@ def fetch_details(location, restaurant_name):
                 "rating": f"{row[4]}",
                 "rev_count":f"{row[5]}",
                 "location":location,
-                "img_name": img_name
+                "img_name": img_name,
+                "feature_opinions": f"{row[6]}"
             }
 
 

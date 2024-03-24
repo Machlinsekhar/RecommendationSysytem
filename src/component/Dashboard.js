@@ -14,7 +14,7 @@ const Dashboard = () => {
   const [isSelected, setIsSelected] = useState(false);
   const [cuisine, setCuisine] = useState('');
   const [rating, setRating] = useState('1');
-  const [budget, setBudget] = useState('');
+  const [budget, setBudget] = useState(2);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
   const [showModal3, setShowModal3] = useState(false);
@@ -284,19 +284,19 @@ const Dashboard = () => {
     <div style={buttonGroupStyle}>
       <button
         style={lowButtonStyle}
-        onClick={() => handleBudgetChange('Moderate')}
+        onClick={() => handleBudgetChange("Moderate")}
       >
         Moderate
       </button>
       <button
         style={moderateButtonStyle}
-        onClick={() => handleBudgetChange('Expensive')}
+        onClick={() => handleBudgetChange("Expensive")}
       >
         Expensive
       </button>
       <button
         style={highButtonStyle}
-        onClick={() => handleBudgetChange('Very Expensive')}
+        onClick={() => handleBudgetChange("Very Expensive")}
       >
         Very Expensive
       </button>
@@ -338,7 +338,7 @@ const Dashboard = () => {
             title="elephant"
         /> */}
         <CardContent style={{backgroundColor:'black', borderRadius: '1rem'}}>
-        <div className='font-jost' style={{color:'white', textAlign: 'center', fontWeight:'600', fontSize: '2rem'}}> Team Taste Matcher</div>
+        <div className='font-jost' style={{color:'white', textAlign: 'center', fontWeight:'600', fontSize: '2rem'}}> Taste Matcher</div>
             {/* <Typography variant="body2" color="text.secondary">
             Recommends restaurants based on the preferences of similar users, leveraging collective user behavior.
             </Typography> */}

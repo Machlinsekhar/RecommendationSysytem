@@ -13,6 +13,7 @@ import shree3 from '../image/shree3.png';
 import ahemd1 from '../image/ahmed1.png';
 import ahemd2 from '../image/ahmed2.png';
 import ahemd3 from '../image/ahmed3.png';
+import default_rest from '../image/default_rest.jpeg';
 import p1 from '../image/p2.png';
 import recom from '../image/recom-nobg.png';
 import downArrowImageUrl from '../image/downarraow.png'
@@ -63,58 +64,57 @@ const Recommendation = () => {
   return (
     <div>
       <Navbar />
-      <div className="recommendation-container">
+      <div className="recommendation-container" style={{backgroundcolor: '#D9D9D9'}}>
         <div>
         <TitleBlock title='Our Top Suggestions:'/>
         </div>
         <div className="restaurant-list">
-          {details.map((restaurant, index) => {
-            // const ImageUrl = restaurant.ImageUrl;
-            // const location = restaurant.location;
-            // const dishes = restaurant.dishes;
-            // const cusine = restaurant.cusine;
-            // const cost = restaurant.cost; restaurant.img_file_path
-            return (
-              <div className="restaurant-item" key={index}>
-                <div className="restaurant-image-wrapper">
-                  <div className="restaurant-image">
-                      <Image place={restaurant.location} filename={`${restaurant.img_name}.jpg`}/>
-                  </div>
+  {details.length === 0 ? (
+    <div className="no-restaurants">None found</div>
+  ) : (
+    details.map((restaurant, index) => {
+      return (
+        <div className="restaurant-item" key={index}>
+          <div className="restaurant-image-wrapper">
+            <div className="restaurant-image">
+                <Image place={restaurant.location} filename={`${restaurant.img_name}.jpg`}/>
+            </div>
+          </div>
+          <div className="restaurant-details">
+            <h3 className="restaurant-name">{index + 1}. {restaurant.restaurant_name}</h3>  
+            <p className="restaurant-dishes">Feature Opinions: {restaurant.feature_opinions}</p>
+          </div>
+         
+          <div className="restaurant-cuisine-cost">
+            <p className="restaurant-cuisine">Similarity Rank: {index+1}</p>
+            <p className="restaurant-cuisine">Rating: {restaurant.rating}</p>
+            <p className="restaurant-cuisine">Cuisine: {restaurant.type}</p>
+            <p className="restaurant-cost">Budget: {restaurant.budget}</p>
+          </div>
+          <button className="transparent-button" onClick={() => openModal(index)}>
+            <img src={downArrowImageUrl} alt="View Details" />
+          </button>
+          {modalIsOpen === index && (
+            <div className="modal">
+              <div className="image-row">
+                <div className="image-container">
+                  <h3>Rating Analysis</h3>
+                  <Image place={restaurant.location} filename={`${restaurant.restaurant_name}_rating_graph.jpg`}/>
                 </div>
-                <div className="restaurant-details">
-                  <h3 className="restaurant-name">{index + 1}. {restaurant.restaurant_name}</h3>  
-                  <p className="restaurant-dishes">Recommended Dishes: {restaurant.rec_dishes}</p>
+                <div className="image-container">
+                  <h3>Review Analysis</h3>
+                  <Image place={restaurant.location} filename={`${restaurant.restaurant_name}_sentiment_graph.jpg`}/>
                 </div>
-               
-                <div className="restaurant-cuisine-cost">
-                  <p className="restaurant-cuisine">Similarity Rank: {index+1}</p>
-                  <p className="restaurant-cuisine">Rating: {restaurant.rating}</p>
-                  <p className="restaurant-cuisine">Cuisine: {restaurant.type}</p>
-                  <p className="restaurant-cost">Budget: {restaurant.budget}</p>
-                </div>
-                <button className="transparent-button" onClick={() => openModal(index)}>
-                  <img src={downArrowImageUrl} alt="View Details" />
-                </button>
-                {/* Separate modal for each restaurant */}
-                {modalIsOpen === index && (
-                  <div className="modal">
-                    <div className="image-row">
-                      <div className="image-container">
-                        <h3>Rating Analysis</h3>
-                        <Image place={restaurant.location} filename={`${restaurant.restaurant_name}_rating_graph.jpg`}/>
-                      </div>
-                      <div className="image-container">
-                        <h3>Review Analysis</h3>
-                        <Image place={restaurant.location} filename={`${restaurant.restaurant_name}_sentiment_graph.jpg`}/>
-                      </div>
-                      <span className="close-btn" onClick={closeModal}>&times;</span>
-                    </div>
-                  </div>
-                )}   
+                <span className="close-btn" onClick={closeModal}>&times;</span>
               </div>
-            );
-          })}
+            </div>
+          )}   
         </div>
+      );
+    })
+  )}
+</div>
+
       </div>
     </div>
   );

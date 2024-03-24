@@ -4,6 +4,7 @@ import './Navbar.css';
 import recom from '../image/logo.png'
 import { useNavigate } from 'react-router-dom';
 
+
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();

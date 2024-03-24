@@ -27,12 +27,13 @@
 
 .restaurant-item {
   display: flex;
-  background: linear-gradient(to top, #EFBA55, #FFD992);/* Background color for the item */
+  background: linear-gradient(to top, #1a1a1a,black);/* Background color for the item */
   margin-bottom: 20px; /* Space between items */
   box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Simple box shadow for some depth */
   border-radius: 8px; /* Rounded corners for the container */
   overflow: hidden;
   padding: 1rem;
+  color: white;
 }
 
 .restaurant-image-wrapper {
@@ -43,9 +44,13 @@
 }
 
 .restaurant-image {
-  width: 200px;
+  width: 100%;
+  /* Adjusted width to fill the container */
   height: 100%;
+  /* Adjusted height to fill the container */
   border-radius: 1rem;
+  object-fit: cover;
+  /* Ensures the image covers the entire container */
 }
 
 .restaurant-details {
@@ -57,20 +62,20 @@
 }
 
 .restaurant-name {
-  color: black;
+  color: #f5f5dc;
   font-weight: 900;
   font-size: x-large;
   margin: 0;
 }
 
 .restaurant-location{
-  color: black;
+  color: #f5f5dc;
   margin: 5px 0;
   font-weight: 700;
 }
 
 .restaurant-dishes{
-  color: black;
+  color:#f5f5dc;
   margin: 5px 0;
   font-weight: 700;
   width: 100%;
@@ -79,7 +84,7 @@
 
 .restaurant-cuisine-cost {
   padding: 10px;
-  background: linear-gradient(to top, #EFBA55, #FFD992); /* Background color for cuisine and cost */
+  background: linear-gradient(to top, #1a1a1a, black);; /* Background color for cuisine and cost */
   display: flex;
   flex-direction: column;
   width: 40%;
@@ -90,7 +95,7 @@
 .restaurant-cuisine,
 .restaurant-cost {
   margin: 8px;
-  color: #333;
+  color: #f5f5dc;
   font-weight: 700;
 }
 
@@ -99,18 +104,18 @@
     padding: '12px 20px';
     display: 'block';
     margin: 'auto auto 4px auto';
-    color: 'black';
-    background-color:'#EFBA55';
+    color: '#f5f5dc';
+    background-color:black;
     border-radius: '15px';
     cursor: 'pointer';
     font-weight: 'bold';
-    border:  '2px solid #EFBA55';
+    border:  '2px solid black';
   
 }
 
 .no-recommendations {
   text-align: center;
-  color: #999;
+  color: #f5f5dc;
 }
 
 
@@ -130,7 +135,7 @@
 }
 .image-row {
   display: flex;
-  background-color: #EFBA55;
+  background-color: #1a1a1a;
   border-radius: 0.5rem;
   padding: 2rem;
   padding-left: 3rem;
@@ -155,11 +160,11 @@
   right: 10px;
   font-size: 1.5rem;
   cursor: pointer;
-  color: #333; /* Adjust the color as needed */
+  color: #f5f5dc; /* Adjust the color as needed */
 }
 
 .close-btn:hover {
-  color: azure; /* Adjust the hover color as needed */
+  color:#262626; /* Adjust the hover color as needed */
 }
 
 .transparent-button {
@@ -177,6 +182,5 @@
 .transparent-button:focus,
 .transparent-button:hover {
   outline: none;
-  border: none; /* Add a border for visual distinction */
+  border: none; /* Add a border for visual distinction */
 }
-
