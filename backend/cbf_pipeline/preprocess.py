@@ -2,9 +2,20 @@ import os
 import pandas as pd
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 sid = SentimentIntensityAnalyzer()
+import re
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 # INPUT
 # jagah = "pune"
+
+def clean_text(text):
+    text = text.lower()
+    text = re.sub(r'[^a-z0-9]', ' ', text)
+    words = word_tokenize(text)
+    words = [word for word in words if word not in stopwords.words('english')]
+    return ' '.join(words)
 
 def preprocess_fun(review_text):
     # folder_path = f'backend/dataset/{jagah}'
@@ -20,11 +31,18 @@ def preprocess_fun(review_text):
 
     sentiment_score = sid.polarity_scores(review_text)
     if sentiment_score['compound'] > 0:
-        return 1
+        sentiment = 1
     elif sentiment_score['compound'] < 0:
-        return -1
+        sentiment = -1
     else:
-        return 0
+        sentiment = 0
+
+    cleaned_text = clean_text(review_text)
+
+    vectorizer = TfidfVectorizer(max_features=1000)  # Adjust max_features to your dataset size
+    review_embedding = vectorizer.fit_transform(cleaned_text)
+
+    return sentiment, review_embedding
 
     # for file in names:
     #     print(file,' here now')

@@ -3,7 +3,6 @@ from flask_session import Session
 from flask_cors import CORS
 import psycopg2 
 from config import load_config
-import cbf as cbf
 from dotenv import load_dotenv
 from auth import auth as auth_blueprint
 from main import main as main_blueprint
@@ -12,6 +11,7 @@ from cbf_pipeline.scrap import check_path
 from datetime import timedelta
 from middleware import needs_auth
 import collaborative as col
+import cbf_result as cbf_result
 
 app = Flask(__name__)
 app.debug = True
@@ -62,8 +62,11 @@ def send_image(place, filename):
     print(place)
     print(filename)
     uploads_directory = os.getenv("UPLOADS_DIRECTORY")
-    directory = f"{uploads_directory}/{place}"
-    return send_from_directory(directory, filename)
+    if place == "pie":
+        return send_from_directory(uploads_directory, filename)
+    else:
+        directory = f"{uploads_directory}/{place}"
+        return send_from_directory(directory, filename)
 
 @app.route('/recommend', methods=['POST'])
 def recommend():
@@ -71,16 +74,27 @@ def recommend():
     location = body['location'].lower()
     user_rating = float(body['rating'])
     if body['restaurant_type'].lower() == 'any':
-        user_restaurant_type = ''
+        user_restaurant_type = 'Restaurant'
     else:
-        user_restaurant_type = body['restaurant_type'].lower() + ' '
+        user_restaurant_type = body['restaurant_type'] + ' restaurant'
+    
     user_max_cost = body['max_cost'].lower()
+    if user_max_cost.lower() == "inexpensive":
+        user_max_cost = 0
+    elif user_max_cost.lower() == "moderate":
+        user_max_cost = 1
+    elif user_max_cost.lower() == "expensive":
+        user_max_cost = 2
+    elif user_max_cost.lower() == "very expensive":
+        user_max_cost = 3
+
     print(location)
     print(user_rating)
     print(user_restaurant_type) 
     print(user_max_cost)
 
-    recommendations = cbf.recommend_restaurants(user_rating, user_restaurant_type, user_max_cost, location)
+    recommendations = cbf_result.cbf_main_function(user_restaurant_type, user_max_cost)
+    print(recommendations)
     return jsonify(recommendations)
 
 @app.route('/collabrecommend', methods=['POST'])
@@ -119,7 +133,7 @@ def fetch_details(location, restaurant_name):
         with psycopg2.connect(**config) as conn:
             cur = conn.cursor()
             get_query = f"""
-                SELECT rest_id, rest_name, rest_budget, main_category, rest_rating, rest_rev_count, feature_opinions
+                SELECT rest_id, rest_name, rest_budget, main_category, rest_rating, rest_rev_count, feature_opinions, rest_location
                 FROM test.restaurants
                 WHERE rest_name = '{restaurant_name}'
             """
@@ -135,7 +149,7 @@ def fetch_details(location, restaurant_name):
                 "type": f"{row[3]}",
                 "rating": f"{row[4]}",
                 "rev_count":f"{row[5]}",
-                "location":location,
+                "location":f"{row[7]}",
                 "img_name": img_name,
                 "feature_opinions": f"{row[6]}"
             }

@@ -21,6 +21,7 @@ regex
 botasaurus
 Flask_session
 spacy
+SQLAlchemy
 # python -m spacy download en_core_web_sm
 
 

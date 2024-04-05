@@ -83,7 +83,7 @@ def extract_data_for_restaurant(file_path, location):
                             review_text = "average"
                         review_text = re.sub(r"[^a-zA-Z0-9\s']", '', review_text)
                         review_text = review_text.replace("'","")
-                        sentiment_score = preprocess_fun(review_text)
+                        sentiment_score, text_embedding = preprocess_fun(review_text)
 
                         toreviews=[rev_rating, review_text, reliability_count, is_local_guide, sentiment_score]
 

@@ -87,6 +87,7 @@ const Recommendation = () => {
          
           <div className="restaurant-cuisine-cost">
             <p className="restaurant-cuisine">Similarity Rank: {index+1}</p>
+            <p className="restaurant-cuisine">Location: {restaurant.location}</p>
             <p className="restaurant-cuisine">Rating: {restaurant.rating}</p>
             <p className="restaurant-cuisine">Cuisine: {restaurant.type}</p>
             <p className="restaurant-cost">Budget: {restaurant.budget}</p>
@@ -104,6 +105,10 @@ const Recommendation = () => {
                 <div className="image-container">
                   <h3>Review Analysis</h3>
                   <Image place={restaurant.location} filename={`${restaurant.restaurant_name}_sentiment_graph.jpg`}/>
+                </div>
+                <div className="image-container">
+                  <h3>Score Analysis</h3>
+                  <Image place="pie" filename={`${restaurant.restaurant_name}_piechart.png`}/>
                 </div>
                 <span className="close-btn" onClick={closeModal}>&times;</span>
               </div>
