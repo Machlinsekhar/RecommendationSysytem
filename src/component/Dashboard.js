@@ -10,9 +10,55 @@ import NavBar from './NavBar';
 import TitleBlock from './TitleBlock';
 
 const Dashboard = () => {
+  
+  const cuisines = ["American restaurant",
+  "Asian restaurant",
+  "Bar  grill",
+  "Barbecue restaurant",
+  "Bengali restaurant",
+  "Brazilian restaurant",
+  "British restaurant",
+  "Buffet restaurant",
+  "Cafe",
+  "Chicken restaurant",
+  "Chinese noodle restaurant",
+  "Chinese restaurant",
+  "Continental restaurant",
+  "Family restaurant",
+  "Fast food restaurant",
+  "Fine dining restaurant",
+  "Fusion restaurant",
+  "Goan restaurant",
+  "Hotel",
+  "Indian restaurant",
+  "Italian restaurant",
+  "Japanese restaurant",
+  "Kerala restaurant",
+  "Konkani restaurant",
+  "Latin American restaurant",
+  "Maharashtrian Restaurant",
+  "Mexican restaurant",
+  "Middle Eastern restaurant",
+  "Modern British restaurant",
+  "Modern European restaurant",
+  "Modern Indian restaurant",
+  "Momo restaurant",
+  "Mughlai restaurant",
+  "North Indian restaurant",
+  "PanAsian restaurant",
+  "Pizza restaurant",
+  "Punjabi restaurant",
+  "Restaurant",
+  "Seafood restaurant",
+  "South Indian restaurant",
+  "Spanish restaurant",
+  "Turkish restaurant",
+  "Vegetarian restaurant"
+];
+
   const [loadingModalOpen, setLoadingModalOpen] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
-  const [cuisine, setCuisine] = useState('');
+  const [cuisine, setCuisine] = useState(cuisines[0]);
   const [rating, setRating] = useState('1');
   const [budget, setBudget] = useState(2);
   const [showModal, setShowModal] = useState(false);
@@ -72,6 +118,10 @@ const Dashboard = () => {
   const handleBudgetChange = (amount) => {
     console.log(amount)
     setBudget(amount);
+  };
+
+  const handleCuisineChange = (event) => {
+    setCuisine(event.target.value);
   };
 
   const handleCardClick = async () => {
@@ -262,7 +312,7 @@ const Dashboard = () => {
     <TitleBlock title='Query Parameter' />
     </div>
     <label style={labelStyle}>1. Preferred Cuisine:</label>
-    <div style={buttonGroupStyle}>
+    {/* <div style={buttonGroupStyle}>
       <button style={buttonStyle2('Any')} onClick={() => toggleCuisine('Any')}>
         Any
       </button>
@@ -278,7 +328,15 @@ const Dashboard = () => {
       <button style={buttonStyle2('South Indian')} onClick={() => toggleCuisine('South Indian')}>
         South Indian
       </button>
-    </div>
+    </div> */}
+
+      <select id="dropdown" value={cuisine} onChange={handleCuisineChange}>
+        {cuisines.map((item, index) => (
+          <option key={index} value={item}>
+            {item}
+          </option>
+        ))}
+      </select>
 
     <label style={labelStyle}>2. Budget:</label>
     <div style={buttonGroupStyle}>

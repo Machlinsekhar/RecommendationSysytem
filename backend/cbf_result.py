@@ -56,7 +56,14 @@ def make_pie_chart(final_df):
             row['rest_rev_count_normalized'] * weight_total_reviews,
             row['likeability_score'] * weight_likeability_score
         ]
+
+        for i, item in enumerate(contributions):
+            if np.isnan(item): 
+                contributions[i] = 0
+
         labels = ['Rest Rating', 'Review Count', 'Likeability Score']
+
+        print(contributions)
         
         plt.figure(figsize=(6, 6))
         plt.pie(contributions, labels=labels, autopct='%1.1f%%', startangle=140)
@@ -71,10 +78,10 @@ def check_cuisine(rest_type):
             print('Connected to the PostgreSQL server.')
             cur = conn.cursor()
 
-            cuisine_query = f"""SELECT EXISTS(SELECT 1 FROM cuisine_table WHERE cuisine = %s);"""
+            cuisine_query = f"""SELECT EXISTS(SELECT 1 FROM test.cuisine_table WHERE cuisine = %s);"""
             cur.execute(cuisine_query, (rest_type,))
             exists = cur.fetchone()[0]
-            return False
+            return exists
         
     except Exception as e:
         print(f"Database error: {e}")
@@ -122,7 +129,7 @@ def cbf_main_function(rest_type, user_budget):
     ranked_restaurants = df_restaurants.sort_values(by='composite_score', ascending=False)
     final_df = ranked_restaurants[['rest_id','rest_name', 'rest_rating', 'rest_rev_count_normalized', 'likeability_score', 'composite_score']].head(7) 
 
-    if check_cuisine(rest_type):
+    if not check_cuisine(rest_type):
         make_pie_chart(final_df)
         add_cuisine(rest_type)
 

@@ -76,7 +76,7 @@ def recommend():
     if body['restaurant_type'].lower() == 'any':
         user_restaurant_type = 'Restaurant'
     else:
-        user_restaurant_type = body['restaurant_type'] + ' restaurant'
+        user_restaurant_type = body['restaurant_type']
     
     user_max_cost = body['max_cost'].lower()
     if user_max_cost.lower() == "inexpensive":
