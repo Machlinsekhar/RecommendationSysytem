@@ -5,6 +5,7 @@ import Dashboard from './component/Dashboard';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Profile from './component/Profile';
 import Recommendation from './component/Recommendation';
+import ColRecommendation from './component/ColabRec';
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react';
 import Login from './component/Login';
@@ -33,6 +34,7 @@ function App() {
       <Route path="/dashboard/:location" element={<Dashboard/>}/>
       <Route path="/aboutus" element={<Waiting/>}/>
       <Route path="/recommendation" element={<Recommendation/>}/>
+      <Route path="/colrecommendation" element={<ColRecommendation/>}/>
       <Route path="/session" element={<Session/>}/>
       </Routes>
       </Router>

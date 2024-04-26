@@ -66,7 +66,7 @@ def recommend_restaurants(target_user_id, similar_users,conn):
             fetched_name = cur.fetchone()[0]
             restaurants.append(fetched_name)
         
-        append_recommendation_to_database(restaurants,target_user_id,conn)
+        append_recommendation_to_database(rows[0],target_user_id,conn)
         return(rest_names)
 
         # for restaurant in set(r[0] for r in pred_ratings):
@@ -92,7 +92,7 @@ def append_recommendation_to_database(recommended_restaurant, target_user_id, co
         cur.execute("""
             INSERT INTO test.user_rating (user_id, rest_id, rating, loc_name)
             VALUES (%s, %s, %s,%s);
-        """, (target_user_id, recommended_restaurant[0], recommended_restaurant[1], 1))
+        """, (target_user_id, recommended_restaurant[0], recommended_restaurant[1], "vashi"))
         print("Appended")
 
 # Example usage
@@ -113,8 +113,9 @@ def main(target_user_id):
             for id, name in recommended_restaurants.items():
                 recommended_names.append(name)
             
-            print(recommended_names)
-            return(recommended_names)
+            trimmed_recommended_names = recommended_names[:7]
+            print(trimmed_recommended_names)
+            return(trimmed_recommended_names)
 
             # for restaurant, predicted_rating in recommended_restaurants:
             #     print(f"Restaurant ID: {restaurant}, Predicted Rating: {predicted_rating}")
@@ -123,4 +124,4 @@ def main(target_user_id):
     except (psycopg2.DatabaseError, Exception) as error:
         print(error)
         
-# main(2)
+# main(9)

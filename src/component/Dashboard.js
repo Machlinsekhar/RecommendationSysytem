@@ -193,7 +193,7 @@ const Dashboard = () => {
         const data = await fetchCollabRecommendations();
         const details = await fetchRestDetails(data);
 
-        navigate('/recommendation', { state: { recommendations: details, count:5 } });
+        navigate('/colrecommendation', { state: { recommendations: details, count:5 } });
         console.log('Form submitted');
       }, 1000); 
       // setLoadingModalOpen(true);

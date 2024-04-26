@@ -110,13 +110,6 @@ const Recommendation = () => {
                           filename={`${restaurant.restaurant_name}_sentiment_graph.jpg`}
                         />
                       </div>
-                      <div className="image-container">
-                        <h3>Score Analysis</h3>
-                        <Image
-                          place="pie"
-                          filename={`${restaurant.restaurant_name}_piechart.png`}
-                        />
-                      </div>
                       <span
                         className="close-btn"
                         onClick={closeModal}
