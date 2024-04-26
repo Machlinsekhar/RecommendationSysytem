@@ -1,19 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Recommendation.css';
 import './fonts.css';
-import shy1 from '../image/shy1.png';
-import shy2 from '../image/shy2.png';
-import shy3 from '../image/shy3.png';
-import bn1 from '../image/bn1.png';
-import bn2 from '../image/bn2.png';
-import bn3 from '../image/bn3.png';
-import shree1 from '../image/shree1.png';
-import shree2 from '../image/shree2.png';
-import shree3 from '../image/shree3.png';
-import ahemd1 from '../image/ahmed1.png';
-import ahemd2 from '../image/ahmed2.png';
-import ahemd3 from '../image/ahmed3.png';
-import recom from '../image/recom-nobg.png';
 import downArrowImageUrl from '../image/downarraow.png';
 import { useLocation } from 'react-router-dom';
 import Navbar from './NavBar';
@@ -61,12 +48,11 @@ const Recommendation = () => {
             shuffledDetails.map((restaurant, index) => (
               <div className="restaurant-item" key={index}>
                 <div className="restaurant-image-wrapper">
-                  <div className="restaurant-image">
-                    <Image
-                      place={restaurant.location}
-                      filename={`${restaurant.img_name}.jpg`}
-                    />
-                  </div>
+                  <Image
+                    place={restaurant.location}
+                    filename={`${restaurant.img_name}.jpg`}
+                    className="restaurant-image"
+                  />
                 </div>
                 <div className="restaurant-details">
                   <h3 className="restaurant-name">
