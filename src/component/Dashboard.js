@@ -330,7 +330,7 @@ const Dashboard = () => {
       </button>
     </div> */}
 
-      <select id="dropdown" value={cuisine} onChange={handleCuisineChange}>
+      <select id="dropdown" value={cuisine} onChange={handleCuisineChange} style={{marginRight: '10px'}}>
         {cuisines.map((item, index) => (
           <option key={index} value={item}>
             {item}

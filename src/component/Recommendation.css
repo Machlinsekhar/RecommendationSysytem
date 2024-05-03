@@ -2,7 +2,7 @@
 
 .recommendation-container {
   /* background-image: url('../image/recom-bg.png');  */
-  height: 100vh;
+  height: 100%;
   flex-direction: column;
   background-size: cover;
   background-repeat: no-repeat;
@@ -10,6 +10,7 @@
   padding-top: 100px;
   padding-left: 180px;
   padding-right: 180px;
+  padding-bottom: 100px;
   background-color: #D9D9D9; /* Replace with the actual background color or image */
 }
 
@@ -41,7 +42,7 @@
   height: 200px; 
   overflow: hidden; 
   border-radius: 1rem; 
-  position: relative; 
+  position: 0; 
   margin-right: 13px;
   margin-top: 2px;
 }
@@ -53,8 +54,6 @@
   object-position: center; 
   border-radius: 1rem;
 }
-
-
 
 .restaurant-details {
   padding: 10px;
@@ -96,11 +95,14 @@
 }
 
 .restaurant-cuisine,
-.restaurant-cost {
-  margin: 8px;
+.restaurant-cost,
+.restaurant-rating {
+  /* margin: 8px; */
   color: #f5f5dc;
   font-weight: 700;
 }
+
+
 
 .go-back-button {
   
