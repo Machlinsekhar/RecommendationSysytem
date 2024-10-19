@@ -1,0 +1,31 @@
+rating_id,user_id,rest_id,main_category,loc_name,rating,rest_name
+1,1,ChIJf_DyderD5zsRWNcl4y5174I,Chinese restaurant,nerul,3,Mammas Kitchen
+2,1,ChIJo_BvB73D5zsRubBLF2f9-R8,Chinese restaurant,seawoods,4,Chinese Chow  Momos Noodles Asian
+3,1,ChIJsyySTG_D5zsRP7qZ3A_vGhk,Vegetarian restaurant,kharghar,2,Achija veg restaurant
+4,3,ChIJq1qj5gfB5zsR3ldMVlpvUqw,Chinese restaurant,ghansoli,4,Mr Petu
+5,3,ChIJ7-Pzf2jB5zsRlbTy7HO3lOI,Chinese restaurant,turbhe,4,Blend and Brew
+6,3,ChIJ0YNRdvDP5zsR0xAD8OqPl-0,Pizza restaurant,sion,4,1441 Pizzeria Sion
+7,7,ChIJ44duk3zH5zsRHuhxZc3ZtW4,Chinese restaurant,vikhroli,3,Tikka n Talks
+8,7,ChIJGQvbQEvB5zsRMrxaXFvD23Y,Vegetarian restaurant,turbhe,5,Achukata Chinese by Patil Upahar Gruh
+9,7,ChIJkxSyQQbG5zsRE-CVqcdxdok,Chinese restaurant,chembur,3,China Bistro
+10,4,ChIJO6VODr36DDkRijNQzuwyvRE,South Indian restaurant,nerul,4,Dosa Plaza  Nerul  ACNON AC
+11,4,ChIJ8RBhB73D5zsRb_Nzl7th5lg,South Indian restaurant,seawoods,4,Malgudi Nexus Seawoods Mall
+12,4,ChIJt94U05jD5zsRi8i7HUVNHgY,Vegetarian restaurant,seawoods,3,Navaratna Veg Restaurant
+13,2,ChIJwzUukMjA5zsRqXkbWCijo24,South Indian restaurant,ghansoli,3,Ram Krishna
+14,2,ChIJ-72I8vHH5zsRG9mDG86AcXU,South Indian restaurant,powai,4,Laxmi Next Pure Veg Restaurant
+15,2,ChIJDdbrQ4TH5zsRA9e36Tmu0OE,South Indian restaurant,vikhroli,3,Hare Krsnas Breakfast and Snacks Corner
+16,6,ChIJxWBaFzzH5zsRxhI3Ik0AnYM,South Indian restaurant,vikhroli,4,Food Factory
+17,6,ChIJZSBRXtnO5zsR3Jj-qGxwt6A,South Indian restaurant,chembur,4,Manis Lunch Home
+18,6,ChIJF3ezPS3E5zsRYV2cL7vxQQM,South Indian restaurant,chembur,5,Krishnaa Leela
+19,5,ChIJgbEGK7zD5zsRZcXWR0i9oBw,Vegetarian restaurant,seawoods,2,Prithika Pure Veg Restaurant
+20,5,ChIJP-fUwcXA5zsRa3_bBt-uueE,South Indian restaurant,ghansoli,5,Hotel Zam Zam
+21,5,ChIJFWMJrOXB5zsRxn-Hgrpb3Zg,Vegetarian restaurant,kharghar,3,Village 1220 Restaurant
+22,8,ChIJWVcF2EPC5zsRB_3sXJjZdis,Vegetarian restaurant,kharghar,2,Veg Planet
+23,8,ChIJYe9n96nD5zsRTpUHLUR1AGg,Chinese restaurant,seawoods,2,Taste And See Restaurant KTM Momos
+24,8,ChIJkZunBz7C5zsRKPQHRbvWn1w,Vegetarian restaurant,kharghar,4,Shivs Veg  Proud
+25,9,ChIJMVoFdEfB5zsRLYvC8ELU8QI,Vegetarian restaurant,turbhe,4,Sai Satkar
+26,9,ChIJscO0yaLH5zsRrBOaMhpdf4Q,Chinese restaurant,vikhroli,4,Red Chilly Classic Chinese Cuisine
+27,9,ChIJeRLHCEfB5zsRMS5utq-SuwY,Vegetarian restaurant,turbhe,5,Bhagat TarachandORIGINAL SINCE 1895
+28,10,ChIJ948Gi7bA5zsR3cEOqmjGjwk,Pizza restaurant,ghansoli,3,Food Gravity
+29,10,ChIJCdFjc97J5zsRxpc7KB43uJA,Pizza restaurant,sion,3,La Pinoz Pizza Sion
+30,10,ChIJic6yr0nB5zsRzsBeAh0wMAA,Chinese restaurant,turbhe,4,BUNTYS FOOD CORNER
